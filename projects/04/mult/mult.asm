@@ -8,12 +8,47 @@
 
 // Put your code here.
 
-    @R0
-    D=M
-    @product
-    M=D
+// i=1
+// p=0
+// LOOP:
+//  if i>R1 goto STOP
+//  p = p+R0
+//  i=i+1
+//  goto LOOP
+// STOP:
+//  R2=p
+
+@i
+M=1 // i=1
+@p
+M=0 // p=0
+
 (LOOP)
+  @i
+  D=M
+  @R1
+  D=D-M
+  @STOP
+  D;JGT // if i > R1 goto STOP
+
+  @p
+  D=M
+  @R0
+  D=D+M
+  @p
+  M=D // p=p+R0
+
+  @i
+  M=M+1 // i=i+1
+  @LOOP
+  0;JMP
+
+(STOP)
+  @p
+  D=M
+  @R2
+  M=D // RAM[2]=p 
+
 (END)
-    @END
-    0;JMP
-    
+  @END
+  0;JMP
