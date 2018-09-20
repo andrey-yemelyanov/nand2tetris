@@ -39,5 +39,28 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+      Not(in=instruction[15..15], out=isAInstr);
+      And(a=instruction[15..15], b=instruction[15..15], out=isCInstr);
+      Mux16(a=aluOut, b=instruction, sel=isAInstr, out=muxOut);
+      And(a=isCInstr, b=instruction[5..5], out=isCInstrAndDestA); // C-instr and dest=A
+      Or(a=isCInstrAndDestA, b=isAInstr, out=aControlBit); // either (C-instr and dest=A) or A-instr
+      ARegister(in=muxOut, load=aControlBit, out=aRegisterOut, out[0..14]=addressM);
+      And(a=isCInstr, b=instruction[4..4], out=isCInstrAndDestD); // C-instr and dest=D
+      DRegister(in=aluOut, load=isCInstrAndDestD, out=dRegisterOut);
+      Mux16(a=aRegisterOut, b=inM, sel=instruction[12..12], out=aRegisterOrMemory); // check 'a' bit to decide between A or M
+      ALU(x=dRegisterOut, y=aRegisterOrMemory, zx=instruction[11..11], nx=instruction[10..10], zy=instruction[9..9], ny=instruction[8..8], f=instruction[7..7], no=instruction[6..6], out=aluOut, out=outM, zr=isZero, ng=isNeg);
+      And(a=isCInstr, b=instruction[3..3], out=writeM); // assert writeM if C-instr and dest=M
+      
+      // this logic computes whether to Jump or Inc on the Program Counter
+      Or(a=isZero, b=isNeg, out=isZeroOrNeg);
+      Not(in=isZeroOrNeg, out=isPos);
+      And(a=instruction[2], b=isNeg, out=j1);
+      And(a=instruction[1], b=isZero, out=j2);
+      Or(a=j1, b=j2, out=j3);
+      And(a=instruction[0], b=isPos, out=j4);
+      Or(a=j3, b=j4, out=j5);
+      And(a=j5, b=isCInstr, out=isLoad);
+      Not(in=isLoad, out=isInc);
+      
+      PC(in=aRegisterOut, load=isLoad, inc=isInc, reset=reset, out[0..14]=pc);
 }
