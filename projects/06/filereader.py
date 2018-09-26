@@ -5,4 +5,4 @@ if len(sys.argv) < 2:
 
 with open(sys.argv[1]) as fh:
   for line in fh:
-    print(line.rstrip())
+    print(line.strip())
