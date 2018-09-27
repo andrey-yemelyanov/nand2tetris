@@ -1,15 +1,25 @@
   @R0
+  
+  
   D=M
   @END
+  
   D;JLE
   @counter
   M=D
+  
+  
+  
   @SCREEN
-  D=A
-  @x
+        D=A
+    @x
   M=D
-(LOOP)
+
+  
+  (LOOP)
   @x
+  
+  
   A=M
   M=-1
   @x

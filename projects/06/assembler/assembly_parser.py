@@ -4,11 +4,14 @@ class Parser:
   def __init__(self, file_path):
     self.file_path=file_path
     self.fh=open(file_path)
+    
+  def close(self):
+    self.fh.close()
 
   def next_command(self):
     line=self.fh.readline()
     if not line:
-      self.fh.close()
+      self.close()
       return None
     line=self.remove_whitespace_and_comments(line)
     if len(line)==0:
