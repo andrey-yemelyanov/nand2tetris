@@ -21,7 +21,6 @@ class ParserTests(unittest.TestCase):
       list.append(command)
       command=parser.next_command()
     self.assertListEqual(expected, list)
-    print(list)
     
   def test_read_commands_large_file(self):
     parser=Parser("test_files/Pong.asm")
