@@ -54,7 +54,7 @@ jmp={
 }
 
 def translate(c_command):
-  comp_part=command_parser.comp(c_command);
-  dest_part=command_parser.dest(c_command);
-  jmp_part=command_parser.jump(c_command);
+  comp_part=command_parser.comp(c_command)
+  dest_part=command_parser.dest(c_command)
+  jmp_part=command_parser.jump(c_command)
   return "111" + comp[comp_part] + dest[dest_part] + jmp[jmp_part]
