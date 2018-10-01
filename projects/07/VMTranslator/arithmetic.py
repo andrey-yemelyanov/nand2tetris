@@ -1,30 +1,26 @@
-class ArithmeticCodeWriter:
-    __init__(self, output_file):
-        self.output_file = output_file
+def add():
+    pass
 
-    def write_add(self):
-        pass
+def sub():
+    pass
 
-    def write_sub(self):
-        pass
+def neg():
+    pass
 
-    def write_neg(self):
-        pass
+def eq():
+    pass
 
-    def write_eq(self):
-        pass
+def gt():
+    pass
 
-    def write_gt(self):
-        pass
+def lt():
+    pass
 
-    def write_lt(self):
-        pass
+def _and():
+    pass
 
-    def write_and(self):
-        pass
+def _or():
+    pass
 
-    def write_or(self):
-        pass
-
-    def write_not(self):
-        pass
+def _not():
+    pass

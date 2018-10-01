@@ -1,73 +1,33 @@
-from enums import MemorySegment
-from enums import MemoryAccessCommand
-from enums import VMMemorySegment
-from enums import memory_assembly_to_vm
+from constants import *
 import textwrap
 
 def translate_command(command, segment, index, file_name):
-    if command==MemoryAccessCommand.POP:
-        return pop(segment, index, file_name)
-    elif command==MemoryAccessCommand.PUSH:
-        return push(segment, index, file_name)
+    return command_decoder[command][segment](index, file_name)
 
-def pop(segment, index, file_name):
-    if segment==MemorySegment.ARG:
-        return pop_arg(index)
-    elif segment==MemorySegment.LCL:
-        return pop_local(index)
-    elif segment==MemorySegment.POINTER:
-        return pop_pointer(index)
-    elif segment==MemorySegment.STATIC:
-        return pop_static(index, file_name)
-    elif segment==MemorySegment.TEMP:
-        return pop_temp(index)
-    elif segment==MemorySegment.THAT:
-        return pop_that(index)
-    elif segment==MemorySegment.THIS:
-        return pop_this(index)
-
-def push(segment, index, file_name):
-    if segment==MemorySegment.ARG:
-        return push_arg(index)
-    elif segment==MemorySegment.LCL:
-        return push_local(index)
-    elif segment==MemorySegment.POINTER:
-        return push_pointer(index)
-    elif segment==MemorySegment.STATIC:
-        return push_static(index, file_name)
-    elif segment==MemorySegment.TEMP:
-        return push_temp(index)
-    elif segment==MemorySegment.THAT:
-        return push_that(index)
-    elif segment==MemorySegment.THIS:
-        return push_this(index)
-    elif segment==MemorySegment.CONSTANT:
-        return push_constant(index)
-
-def do_push(segment, index):
+def do_push(assembly_label, vm_segment_name, index):
     return textwrap.dedent("""
         // push {vm_segment_name} {index}
         @{index}
         D=A //D={index}
-        @{segment}
-        A=D+M //A={segment}+{index}, M=*({segment}+{index})
-        D=M //D=*({segment}+{index})
+        @{assembly_label}
+        A=D+M //A={assembly_label}+{index}, M=*({assembly_label}+{index})
+        D=M //D=*({assembly_label}+{index})
         @SP
         A=M
-        M=D //*SP=*({segment}+{index})
+        M=D //*SP=*({assembly_label}+{index})
         @SP
         M=M+1 //SP++
-    """.format(index=index, vm_segment_name=memory_assembly_to_vm[segment].name, segment=segment.name)).strip()
+    """.format(assembly_label=assembly_label, vm_segment_name=vm_segment_name, index=index)).strip()
 
-def do_pop(segment, index):
+def do_pop(assembly_label, vm_segment_name, index):
     return textwrap.dedent("""
         // pop {vm_segment_name} {index}
         @{index}
         D=A //D={index}
-        @{segment}
-        D=D+M //D={segment}+{index}
+        @{assembly_label}
+        D=D+M //D={assembly_label}+{index}
         @R13 //use general purpose register for temp storage
-        M=D //RAM[13]={segment}+{index}
+        M=D //RAM[13]={assembly_label}+{index}
         @SP
         M=M-1 //SP--
         A=M
@@ -75,19 +35,31 @@ def do_pop(segment, index):
         @R13
         A=M //A=RAM[13]
         M=D //*RAM[13]=*SP
-    """.format(index=index, segment=segment.name, vm_segment_name=memory_assembly_to_vm[segment].name)).strip()
+    """.format(assembly_label=assembly_label, vm_segment_name=vm_segment_name, index=index)).strip()
 
-def pop_local(index):
-    return do_pop(MemorySegment.LCL, index)
+def pop_local(index, file_name):
+    return do_pop("LCL", LOCAL, index)
 
-def push_local(index):
-    return do_push(MemorySegment.LCL, index)
+def push_local(index, file_name):
+    return do_push("LCL", LOCAL, index)
 
-def pop_arg(index):
-    return do_pop(MemorySegment.ARG, index)
+def pop_arg(index, file_name):
+    return do_pop("ARG", ARGUMENT, index)
 
-def push_arg(index):
-    return do_push(MemorySegment.ARG, index)
+def push_arg(index, file_name):
+    return do_push("ARG", ARGUMENT, index)
+
+def pop_this(index, file_name):
+    return do_pop("THIS", THIS, index)
+
+def push_this(index, file_name):
+    return do_push("THIS", THIS, index)
+
+def pop_that(index, file_name):
+    return do_pop("THAT", THAT, index)
+
+def push_that(index, file_name):
+    return do_push("THAT", THAT, index)
 
 def pop_static(index, file_name):
     return textwrap.dedent(""" 
@@ -112,7 +84,7 @@ def push_static(index, file_name):
         M=M+1 //SP++
     """.format(index=index, file_name=file_name)).strip()
 
-def push_constant(index):
+def push_constant(index, file_name):
     return textwrap.dedent(""" 
         // push constant {index}
         @{index}
@@ -124,25 +96,13 @@ def push_constant(index):
         M=M+1 //SP++
     """.format(index=index)).strip()
 
-def pop_this(index):
-    return do_pop(MemorySegment.THIS, index)
-
-def push_this(index):
-    return do_push(MemorySegment.THIS, index)
-
-def pop_that(index):
-    return do_pop(MemorySegment.THAT, index)
-
-def push_that(index):
-    return do_push(MemorySegment.THAT, index)
-
 def pointer_dest(index):
     if index == 0:
         return "THIS"
     elif index == 1:
         return "THAT"
 
-def pop_pointer(index):
+def pop_pointer(index, file_name):
     return textwrap.dedent(""" 
         // pop pointer {index}
         //@SP
@@ -153,7 +113,7 @@ def pop_pointer(index):
         M=D //{dest}=*SP
     """.format(index=index, dest=pointer_dest(index))).strip()
 
-def push_pointer(index):
+def push_pointer(index, file_name):
     return textwrap.dedent(""" 
         // push pointer {index}
         @{dest}
@@ -165,7 +125,7 @@ def push_pointer(index):
         M=M+1 //SP++
     """.format(index=index, dest=pointer_dest(index))).strip()
 
-def pop_temp(index):
+def pop_temp(index, file_name):
     return textwrap.dedent(""" 
         // pop temp {index}
         @5
@@ -183,7 +143,7 @@ def pop_temp(index):
         M=D //*(5+{index})=*SP
     """.format(index=index)).strip()
 
-def push_temp(index):
+def push_temp(index, file_name):
     return textwrap.dedent(""" 
         // push temp {index}
         @5
@@ -197,3 +157,25 @@ def push_temp(index):
         @SP
         M=M+1 //SP++
     """.format(index=index)).strip()
+
+command_decoder={
+    POP : {
+        LOCAL : pop_local,
+        ARGUMENT : pop_arg,
+        THIS : pop_this,
+        THAT : pop_that,
+        STATIC : pop_static,
+        POINTER : pop_pointer,
+        TEMP : pop_temp
+    },
+    PUSH : {
+        LOCAL : push_local,
+        ARGUMENT : push_arg,
+        THIS : push_this,
+        THAT : push_that,
+        CONSTANT : push_constant,
+        STATIC : push_static,
+        POINTER : push_pointer,
+        TEMP : push_temp
+    }
+}
