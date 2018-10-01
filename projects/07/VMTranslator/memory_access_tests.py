@@ -3,6 +3,7 @@ import memory_access
 from enums import *
 import textwrap
 
+#python -m unittest discover -p "*_tests.py"
 class MemoryAccessTests(unittest.TestCase):
     file_name="Foo"
 
