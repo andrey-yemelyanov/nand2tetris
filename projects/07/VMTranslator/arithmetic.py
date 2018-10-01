@@ -1,26 +1,43 @@
+from constants import *
+
+def translate_command(command):
+    return command_decoder[command]()
+
 def add():
-    pass
+    return "add"
 
 def sub():
-    pass
+    return "sub"
 
 def neg():
-    pass
+    return "neg"
 
 def eq():
-    pass
+    return "eq"
 
 def gt():
-    pass
+    return "gt"
 
 def lt():
-    pass
+    return "lt"
 
 def _and():
-    pass
+    return "and"
 
 def _or():
-    pass
+    return "or"
 
 def _not():
-    pass
+    return "not"
+
+command_decoder={
+    ADD: add,
+    SUB: sub,
+    NEG: neg,
+    EQ: eq,
+    GT: gt,
+    LT: lt,
+    AND: _and,
+    OR: _or,
+    NOT: _not
+}
