@@ -97,9 +97,9 @@ def push_constant(index, file_name):
     """.format(index=index)).strip()
 
 def pointer_dest(index):
-    if index == 0:
+    if index == "0":
         return "THIS"
-    elif index == 1:
+    elif index == "1":
         return "THAT"
 
 def pop_pointer(index, file_name):

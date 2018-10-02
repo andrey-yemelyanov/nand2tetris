@@ -22,3 +22,7 @@ NOT="not"
 # stack commands
 POP="pop"
 PUSH="push"
+
+# command type
+MEMORY_ACCESS=1
+ARITHMETIC=2

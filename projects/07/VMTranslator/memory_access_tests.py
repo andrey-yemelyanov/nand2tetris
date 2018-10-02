@@ -18,7 +18,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, CONSTANT, 17, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, CONSTANT, "17", self.file_name))
 
     def test_pop_local(self):
         expected=textwrap.dedent("""
@@ -37,7 +37,7 @@ class MemoryAccessTests(unittest.TestCase):
             A=M //A=RAM[13]
             M=D //*RAM[13]=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, LOCAL, 43, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, LOCAL, "43", self.file_name))
 
     def test_pop_arg(self):
         expected=textwrap.dedent("""
@@ -56,7 +56,7 @@ class MemoryAccessTests(unittest.TestCase):
             A=M //A=RAM[13]
             M=D //*RAM[13]=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, ARGUMENT, 12, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, ARGUMENT, "12", self.file_name))
 
     def test_pop_this(self):
         expected=textwrap.dedent("""
@@ -75,7 +75,7 @@ class MemoryAccessTests(unittest.TestCase):
             A=M //A=RAM[13]
             M=D //*RAM[13]=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, THIS, 5, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, THIS, "5", self.file_name))
 
     def test_pop_that(self):
         expected=textwrap.dedent("""
@@ -94,7 +94,7 @@ class MemoryAccessTests(unittest.TestCase):
             A=M //A=RAM[13]
             M=D //*RAM[13]=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, THAT, 5, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, THAT, "5", self.file_name))
 
     def test_push_local(self):
         expected=textwrap.dedent("""
@@ -110,7 +110,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, LOCAL, 3, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, LOCAL, "3", self.file_name))
 
     def test_push_arg(self):
         expected=textwrap.dedent("""
@@ -126,7 +126,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, ARGUMENT, 6, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, ARGUMENT, "6", self.file_name))
 
     def test_push_this(self):
         expected=textwrap.dedent("""
@@ -142,7 +142,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, THIS, 6, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, THIS, "6", self.file_name))
 
     def test_push_that(self):
         expected=textwrap.dedent("""
@@ -158,7 +158,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, THAT, 6, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, THAT, "6", self.file_name))
 
     def test_pop_temp(self):
         expected=textwrap.dedent(""" 
@@ -177,7 +177,7 @@ class MemoryAccessTests(unittest.TestCase):
             A=M
             M=D //*(5+0)=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, TEMP, 0, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, TEMP, "0", self.file_name))
 
     def test_push_temp(self):
         expected=textwrap.dedent(""" 
@@ -193,7 +193,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, TEMP, 1, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, TEMP, "1", self.file_name))
 
     def test_pop_pointer(self):
         expected=textwrap.dedent(""" 
@@ -205,7 +205,7 @@ class MemoryAccessTests(unittest.TestCase):
             @THIS
             M=D //THIS=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, POINTER, 0, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, POINTER, "0", self.file_name))
 
         expected=textwrap.dedent(""" 
             // pop pointer 1
@@ -216,7 +216,7 @@ class MemoryAccessTests(unittest.TestCase):
             @THAT
             M=D //THAT=*SP
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, POINTER, 1, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, POINTER, "1", self.file_name))
 
     def test_push_pointer(self):
         expected=textwrap.dedent(""" 
@@ -229,7 +229,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, POINTER, 0, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, POINTER, "0", self.file_name))
 
         expected=textwrap.dedent(""" 
             // push pointer 1
@@ -241,7 +241,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, POINTER, 1, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, POINTER, "1", self.file_name))
 
     def test_pop_static(self):
         expected=textwrap.dedent(""" 
@@ -253,7 +253,7 @@ class MemoryAccessTests(unittest.TestCase):
             @Foo.5
             M=D
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(POP, STATIC, 5, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(POP, STATIC, "5", self.file_name))
 
     def test_push_static(self):
         expected=textwrap.dedent(""" 
@@ -266,7 +266,7 @@ class MemoryAccessTests(unittest.TestCase):
             @SP
             M=M+1 //SP++
         """).strip()
-        self.assertEqual(expected, memory_access.translate_command(PUSH, STATIC, 10, self.file_name))
+        self.assertEqual(expected, memory_access.translate_command(PUSH, STATIC, "10", self.file_name))
 
 if __name__=="__main__":
     unittest.main()
