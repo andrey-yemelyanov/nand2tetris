@@ -24,10 +24,10 @@ def if_goto(label_name, function_name):
     return textwrap.dedent("""
             // if-goto {label}
             @SP
+            M=M-1 // SP--
+            @SP
             A=M
             D=M
-            @SP
-            M=M-1 // SP--
             @{label}
             D;JNE
         """.format(label=label)).strip()

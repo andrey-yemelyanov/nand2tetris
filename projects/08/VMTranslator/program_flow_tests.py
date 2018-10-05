@@ -8,14 +8,14 @@ class ProgramFlowTests(unittest.TestCase):
 
     def test_label(self):
         expected = textwrap.dedent("""
-            // declare label multiply$BEGINLOOP
+            // label multiply$BEGINLOOP
             (multiply$BEGINLOOP)
         """).strip()
         self.assertEqual(expected, program_flow.translate_command(LABEL, "BEGINLOOP", "multiply"))
 
     def test_goto(self):
         expected=textwrap.dedent("""
-            // unconditional goto label factorial$ENDLOOP
+            // goto factorial$ENDLOOP
             @factorial$ENDLOOP
             0;JMP
         """).strip()
@@ -23,12 +23,12 @@ class ProgramFlowTests(unittest.TestCase):
 
     def test_if_goto(self):
         expected=textwrap.dedent("""
-            // conditional goto label mult$END
+            // if-goto mult$END
+            @SP
+            M=M-1 // SP--
             @SP
             A=M
             D=M
-            @SP
-            M=M-1 // SP--
             @mult$END
             D;JNE
         """).strip()

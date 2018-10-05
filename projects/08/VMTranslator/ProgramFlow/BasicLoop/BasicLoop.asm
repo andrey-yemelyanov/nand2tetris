@@ -138,10 +138,10 @@ M=M+1 //SP++
 
 // if-goto no_function$LOOP_START
 @SP
+M=M-1 // SP--
+@SP
 A=M
 D=M
-@SP
-M=M-1 // SP--
 @no_function$LOOP_START
 D;JNE
 
