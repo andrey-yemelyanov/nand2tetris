@@ -28,7 +28,13 @@ LABEL="label"
 GOTO="goto"
 IF_GOTO="if-goto"
 
+# function commands
+FUNCTION_DECLARATION="function"
+FUNCTION_CALL="call"
+FUNCTION_RETURN="return"
+
 # command type
 MEMORY_ACCESS=1
 ARITHMETIC=2
 PROGRAM_FLOW=3
+FUNCTION=4
