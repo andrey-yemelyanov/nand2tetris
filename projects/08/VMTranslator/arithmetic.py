@@ -140,7 +140,7 @@ def _and():
         @SP
         M=M-1
         A=M
-        M=M&D
+        M=D&M
         @SP
         M=M+1
     """).strip()
@@ -155,7 +155,7 @@ def _or():
         @SP
         M=M-1
         A=M
-        M=M|D
+        M=D|M
         @SP
         M=M+1
     """).strip()

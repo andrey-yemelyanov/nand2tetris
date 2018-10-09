@@ -70,7 +70,7 @@ class ArithmeticTests(unittest.TestCase):
             @SP
             M=M-1
             A=M
-            M=M&D
+            M=D&M
             @SP
             M=M+1
         """).strip()
@@ -86,7 +86,7 @@ class ArithmeticTests(unittest.TestCase):
             @SP
             M=M-1
             A=M
-            M=M|D
+            M=D|M
             @SP
             M=M+1
         """).strip()
