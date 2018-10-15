@@ -1,0 +1,16 @@
+/* comment line 1
+   comment line 2
+   comment line 3
+*/
+
+/** 
+    This is API doc
+    */
+if (x < 153) { // if statement comment
+    let city123 = "Paris" ; // assign value to city123
+
+    /*  comment line 1
+        comment line 2
+        comment line 3
+    */
+}

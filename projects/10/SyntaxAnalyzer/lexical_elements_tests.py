@@ -23,6 +23,7 @@ class LexicalElementsTests(unittest.TestCase):
 
     def test_string_constant(self):
         self.assertTrue(lexical_elements.is_string_constant("\"ABC\""))
+        self.assertTrue(lexical_elements.is_string_constant("\"123\""))
         self.assertFalse(lexical_elements.is_string_constant("ABC"))
         self.assertFalse(lexical_elements.is_string_constant("\"ABC"))
         self.assertFalse(lexical_elements.is_string_constant("ABC\""))
