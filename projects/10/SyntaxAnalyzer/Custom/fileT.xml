@@ -1,0 +1,40 @@
+<tokens>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<identifier> x </identifier>
+<symbol> &lt; </symbol>
+<integerConstant> 153 </integerConstant>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<keyword> let </keyword>
+<identifier> city123 </identifier>
+<symbol> = </symbol>
+<stringConstant> This is a multiword constant </stringConstant>
+<symbol> ; </symbol>
+<keyword> let </keyword>
+<identifier> _y3 </identifier>
+<symbol> = </symbol>
+<identifier> _y2 </identifier>
+<symbol> / </symbol>
+<integerConstant> 1234 </integerConstant>
+<symbol> ; </symbol>
+<keyword> let </keyword>
+<identifier> yZ </identifier>
+<symbol> = </symbol>
+<integerConstant> 5 </integerConstant>
+<symbol> / </symbol>
+<integerConstant> 2 </integerConstant>
+<symbol> ; </symbol>
+<keyword> let </keyword>
+<identifier> X_Z </identifier>
+<symbol> = </symbol>
+<symbol> ( </symbol>
+<integerConstant> 32 </integerConstant>
+<symbol> + </symbol>
+<integerConstant> 123 </integerConstant>
+<symbol> ) </symbol>
+<symbol> / </symbol>
+<integerConstant> 2 </integerConstant>
+<symbol> ; </symbol>
+<symbol> } </symbol>
+</tokens>

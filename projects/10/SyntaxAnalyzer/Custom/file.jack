@@ -1,0 +1,20 @@
+/*
+    comment line 1
+    comment line 2
+    comment line 3
+*/
+
+/** This is API "with quotes" inside */
+if (x < 153) { // if statement inline comment
+    let city123    = "This is a multiword constant"; // inline
+    let _y3 = _y2   /1234;
+    let yZ=5/2;
+    
+    /*
+        new multiline comment
+        line 1
+        line 2
+        */
+
+    let X_Z = (32 + 123) / 2;
+}

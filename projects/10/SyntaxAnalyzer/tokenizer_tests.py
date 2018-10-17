@@ -5,6 +5,9 @@ from constants import *
 #python -m unittest discover -p "*_tests.py"
 class TokenizerTests(unittest.TestCase):
 
+    def test_custom(self):
+        self.run_tokenizer_test("Custom", "file")
+
     def test_main(self):
         self.run_tokenizer_test("Square", "Main")
 
@@ -34,7 +37,7 @@ class TokenizerTests(unittest.TestCase):
             tokens.append("<{0:}> {1:} </{0:}>".format(token_type, token))
             token=tokenizer.next_token()
         tokens.append("</tokens>")
-
+        
         expected=[]
         with open("{0:}/{1:}T.xml".format(folder, test_file)) as fh:
             for line in fh:
