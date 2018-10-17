@@ -1,0 +1,5 @@
+KEYWORD = "keyword"
+SYMBOL = "symbol"
+INTEGER_CONSTANT = "integerConstant"
+STRING_CONSTANT = "stringConstant"
+IDENTIFIER = "identifier"
