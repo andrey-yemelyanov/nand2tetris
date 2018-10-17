@@ -36,5 +36,27 @@
 <symbol> / </symbol>
 <integerConstant> 2 </integerConstant>
 <symbol> ; </symbol>
+<keyword> var </keyword>
+<identifier> Employee </identifier>
+<identifier> e </identifier>
+<symbol> , </symbol>
+<identifier> f </identifier>
+<symbol> ; </symbol>
+<keyword> var </keyword>
+<identifier> Car </identifier>
+<identifier> c </identifier>
+<symbol> ; </symbol>
+<keyword> let </keyword>
+<identifier> c </identifier>
+<symbol> = </symbol>
+<identifier> Car </identifier>
+<symbol> . </symbol>
+<identifier> new </identifier>
+<symbol> ( </symbol>
+<stringConstant> British Jaguar </stringConstant>
+<symbol> , </symbol>
+<stringConstant> 007 </stringConstant>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
 <symbol> } </symbol>
 </tokens>

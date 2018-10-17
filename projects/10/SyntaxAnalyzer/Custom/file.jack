@@ -17,4 +17,8 @@ if (x < 153) { // if statement inline comment
         */
 
     let X_Z = (32 + 123) / 2;
+    var Employee e, f;
+    var Car c;
+
+    let c = Car.new("British Jaguar", "007");
 }
