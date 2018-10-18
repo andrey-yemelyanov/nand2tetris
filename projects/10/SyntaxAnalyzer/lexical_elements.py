@@ -1,25 +1,27 @@
+from constants import *
+
 keywords={
-    "class",
-    "constructor",
-    "function",
-    "method",
-    "field",
-    "static",
-    "var",
-    "int",
-    "char",
-    "boolean",
-    "void",
-    "true",
-    "false",
-    "null",
-    "this",
-    "let",
-    "do",
-    "if",
-    "else",
-    "while",
-    "return"
+    CLASS,
+    CONSTRUCTOR,
+    FUNCTION,
+    METHOD,
+    FIELD,
+    STATIC,
+    VAR,
+    INT,
+    CHAR,
+    BOOLEAN,
+    VOID,
+    TRUE,
+    FALSE,
+    NULL,
+    THIS,
+    LET,
+    DO,
+    IF,
+    ELSE,
+    WHILE,
+    RETURN
 }
 
 symbols={
@@ -46,3 +48,12 @@ import re
 def is_identifier(token):
     pattern = re.compile("[A-Za-z_][A-Za-z0-9]*")
     return pattern.match(token)
+
+def is_lexical_element(token):
+    return any(t for t in [
+        is_identifier(token),
+        is_int_constant(token),
+        is_keyword(token),
+        is_string_constant(token),
+        is_symbol(token)
+    ])

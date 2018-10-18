@@ -10,6 +10,12 @@ class Tokenizer:
     def close(self):
         self.file_handle.close()
 
+    def get_intVal(self, token):
+        return int(token)
+
+    def get_stringVal(self, token):
+        return token[1:-1]
+
     def token_type(self, token):
         if lexical_elements.is_symbol(token):
             return SYMBOL

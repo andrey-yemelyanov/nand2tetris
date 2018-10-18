@@ -27,7 +27,7 @@ class TokenizerTests(unittest.TestCase):
         while(token):
             token_type=tokenizer.token_type(token)
             if token_type == STRING_CONSTANT:
-                token = token[1:-1]
+                token = tokenizer.get_stringVal(token)
             if token == "<":
                 token = "&lt;"
             elif token == ">":
