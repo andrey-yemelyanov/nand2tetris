@@ -42,12 +42,14 @@ class CompilationEngine:
         if not lexical_elements.is_identifier(self.tokenizer.current_token):
             raise CompilationError("Expected valid subroutine name but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token) # eat subroutine name
+        
         self.eat("(")
         self.openNonTerminal(PARAMETER_LIST)
         if self.is_valid_type(self.tokenizer.current_token): # non-empty parameter list
             self.compile_parameter_list()
         self.closeNonTerminal(PARAMETER_LIST)
         self.eat(")")
+        
         self.openNonTerminal(SUBROUTINE_BODY)        
         self.eat("{")
         
@@ -70,10 +72,16 @@ class CompilationEngine:
         if not self.is_valid_type(self.tokenizer.current_token):
             raise CompilationError("Class var declaration must be int, char, boolean or custom type but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token) # eat type
+        if not lexical_elements.is_identifier(self.tokenizer.current_token):
+            raise CompilationError("Expected valid class var name but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token) # eat first varName
+        
         while self.tokenizer.current_token == ",":
             self.eat(",")
-            self.eat(self.tokenizer.current_token)
+            if not lexical_elements.is_identifier(self.tokenizer.current_token):
+                raise CompilationError("Expected valid class var name but was " + self.tokenizer.current_token)
+            self.eat(self.tokenizer.current_token) # eat varName
+
         self.eat(";")
 
     def openNonTerminal(self, nonTerminal):
