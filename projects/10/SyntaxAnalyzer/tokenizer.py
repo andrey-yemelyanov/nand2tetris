@@ -4,8 +4,9 @@ from constants import *
 class Tokenizer:
     def __init__(self, file_path):
         self.file_handle = open(file_path)
-        self.current_token = None
+        self.new_token = None
         self.prepend = None
+        self.current_token = None
 
     def close(self):
         self.file_handle.close()
@@ -28,10 +29,17 @@ class Tokenizer:
         if lexical_elements.is_identifier(token):
             return IDENTIFIER
 
+    def advance(self):
+        self.current_token = self.next_token()
+
+    def has_more_tokens(self):
+        self.advance()
+        return self.current_token is not None
+
     def next_token(self):
-        token = self.current_token
+        token = self.new_token
         if token:
-            self.current_token = None
+            self.new_token = None
             return token
         token = self.prepend
         if token:
@@ -64,12 +72,12 @@ class Tokenizer:
                     if next_char != " ":
                         self.prepend = next_char
                     if token:
-                        self.current_token = c
+                        self.new_token = c
                         return token
                     else:
                         return c
             if lexical_elements.is_symbol(c) and token:
-                self.current_token = c
+                self.new_token = c
                 return token
             if lexical_elements.is_symbol(c) and not token:
                 return c

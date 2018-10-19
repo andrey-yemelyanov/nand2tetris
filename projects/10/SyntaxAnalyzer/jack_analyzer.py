@@ -1,6 +1,7 @@
 import os
 from compilation_engine import CompilationEngine
 from tokenizer import Tokenizer
+from errors import CompilationError
 
 class JackAnalyzer:
     def __init__(self, files):
@@ -18,9 +19,15 @@ class JackAnalyzer:
         print("Compiling", file_path, "...")
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         dir_name = os.path.split(file_path)[0]
-        output_file_path=os.path.join(dir_name, file_name + "__.xml")
-        with open(output_file_path, "w") as output_file:
-            compiler = CompilationEngine(Tokenizer(file_path), output_file)
-            compiler.compile_class()
-        print("Compilation successful!", file_path, "=>", output_file_path)
+        output_file_name=os.path.join(dir_name, file_name + "__.xml")
+        with open(output_file_name, "w") as output_file:
+            tokenizer = Tokenizer(file_path)
+            try:
+                compiler = CompilationEngine(tokenizer, output_file)
+                compiler.compile()
+                print("Compilation successful!", file_path, "=>", output_file_name)
+            except CompilationError as err:
+                tokenizer.close()
+                print("ERROR:", err.message)
+        
 
