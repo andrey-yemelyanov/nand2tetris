@@ -12,7 +12,6 @@ class CompilationEngine:
 
     def compile_class(self):
         self.tokenizer.advance()
-
         self.openNonTerminal(CLASS)
 
         # eat 'class' keyword
@@ -26,10 +25,10 @@ class CompilationEngine:
         # eat opening brace
         self.eat("{")
 
-        # eat class variable declarations
+        # compile class variable declarations
         self.compile_class_var_dec()
 
-        # eat class subroutines
+        # compile class subroutines
         self.compile_subroutine_dec()
 
         # eat closing brace
@@ -69,10 +68,10 @@ class CompilationEngine:
                 raise CompilationError("Expected valid subroutine name but was " + self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token) 
             
-            # eat subroutine parameter list (possibly empty)
+            # compile subroutine parameter list (possibly empty)
             self.compile_parameter_list()
             
-            # subroutine body
+            # compile subroutine body
             self.compile_subroutine_body()
             
             self.closeNonTerminal(SUBROUTINE_DEC)
@@ -81,10 +80,10 @@ class CompilationEngine:
         self.openNonTerminal(SUBROUTINE_BODY)        
         self.eat("{")
 
-        # eat variable declarations
+        # compile variable declarations
         self.compile_var_dec()
 
-        # eat statements
+        # compile statements
         self.compile_statements()
         
         self.eat("}")
