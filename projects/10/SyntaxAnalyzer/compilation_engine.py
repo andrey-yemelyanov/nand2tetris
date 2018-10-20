@@ -16,73 +16,213 @@ class CompilationEngine:
         self.closeNonTerminal(CLASS)
 
     def compile_class(self):
+        # eat 'class' keyword
         self.eat(CLASS)
+
+        # eat class name
         if not lexical_elements.is_identifier(self.tokenizer.current_token):
             raise CompilationError("Class name must be a valid identifier but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat class name
+        self.eat(self.tokenizer.current_token)
+
+        # eat opening brace
         self.eat("{")
 
-        while self.tokenizer.current_token in [STATIC, FIELD]:
-            self.openNonTerminal(CLASS_VAR_DEC)
-            self.compile_class_var_dec()
-            self.closeNonTerminal(CLASS_VAR_DEC)
+        # eat class variable declarations
+        self.compile_class_var_dec()
 
-        while self.tokenizer.current_token in [CONSTRUCTOR, FUNCTION, METHOD]:
-            self.openNonTerminal(SUBROUTINE_DEC)
-            self.compile_subroutine_dec()
-            self.closeNonTerminal(SUBROUTINE_DEC)
+        # eat class subroutines
+        self.compile_subroutine_dec()
 
+        # eat closing brace
         self.eat("}")
 
+    def compile_class_var_dec(self):
+        while self.tokenizer.current_token in [STATIC, FIELD]:
+            self.openNonTerminal(CLASS_VAR_DEC)
+            
+            # eat keyword 'static' or 'field'
+            self.eat(self.tokenizer.current_token)
+
+            # eat variable declaration sequence e.g. int x, y, z
+            self.eat_var_sequence()
+
+            # eat terminating semi-colon
+            self.eat(";")
+            
+            self.closeNonTerminal(CLASS_VAR_DEC)
+
     def compile_subroutine_dec(self):
-        self.eat(self.tokenizer.current_token)
-        if self.tokenizer.current_token != VOID and not self.is_type(self.tokenizer.current_token):
-            raise CompilationError("Expected valid subroutine return type or void but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat subroutine return type
-        if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid subroutine name but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat subroutine name
-        
-        self.eat("(")
-        self.openNonTerminal(PARAMETER_LIST)
-        if self.is_valid_type(self.tokenizer.current_token): # non-empty parameter list
+        while self.tokenizer.current_token in [CONSTRUCTOR, FUNCTION, METHOD]:
+            self.openNonTerminal(SUBROUTINE_DEC)
+            
+            # eat subroutine type: method, function or constructor
+            self.eat(self.tokenizer.current_token) 
+
+            # eat subroutine return type
+            if self.tokenizer.current_token != VOID and not self.is_type(self.tokenizer.current_token):
+                raise CompilationError("Expected valid subroutine return type or void but was " + self.tokenizer.current_token)
+            self.eat(self.tokenizer.current_token) 
+
+            # eat subroutine name
+            if not lexical_elements.is_identifier(self.tokenizer.current_token):
+                raise CompilationError("Expected valid subroutine name but was " + self.tokenizer.current_token)
+            self.eat(self.tokenizer.current_token) 
+            
+            # eat subroutine parameter list (possibly empty)
             self.compile_parameter_list()
-        self.closeNonTerminal(PARAMETER_LIST)
-        self.eat(")")
-        
+            
+            # subroutine body
+            self.compile_subroutine_body()
+            
+            self.closeNonTerminal(SUBROUTINE_DEC)
+
+    def compile_subroutine_body(self):
         self.openNonTerminal(SUBROUTINE_BODY)        
         self.eat("{")
+
+        # eat variable declarations
+        self.compile_var_dec()
+
+        # eat statements
+        self.compile_statements()
         
         self.eat("}")
         self.closeNonTerminal(SUBROUTINE_BODY)
 
     def compile_parameter_list(self):
-        self.eat(self.tokenizer.current_token) # eat type
-        if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid parameter name but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat varName
-        while self.tokenizer.next_token == ",":
-            self.eat(",") # eat ,
-            if not lexical_elements.is_identifier(self.tokenizer.current_token):
-                raise CompilationError("Expected valid parameter name but was " + self.tokenizer.current_token)
-            self.eat(self.tokenizer.current_token) # eat varName
+        self.eat("(")
+        self.openNonTerminal(PARAMETER_LIST)
+        if self.tokenizer.current_token != ")":
+            self.eat_var_sequence()
+        self.closeNonTerminal(PARAMETER_LIST)
+        self.eat(")")
 
-    def compile_class_var_dec(self):
+    def compile_var_dec(self):
+        while self.tokenizer.current_token == VAR:
+            self.openNonTerminal(VAR_DEC)
+
+            # eat keyword 'var'
+            self.eat(VAR)
+
+            # eat variable declaration sequence e.g. int x, y, z
+            self.eat_var_sequence()
+
+            # eat terminating semicolon
+            self.eat(";")
+
+            self.closeNonTerminal(VAR_DEC)
+
+    def compile_statements(self):
+        self.openNonTerminal(STATEMENTS)
+        while self.tokenizer.current_token in [LET, IF, WHILE, DO, RETURN]:
+            self.statement_map[self.tokenizer.current_token](self)
+        self.closeNonTerminal(STATEMENTS)
+
+    def compile_let_statement(self):
+        self.openNonTerminal(LET_STATEMENT)
+        # eat 'let' keyword
+        self.eat(LET)
+
+        # eat variable name
+        if not lexical_elements.is_identifier(self.tokenizer.current_token):
+            raise CompilationError("Expected valid variable name but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token)
+
+        # eat potential array indexing expression
+        if self.tokenizer.current_token == "[":
+            self.eat("[")
+            self.compile_expression()
+            self.eat("]")
+
+        self.eat("=")
+        self.compile_expression()
+        self.eat(";")
+        self.closeNonTerminal(LET_STATEMENT)
+
+    def compile_do_statement(self):
+        self.openNonTerminal(DO_STATEMENT)
+        self.eat(DO)
+        self.compile_subroutine_call()
+        self.eat(";")
+        self.closeNonTerminal(DO_STATEMENT)
+
+    def compile_subroutine_call(self):
+        # eat identifier
+        if not lexical_elements.is_identifier(self.tokenizer.current_token):
+            raise CompilationError("Expected valid identifier in subroutine call but found", self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
+
+        if self.tokenizer.current_token == "(":
+            self.eat("(")
+            self.compile_expression_list()
+            self.eat(")")
+        elif self.tokenizer.current_token == ".":
+            # eat subroutine name
+            if not lexical_elements.is_identifier(self.tokenizer.current_token):
+                raise CompilationError("Expected valid identifier in subroutine call but found", self.tokenizer.current_token)
+            self.eat(self.tokenizer.current_token)
+            self.eat("(")
+            self.compile_expression_list()
+            self.eat(")")
+        else:
+            raise CompilationError("Expected '(' or '.' in subroutine call but found", self.tokenizer.current_token)
+
+    def compile_if_statement(self):
+        self.openNonTerminal(IF_STATEMENT)
+        self.eat(IF)
+        self.eat("(")
+        self.compile_expression()
+        self.eat(")")
+        self.eat("{")
+        self.compile_statements()
+        self.eat("}")
+        if self.tokenizer.current_token == ELSE:
+            self.eat(ELSE)
+            self.eat("{")
+            self.compile_statements()
+            self.eat("}")
+        self.closeNonTerminal(IF_STATEMENT)
+
+    def compile_while_statement(self):
+        self.openNonTerminal(WHILE_STATEMENT)
+        self.eat(WHILE)
+        self.eat("(")
+        self.compile_expression()
+        self.eat(")")
+        self.eat("{")
+        self.compile_statements()
+        self.eat("}")
+        self.closeNonTerminal(WHILE_STATEMENT)
+
+    def compile_return_statement(self):
+        self.openNonTerminal(RETURN_STATEMENT)
+        self.eat(RETURN)
+        if self.tokenizer.current_token != ";":
+            self.compile_expression()
+        self.eat(";")
+        self.closeNonTerminal(RETURN_STATEMENT)
+
+    def compile_expression(self):
+        self.openNonTerminal(EXPRESSION)
+        self.closeNonTerminal(EXPRESSION)
+
+    def compile_expression_list(self):
+        self.openNonTerminal(EXPRESSION_LIST)
+        self.closeNonTerminal(EXPRESSION_LIST)
+
+    def eat_var_sequence(self):
         if not self.is_valid_type(self.tokenizer.current_token):
-            raise CompilationError("Class var declaration must be int, char, boolean or custom type but was " + self.tokenizer.current_token)
+            raise CompilationError("Variable declaration must be int, char, boolean or custom type but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token) # eat type
         if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid class var name but was " + self.tokenizer.current_token)
+            raise CompilationError("Expected valid variable name but was " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token) # eat first varName
         
         while self.tokenizer.current_token == ",":
             self.eat(",")
             if not lexical_elements.is_identifier(self.tokenizer.current_token):
-                raise CompilationError("Expected valid class var name but was " + self.tokenizer.current_token)
+                raise CompilationError("Expected valid variable name but was " + self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token) # eat varName
-
-        self.eat(";")
 
     def openNonTerminal(self, nonTerminal):
         self.output_file.write("<{0:}>".format(nonTerminal) + "\n")
@@ -100,3 +240,11 @@ class CompilationEngine:
 
     def is_valid_type(self, token):
         return token in [INT, CHAR, BOOLEAN] or lexical_elements.is_identifier(token)
+
+    statement_map = {
+        LET : compile_let_statement,
+        IF : compile_if_statement,
+        WHILE : compile_while_statement,
+        DO : compile_do_statement,
+        RETURN : compile_return_statement
+    }
