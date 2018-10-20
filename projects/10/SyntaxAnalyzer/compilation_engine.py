@@ -94,22 +94,12 @@ class CompilationEngine:
         self.eat("(")
         self.openNonTerminal(PARAMETER_LIST)
         if self.tokenizer.current_token != ")":
-            self.eat_parameter()
+            self.eat_var_dec()
             while self.tokenizer.current_token == ",":
                 self.eat(",")
-                self.eat_parameter()
+                self.eat_var_dec()
         self.closeNonTerminal(PARAMETER_LIST)
         self.eat(")")
-
-    def eat_parameter(self):
-        # eat var type
-        if not self.is_valid_type(self.tokenizer.current_token):
-            raise CompilationError("Expected valid var type but found " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token)
-        # eat var name
-        if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid var name but found " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token)
 
     def compile_var_dec(self):
         while self.tokenizer.current_token == VAR:
@@ -240,18 +230,22 @@ class CompilationEngine:
         self.closeNonTerminal(EXPRESSION_LIST)
 
     def eat_var_sequence(self):
-        if not self.is_valid_type(self.tokenizer.current_token):
-            raise CompilationError("Variable declaration must be int, char, boolean or custom type but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat type
-        if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid variable name but was " + self.tokenizer.current_token)
-        self.eat(self.tokenizer.current_token) # eat first varName
-        
+        self.eat_var_dec()
         while self.tokenizer.current_token == ",":
             self.eat(",")
             if not lexical_elements.is_identifier(self.tokenizer.current_token):
                 raise CompilationError("Expected valid variable name but was " + self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token) # eat varName
+
+    def eat_var_dec(self):
+        # eat var type
+        if not self.is_valid_type(self.tokenizer.current_token):
+            raise CompilationError("Expected valid var type but found " + self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
+        # eat var name
+        if not lexical_elements.is_identifier(self.tokenizer.current_token):
+            raise CompilationError("Expected valid var name but found " + self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
 
     def openNonTerminal(self, nonTerminal):
         self.output_file.write("<{0:}>".format(nonTerminal) + "\n")
