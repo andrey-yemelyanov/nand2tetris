@@ -8,14 +8,13 @@ class CompilationEngine:
         self.output_file = output_file
 
     def compile(self):
-        self.tokenizer.advance() # read first token - it must be class
-        if self.tokenizer.current_token != CLASS:
-            raise CompilationError("Top level token must be 'class' but was " + self.tokenizer.current_token)
-        self.openNonTerminal(CLASS)
         self.compile_class()
-        self.closeNonTerminal(CLASS)
 
     def compile_class(self):
+        self.tokenizer.advance()
+
+        self.openNonTerminal(CLASS)
+
         # eat 'class' keyword
         self.eat(CLASS)
 
@@ -35,6 +34,8 @@ class CompilationEngine:
 
         # eat closing brace
         self.eat("}")
+
+        self.closeNonTerminal(CLASS)
 
     def compile_class_var_dec(self):
         while self.tokenizer.current_token in [STATIC, FIELD]:
