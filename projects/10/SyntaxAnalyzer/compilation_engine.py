@@ -59,7 +59,7 @@ class CompilationEngine:
             self.eat(self.tokenizer.current_token) 
 
             # eat subroutine return type
-            if self.tokenizer.current_token != VOID and not self.is_type(self.tokenizer.current_token):
+            if self.tokenizer.current_token != VOID and not self.is_valid_type(self.tokenizer.current_token):
                 raise CompilationError("Expected valid subroutine return type or void but was " + self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token) 
 
@@ -93,9 +93,22 @@ class CompilationEngine:
         self.eat("(")
         self.openNonTerminal(PARAMETER_LIST)
         if self.tokenizer.current_token != ")":
-            self.eat_var_sequence()
+            self.eat_parameter()
+            while self.tokenizer.current_token == ",":
+                self.eat(",")
+                self.eat_parameter()
         self.closeNonTerminal(PARAMETER_LIST)
         self.eat(")")
+
+    def eat_parameter(self):
+        # eat var type
+        if not self.is_valid_type(self.tokenizer.current_token):
+            raise CompilationError("Expected valid var type but found " + self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
+        # eat var name
+        if not lexical_elements.is_identifier(self.tokenizer.current_token):
+            raise CompilationError("Expected valid var name but found " + self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
 
     def compile_var_dec(self):
         while self.tokenizer.current_token == VAR:
@@ -149,7 +162,7 @@ class CompilationEngine:
     def compile_subroutine_call(self):
         # eat identifier
         if not lexical_elements.is_identifier(self.tokenizer.current_token):
-            raise CompilationError("Expected valid identifier in subroutine call but found", self.tokenizer.current_token)
+            raise CompilationError("Expected valid identifier in subroutine call but found " + self.tokenizer.current_token)
         self.eat(self.tokenizer.current_token)
 
         if self.tokenizer.current_token == "(":
@@ -157,15 +170,16 @@ class CompilationEngine:
             self.compile_expression_list()
             self.eat(")")
         elif self.tokenizer.current_token == ".":
+            self.eat(".")
             # eat subroutine name
             if not lexical_elements.is_identifier(self.tokenizer.current_token):
-                raise CompilationError("Expected valid identifier in subroutine call but found", self.tokenizer.current_token)
+                raise CompilationError("Expected valid identifier in subroutine call but found " + self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token)
             self.eat("(")
             self.compile_expression_list()
             self.eat(")")
         else:
-            raise CompilationError("Expected '(' or '.' in subroutine call but found", self.tokenizer.current_token)
+            raise CompilationError("Expected '(' or '.' in subroutine call but found " + self.tokenizer.current_token)
 
     def compile_if_statement(self):
         self.openNonTerminal(IF_STATEMENT)
@@ -204,10 +218,24 @@ class CompilationEngine:
 
     def compile_expression(self):
         self.openNonTerminal(EXPRESSION)
+        self.compile_term()
+        while self.tokenizer.current_token in ["+", "-", "*", "/", "&", "|", "<", ">", "="]:
+            self.eat(self.tokenizer.current_token)
+            self.compile_term()
         self.closeNonTerminal(EXPRESSION)
+
+    def compile_term(self):
+        self.openNonTerminal(TERM)
+        self.eat(self.tokenizer.current_token) # currently only identifier expr is supported
+        self.closeNonTerminal(TERM)
 
     def compile_expression_list(self):
         self.openNonTerminal(EXPRESSION_LIST)
+        if self.is_valid_term(self.tokenizer.current_token):
+            self.compile_expression()
+        while self.tokenizer.current_token == ",":
+            self.eat(",")
+            self.compile_expression()    
         self.closeNonTerminal(EXPRESSION_LIST)
 
     def eat_var_sequence(self):
@@ -240,6 +268,10 @@ class CompilationEngine:
 
     def is_valid_type(self, token):
         return token in [INT, CHAR, BOOLEAN] or lexical_elements.is_identifier(token)
+
+    def is_valid_term(self, token):
+        if lexical_elements.is_identifier(token):
+            return True
 
     statement_map = {
         LET : compile_let_statement,
