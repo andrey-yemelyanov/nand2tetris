@@ -28,6 +28,6 @@ class JackAnalyzer:
                 print("Compilation successful!", file_path, "=>", output_file_name)
             except CompilationError as err:
                 tokenizer.close()
-                print("ERROR:", err.message)
+                raise CompilationError("ERROR:", err.message)
         
 
