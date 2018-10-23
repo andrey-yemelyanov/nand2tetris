@@ -216,7 +216,29 @@ class CompilationEngine:
 
     def compile_term(self):
         self.openNonTerminal(TERM)
-        self.eat(self.tokenizer.current_token) # currently only identifier expr is supported
+        if lexical_elements.is_int_constant(self.tokenizer.current_token):
+            self.eat(self.tokenizer.current_token)
+        elif lexical_elements.is_string_constant(self.tokenizer.current_token):
+            self.eat(self.tokenizer.current_token)
+        elif self.is_keyword_constant(self.tokenizer.current_token):
+            self.eat(self.tokenizer.current_token)
+        elif self.tokenizer.current_token == "(":
+            self.eat("(")
+            self.compile_expression()
+            self.eat(")")
+        elif self.tokenizer.current_token == "-" or self.tokenizer.current_token == "~":
+            self.eat(self.tokenizer.current_token)
+            self.compile_term()
+        elif lexical_elements.is_identifier(self.tokenizer.current_token):
+            if self.tokenizer.peek() == "[":
+                self.eat(self.tokenizer.current_token)
+                self.eat("[")
+                self.compile_expression()
+                self.eat("]")
+            elif self.tokenizer.peek() == "(" or self.tokenizer.peek() == ".":
+                self.compile_subroutine_call()
+            else:
+                self.eat(self.tokenizer.current_token)
         self.closeNonTerminal(TERM)
 
     def compile_expression_list(self):
@@ -257,15 +279,24 @@ class CompilationEngine:
         if current_token != token:
             raise CompilationError(
                 "Expected to find token '{0:}' but found '{1:}'".format(token, current_token))
-        self.output_file.write("<{0:}> {1:} </{0:}>".format(self.tokenizer.token_type(token), current_token) + "\n")
+        self.output_file.write("<{0:}> {1:} </{0:}>".format(self.tokenizer.token_type(token), self.tokenizer.get_token_value(current_token)) + "\n")
         self.tokenizer.advance()
 
     def is_valid_type(self, token):
         return token in [INT, CHAR, BOOLEAN] or lexical_elements.is_identifier(token)
 
     def is_valid_term(self, token):
-        if lexical_elements.is_identifier(token):
-            return True
+        return (lexical_elements.is_identifier(token) or 
+                lexical_elements.is_int_constant(token) or 
+                lexical_elements.is_string_constant(token) or 
+                self.is_keyword_constant(token) or 
+                token == "(" or token == "~" or token == "-")
+
+    def is_keyword_constant(self, token):
+        return (token == TRUE or
+                token == FALSE or
+                token == NULL or
+                token == THIS)
 
     statement_map = {
         LET : compile_let_statement,
