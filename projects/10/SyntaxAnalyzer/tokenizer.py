@@ -7,15 +7,22 @@ class Tokenizer:
         self.new_token = None
         self.prepend = None
         self.current_token = None
+        self.peek_token = None
 
     def close(self):
         self.file_handle.close()
 
-    def get_intVal(self, token):
-        return int(token)
-
-    def get_stringVal(self, token):
-        return token[1:-1]
+    def get_token_value(self, token):
+        if self.token_type(token) == SYMBOL:
+            if token == "<":
+                return "&lt;"
+            if token == ">":
+                return "&gt;"
+            if token == "&":
+                return "&amp;"
+        elif self.token_type(token) == STRING_CONSTANT:
+            return token[1:-1]
+        return token
 
     def token_type(self, token):
         if lexical_elements.is_symbol(token):
@@ -30,11 +37,16 @@ class Tokenizer:
             return IDENTIFIER
 
     def advance(self):
-        self.current_token = self.next_token()
+        if self.peek_token:
+            self.current_token = self.peek_token
+            self.peek_token = None
+        else:
+            self.current_token = self.next_token()
 
-    def has_more_tokens(self):
-        self.advance()
-        return self.current_token is not None
+    def peek(self):
+        if not self.peek_token:
+            self.peek_token = self.next_token()
+        return self.peek_token
 
     def next_token(self):
         token = self.new_token

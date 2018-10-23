@@ -25,16 +25,7 @@ class TokenizerTests(unittest.TestCase):
         token=tokenizer.next_token()
         tokens=["<tokens>"]
         while(token):
-            token_type=tokenizer.token_type(token)
-            if token_type == STRING_CONSTANT:
-                token = tokenizer.get_stringVal(token)
-            if token == "<":
-                token = "&lt;"
-            elif token == ">":
-                token = "&gt;"
-            elif token == "&":
-                token = "&amp;"
-            tokens.append("<{0:}> {1:} </{0:}>".format(token_type, token))
+            tokens.append("<{0:}> {1:} </{0:}>".format(tokenizer.token_type(token), tokenizer.get_token_value(token)))
             token=tokenizer.next_token()
         tokens.append("</tokens>")
         
