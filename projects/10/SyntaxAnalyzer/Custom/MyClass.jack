@@ -1,0 +1,6 @@
+class MyClass{
+    method void doStuff(){
+        var int result;
+        let result = x + g(2, y, -z) * 5;
+    }
+}

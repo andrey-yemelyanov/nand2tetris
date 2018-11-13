@@ -25,6 +25,9 @@ class JackAnalyzerTests(unittest.TestCase):
     def test_square_expressionless(self):
         self.compile("ExpressionLessSquare", "Square")
 
+    #def test_custom(self):
+        #self.compile("Custom", "MyClass")
+
     def compile(self, dirName, fileName):
         jack_analyzer=JackAnalyzer("{0:}/{1:}.jack".format(dirName, fileName))
         jack_analyzer.compile()
