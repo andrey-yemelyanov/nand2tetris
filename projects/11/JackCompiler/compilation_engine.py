@@ -1,11 +1,13 @@
 import lexical_elements
 from constants import *
 from errors import CompilationError 
+from symbol_table import SymbolTable
 
 class CompilationEngine:
     def __init__(self, tokenizer, output_file):
         self.tokenizer = tokenizer
         self.output_file = output_file
+        self.st = SymbolTable()
 
     def compile(self):
         self.compile_class()
