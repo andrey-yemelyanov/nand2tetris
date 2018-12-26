@@ -59,3 +59,23 @@ RETURN_STATEMENT = "returnStatement"
 EXPRESSION = "expression"
 EXPRESSION_LIST = "expressionList"
 TERM = "term"
+
+operation_map = {
+    "+" : VM_ADD,
+    "-" : VM_SUB,
+    "*" : "call Math.multiply 2",
+    "/" : "call Math.divide 2",
+    "&" : "and",
+    "|" : "or",
+    "<" : "lt",
+    ">" : "gt",
+    "=" : "eq",
+    "-" : "neg",
+    "~" : "not"
+}
+
+keyword_map = {
+    "true"  : "-1",
+    "false" :  "0",
+    "null"  :  "0"
+}

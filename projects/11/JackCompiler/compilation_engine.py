@@ -154,6 +154,8 @@ class CompilationEngine:
     def compile_do_statement(self):
         self.eat(DO)
         self.compile_subroutine_call()
+        # pop and ignore the returned value
+        self.vm_writer.write_pop(VM_TEMP, 0)
         self.eat(";")
 
     def compile_subroutine_call(self):
@@ -178,7 +180,7 @@ class CompilationEngine:
             subroutine_name = self.tokenizer.current_token
             self.eat(subroutine_name)
             self.eat("(")
-            if self.is_valid_term(self.tokenizer.current_token):
+            if self.tokenizer.is_valid_term(self.tokenizer.current_token):
                 self.compile_expression()
                 nArgs += 1
             while self.tokenizer.current_token == ",":
@@ -189,6 +191,9 @@ class CompilationEngine:
             type = self.st.type_of(identifier)
             if type is None:
                 type = identifier
+
+            # the arguments have been pushed to stack
+            # call the subroutine
             self.vm_writer.write_call(type + "." + subroutine_name, nArgs)
 
     def compile_if_statement(self):
@@ -218,29 +223,37 @@ class CompilationEngine:
         self.eat(RETURN)
         if self.tokenizer.current_token != ";":
             self.compile_expression()
+        else:
+            self.vm_writer.write_push(VM_CONST, 0)
         self.eat(";")
+        self.vm_writer.write_return()
 
     def compile_expression(self):
-        self.vm_writer.write_label("COMPILE EXPRESSION")
         self.compile_term()
-        while self.tokenizer.current_token in ["+", "-", "*", "/", "&", "|", "<", ">", "="]:
+        while self.tokenizer.current_token in operation_map:
+            op = operation_map[self.tokenizer.current_token]
             self.eat(self.tokenizer.current_token)
             self.compile_term()
+            self.vm_writer.write_arithmetic(op)
 
     def compile_term(self):
         if lexical_elements.is_int_constant(self.tokenizer.current_token):
+            self.vm_writer.write_push(VM_CONST, self.tokenizer.current_token)
             self.eat(self.tokenizer.current_token)
         elif lexical_elements.is_string_constant(self.tokenizer.current_token):
             self.eat(self.tokenizer.current_token)
-        elif self.is_keyword_constant(self.tokenizer.current_token):
+        elif self.tokenizer.is_keyword_constant(self.tokenizer.current_token):
+            self.vm_writer.write_push(VM_CONST, keyword_map[self.tokenizer.current_token])
             self.eat(self.tokenizer.current_token)
         elif self.tokenizer.current_token == "(":
             self.eat("(")
             self.compile_expression()
             self.eat(")")
         elif self.tokenizer.current_token == "-" or self.tokenizer.current_token == "~":
+            op = operation_map[self.tokenizer.current_token]
             self.eat(self.tokenizer.current_token)
             self.compile_term()
+            self.vm_writer.write_arithmetic(op)
         elif lexical_elements.is_identifier(self.tokenizer.current_token):
             if self.tokenizer.peek() == "[":
                 self.eat(self.tokenizer.current_token)
@@ -258,22 +271,6 @@ class CompilationEngine:
             raise CompilationError(
                 "Expected to find token '{0:}' but found '{1:}'".format(token, current_token))
         self.tokenizer.advance()
-
-    def is_valid_type(self, token):
-        return token in [INT, CHAR, BOOLEAN] or lexical_elements.is_identifier(token)
-
-    def is_valid_term(self, token):
-        return (lexical_elements.is_identifier(token) or 
-                lexical_elements.is_int_constant(token) or 
-                lexical_elements.is_string_constant(token) or 
-                self.is_keyword_constant(token) or 
-                token == "(" or token == "~" or token == "-")
-
-    def is_keyword_constant(self, token):
-        return (token == TRUE or
-                token == FALSE or
-                token == NULL or
-                token == THIS)
 
     statement_map = {
         LET : compile_let_statement,

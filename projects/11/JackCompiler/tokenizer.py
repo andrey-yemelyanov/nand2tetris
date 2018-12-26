@@ -36,6 +36,19 @@ class Tokenizer:
         if lexical_elements.is_identifier(token):
             return IDENTIFIER
 
+    def is_valid_term(self, token):
+        return (lexical_elements.is_identifier(token) or 
+                lexical_elements.is_int_constant(token) or 
+                lexical_elements.is_string_constant(token) or 
+                self.is_keyword_constant(token) or 
+                token == "(" or token == "~" or token == "-")
+
+    def is_keyword_constant(self, token):
+        return (token == TRUE or
+                token == FALSE or
+                token == NULL or
+                token == THIS)
+
     def advance(self):
         if self.peek_token:
             self.current_token = self.peek_token
