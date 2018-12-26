@@ -139,7 +139,8 @@ class CompilationEngine:
         self.eat(LET)
 
         # eat variable name
-        self.eat(self.tokenizer.current_token)
+        var_name = self.tokenizer.current_token
+        self.eat(var_name)
 
         # eat potential array indexing expression
         if self.tokenizer.current_token == "[":
@@ -150,6 +151,9 @@ class CompilationEngine:
         self.eat("=")
         self.compile_expression()
         self.eat(";")
+
+        if self.st.kind_of(var_name) == VAR:
+            self.vm_writer.write_pop(VM_LOCAL, self.st.index_of(var_name))
 
     def compile_do_statement(self):
         self.eat(DO)
@@ -263,7 +267,10 @@ class CompilationEngine:
             elif self.tokenizer.peek() == "(" or self.tokenizer.peek() == ".":
                 self.compile_subroutine_call()
             else:
-                self.eat(self.tokenizer.current_token)
+                var_name = self.tokenizer.current_token
+                self.eat(var_name)
+                if self.st.kind_of(var_name) == VAR:
+                    self.vm_writer.write_push(VM_LOCAL, self.st.index_of(var_name))
 
     def eat(self, token):
         current_token = self.tokenizer.current_token
