@@ -1,0 +1,4 @@
+function Main.main 0
+label COMPILE EXPRESSION
+label COMPILE EXPRESSION
+call Output.printInt 1

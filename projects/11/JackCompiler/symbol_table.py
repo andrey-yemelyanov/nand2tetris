@@ -48,11 +48,11 @@ class SymbolTable:
             return self.subroutine_level_st[name].type
         if name in self.class_level_st:
             return self.class_level_st[name].type
-        raise CompilationError("ERROR: Unable to obtain type for unknown var", name)
+        return None
 
     def index_of(self, name):
         if name in self.subroutine_level_st:
             return self.subroutine_level_st[name].index
         if name in self.class_level_st:
             return self.class_level_st[name].index
-        raise CompilationError("ERROR: Unable to obtain index for unknown var", name)
+        return None

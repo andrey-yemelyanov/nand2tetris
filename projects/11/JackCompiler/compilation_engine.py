@@ -2,24 +2,26 @@ import lexical_elements
 from constants import *
 from errors import CompilationError 
 from symbol_table import SymbolTable
+from vm_writer import VMWriter
 
 class CompilationEngine:
-    def __init__(self, tokenizer, output_file):
+    def __init__(self, tokenizer, vm_writer):
         self.tokenizer = tokenizer
-        self.output_file = output_file
         self.st = SymbolTable()
+        self.vm_writer = vm_writer
+        self.class_name = ""
 
     def compile(self):
         self.compile_class()
 
     def compile_class(self):
         self.tokenizer.advance()
-        self.openNonTerminal(CLASS)
 
         # eat 'class' keyword
         self.eat(CLASS)
 
         # eat class name
+        self.class_name = self.tokenizer.current_token
         self.eat(self.tokenizer.current_token)
 
         # eat opening brace
@@ -34,12 +36,8 @@ class CompilationEngine:
         # eat closing brace
         self.eat("}")
 
-        self.closeNonTerminal(CLASS)
-
     def compile_class_var_dec(self):
         while self.tokenizer.current_token in [STATIC, FIELD]:
-            self.openNonTerminal(CLASS_VAR_DEC)
-            
             kind = self.tokenizer.current_token
 
             # eat keyword 'static' or 'field'
@@ -60,13 +58,9 @@ class CompilationEngine:
 
             # eat terminating semi-colon
             self.eat(";")
-            
-            self.closeNonTerminal(CLASS_VAR_DEC)
 
     def compile_subroutine_dec(self):
         while self.tokenizer.current_token in [CONSTRUCTOR, FUNCTION, METHOD]:
-            self.openNonTerminal(SUBROUTINE_DEC)
-
             self.st.start_subroutine()
             
             # eat subroutine type: method, function or constructor
@@ -76,24 +70,20 @@ class CompilationEngine:
             self.eat(self.tokenizer.current_token) 
 
             # eat subroutine name
-            self.eat(self.tokenizer.current_token) 
+            func_name = self.class_name + "." + self.tokenizer.current_token
+            self.eat(self.tokenizer.current_token)
             
             # compile subroutine parameter list (possibly empty)
             self.compile_parameter_list()
             
             # compile subroutine body
-            self.compile_subroutine_body()
-            
-            self.closeNonTerminal(SUBROUTINE_DEC)
+            self.compile_subroutine_body(func_name)
 
-    def compile_subroutine_body(self):
-        self.openNonTerminal(SUBROUTINE_BODY)        
+    def compile_subroutine_body(self, subroutine_name):
         self.eat("{")
 
         # compile variable declarations
         while self.tokenizer.current_token == VAR:
-            self.openNonTerminal(VAR_DEC)
-
             # eat keyword 'var'
             self.eat(VAR)
 
@@ -113,17 +103,15 @@ class CompilationEngine:
             # eat terminating semicolon
             self.eat(";")
 
-            self.closeNonTerminal(VAR_DEC)
+        self.vm_writer.write_function(subroutine_name, self.st.var_count(VAR))
 
         # compile statements
         self.compile_statements()
         
         self.eat("}")
-        self.closeNonTerminal(SUBROUTINE_BODY)
 
     def compile_parameter_list(self):
         self.eat("(")
-        self.openNonTerminal(PARAMETER_LIST)
         if self.tokenizer.current_token != ")":
             # eat var type
             type = self.tokenizer.current_token
@@ -140,18 +128,13 @@ class CompilationEngine:
                 # eat var name
                 name = self.tokenizer.current_token
                 self.st.define(name, type, ARG)
-
-        self.closeNonTerminal(PARAMETER_LIST)
         self.eat(")")
 
     def compile_statements(self):
-        self.openNonTerminal(STATEMENTS)
         while self.tokenizer.current_token in [LET, IF, WHILE, DO, RETURN]:
             self.statement_map[self.tokenizer.current_token](self)
-        self.closeNonTerminal(STATEMENTS)
 
     def compile_let_statement(self):
-        self.openNonTerminal(LET_STATEMENT)
         # eat 'let' keyword
         self.eat(LET)
 
@@ -167,35 +150,48 @@ class CompilationEngine:
         self.eat("=")
         self.compile_expression()
         self.eat(";")
-        self.closeNonTerminal(LET_STATEMENT)
 
     def compile_do_statement(self):
-        self.openNonTerminal(DO_STATEMENT)
         self.eat(DO)
         self.compile_subroutine_call()
         self.eat(";")
-        self.closeNonTerminal(DO_STATEMENT)
 
     def compile_subroutine_call(self):
         # eat identifier
-        self.eat(self.tokenizer.current_token)
-
+        identifier = self.tokenizer.current_token
+        self.eat(identifier)
+        nArgs = 0
         if self.tokenizer.current_token == "(":
             self.eat("(")
-            self.compile_expression_list()
+            if self.is_valid_term(self.tokenizer.current_token):
+                self.compile_expression()
+                nArgs += 1
+            while self.tokenizer.current_token == ",":
+                self.eat(",")
+                self.compile_expression()
+                nArgs += 1   
             self.eat(")")
+            self.vm_writer.write_call(self.class_name + "." + identifier, nArgs)
         elif self.tokenizer.current_token == ".":
             self.eat(".")
             # eat subroutine name
-            self.eat(self.tokenizer.current_token)
+            subroutine_name = self.tokenizer.current_token
+            self.eat(subroutine_name)
             self.eat("(")
-            self.compile_expression_list()
+            if self.is_valid_term(self.tokenizer.current_token):
+                self.compile_expression()
+                nArgs += 1
+            while self.tokenizer.current_token == ",":
+                self.eat(",")
+                self.compile_expression()
+                nArgs += 1
             self.eat(")")
-        else:
-            raise CompilationError("Expected '(' or '.' in subroutine call but found " + self.tokenizer.current_token)
+            type = self.st.type_of(identifier)
+            if type is None:
+                type = identifier
+            self.vm_writer.write_call(type + "." + subroutine_name, nArgs)
 
     def compile_if_statement(self):
-        self.openNonTerminal(IF_STATEMENT)
         self.eat(IF)
         self.eat("(")
         self.compile_expression()
@@ -208,10 +204,8 @@ class CompilationEngine:
             self.eat("{")
             self.compile_statements()
             self.eat("}")
-        self.closeNonTerminal(IF_STATEMENT)
 
     def compile_while_statement(self):
-        self.openNonTerminal(WHILE_STATEMENT)
         self.eat(WHILE)
         self.eat("(")
         self.compile_expression()
@@ -219,26 +213,21 @@ class CompilationEngine:
         self.eat("{")
         self.compile_statements()
         self.eat("}")
-        self.closeNonTerminal(WHILE_STATEMENT)
 
     def compile_return_statement(self):
-        self.openNonTerminal(RETURN_STATEMENT)
         self.eat(RETURN)
         if self.tokenizer.current_token != ";":
             self.compile_expression()
         self.eat(";")
-        self.closeNonTerminal(RETURN_STATEMENT)
 
     def compile_expression(self):
-        self.openNonTerminal(EXPRESSION)
+        self.vm_writer.write_label("COMPILE EXPRESSION")
         self.compile_term()
         while self.tokenizer.current_token in ["+", "-", "*", "/", "&", "|", "<", ">", "="]:
             self.eat(self.tokenizer.current_token)
             self.compile_term()
-        self.closeNonTerminal(EXPRESSION)
 
     def compile_term(self):
-        self.openNonTerminal(TERM)
         if lexical_elements.is_int_constant(self.tokenizer.current_token):
             self.eat(self.tokenizer.current_token)
         elif lexical_elements.is_string_constant(self.tokenizer.current_token):
@@ -262,29 +251,12 @@ class CompilationEngine:
                 self.compile_subroutine_call()
             else:
                 self.eat(self.tokenizer.current_token)
-        self.closeNonTerminal(TERM)
-
-    def compile_expression_list(self):
-        self.openNonTerminal(EXPRESSION_LIST)
-        if self.is_valid_term(self.tokenizer.current_token):
-            self.compile_expression()
-        while self.tokenizer.current_token == ",":
-            self.eat(",")
-            self.compile_expression()    
-        self.closeNonTerminal(EXPRESSION_LIST)
-
-    def openNonTerminal(self, nonTerminal):
-        self.output_file.write("<{0:}>".format(nonTerminal) + "\n")
-
-    def closeNonTerminal(self, nonTerminal):
-        self.output_file.write("</{0:}>".format(nonTerminal) + "\n")
 
     def eat(self, token):
         current_token = self.tokenizer.current_token
         if current_token != token:
             raise CompilationError(
                 "Expected to find token '{0:}' but found '{1:}'".format(token, current_token))
-        self.output_file.write("<{0:}> {1:} </{0:}>".format(self.tokenizer.token_type(token), self.tokenizer.get_token_value(current_token)) + "\n")
         self.tokenizer.advance()
 
     def is_valid_type(self, token):
