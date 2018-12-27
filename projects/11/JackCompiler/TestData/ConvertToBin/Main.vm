@@ -1,0 +1,112 @@
+function Main.main 1
+push constant 8001
+push constant 16
+push constant 1
+neg
+call Main.fillMemory 3
+pop temp 0
+push constant 8000
+call Memory.peek 1
+pop local 0
+push local 0
+call Main.convert 1
+pop temp 0
+push constant 0
+return
+
+
+function Main.convert 3
+push constant 1
+neg
+pop local 2
+label ec26b6d957db4dcbaffa053009e11369
+push local 2
+not
+if-goto 2481aadc2a404209aa499d78f72cb579
+push local 1
+push constant 1
+add
+pop local 1
+push local 0
+call Main.nextMask 1
+pop local 0
+push local 1
+push constant 16
+gt
+not
+not
+if-goto ae418013c81f4e4b847601cd7af1370e
+push argument 0
+push local 0
+and
+push constant 0
+eq
+not
+not
+if-goto 834a036b343e46cc9c2debe1f5f3e1a6
+push constant 8000
+push local 1
+add
+push constant 1
+call Memory.poke 2
+pop temp 0
+goto cbe74373b7fd44c68a2e138fd3284698
+label 834a036b343e46cc9c2debe1f5f3e1a6
+push constant 8000
+push local 1
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+label cbe74373b7fd44c68a2e138fd3284698
+goto 05c0511a96f2405c942827a822a3f0ab
+label ae418013c81f4e4b847601cd7af1370e
+push constant 0
+pop local 2
+label 05c0511a96f2405c942827a822a3f0ab
+goto ec26b6d957db4dcbaffa053009e11369
+label 2481aadc2a404209aa499d78f72cb579
+push constant 0
+return
+
+
+function Main.nextMask 0
+push argument 0
+push constant 0
+eq
+not
+if-goto 086a242abbd94abdaa824e819cd1a41e
+push constant 1
+return
+goto 7ea94b480a334aaba6c1aa80dd87cdce
+label 086a242abbd94abdaa824e819cd1a41e
+push argument 0
+push constant 2
+call Math.multiply 2
+return
+label 7ea94b480a334aaba6c1aa80dd87cdce
+
+
+function Main.fillMemory 0
+label 3787eda3d8874b84a76095b004b46be1
+push argument 1
+push constant 0
+gt
+not
+if-goto 0248eb1962524e6981caded6f71a3077
+push argument 0
+push argument 2
+call Memory.poke 2
+pop temp 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 0
+push constant 1
+add
+pop argument 0
+goto 3787eda3d8874b84a76095b004b46be1
+label 0248eb1962524e6981caded6f71a3077
+push constant 0
+return

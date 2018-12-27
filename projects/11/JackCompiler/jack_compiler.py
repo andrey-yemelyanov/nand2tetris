@@ -5,7 +5,7 @@ from errors import CompilationError
 from vm_writer import VMWriter
 import sys
 
-class JackAnalyzer:
+class JackCompiler:
     def __init__(self, files):
         self.files=files
 
@@ -23,17 +23,16 @@ class JackAnalyzer:
         dir_name = os.path.split(file_path)[0]
         vm_file_name = os.path.join(dir_name, file_name + ".vm")
         with open(vm_file_name, "w") as vm_file:
-            try:
-                compiler = CompilationEngine(Tokenizer(file_path), VMWriter(vm_file))
-                compiler.compile()
-                print("Compilation successful! Generated:", vm_file_name)
-            except CompilationError as err:
-                tokenizer.close()
-                raise CompilationError("ERROR: " + err.message)
+            with open(file_path) as jack_file:
+                try:
+                    CompilationEngine(Tokenizer(jack_file), VMWriter(vm_file)).compile()
+                    print("Compilation successful! Generated:", vm_file_name)
+                except CompilationError as err:
+                    raise CompilationError("ERROR: " + err.message)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        raise SystemExit("Error: Jack source argument is mandatory.\nUsage: python jack_analyzer.py <source_dir>|<source_file>")
-    JackAnalyzer(sys.argv[1]).compile()
+        raise SystemExit("Error: Jack source argument is mandatory.\nUsage: python jack_compiler.py <source_dir>|<source_file>")
+    JackCompiler(sys.argv[1]).compile()
         
 

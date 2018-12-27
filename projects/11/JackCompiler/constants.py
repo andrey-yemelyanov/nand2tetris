@@ -70,12 +70,5 @@ operation_map = {
     "<" : "lt",
     ">" : "gt",
     "=" : "eq",
-    "-" : "neg",
     "~" : "not"
-}
-
-keyword_map = {
-    "true"  : "-1",
-    "false" :  "0",
-    "null"  :  "0"
 }

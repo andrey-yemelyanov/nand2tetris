@@ -2,15 +2,12 @@ import lexical_elements
 from constants import *
 
 class Tokenizer:
-    def __init__(self, file_path):
-        self.file_handle = open(file_path)
+    def __init__(self, input_file):
+        self.file_handle = input_file
         self.new_token = None
         self.prepend = None
         self.current_token = None
         self.peek_token = None
-
-    def close(self):
-        self.file_handle.close()
 
     def get_token_value(self, token):
         if self.token_type(token) == SYMBOL:
@@ -73,7 +70,6 @@ class Tokenizer:
         while True:
             c = self.read_next_char()
             if not c:
-                self.close()
                 return None
             if c == "\"":
                 return self.read_string_constant()

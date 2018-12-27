@@ -28,6 +28,3 @@ class VMWriter:
 
     def write_return(self):
         self.output_file.write("return\n")
-
-    def close(self):
-        output_file.close()
