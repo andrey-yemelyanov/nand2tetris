@@ -44,16 +44,15 @@ call Array.new 1
 pop local 0
 push constant 0
 pop local 2
-label 59e9e03ab1a94ffdb36b826cea03bb56
+label 65a91b0762f447619b3050e8c00289f0
 push local 2
 push local 1
 lt
 not
-if-goto 32f95573073c40cd8461ac04e6206543
+if-goto 96d232af150244cca9e1114751b4e72f
 push local 2
 push local 0
 add
-pop pointer 1
 push constant 16
 call String.new 1
 push constant 69
@@ -89,6 +88,9 @@ call String.appendChar 2
 push constant 32
 call String.appendChar 2
 call Keyboard.readInt 1
+pop temp 0
+pop pointer 1
+push temp 0
 pop that 0
 push local 3
 push local 2
@@ -102,8 +104,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto 59e9e03ab1a94ffdb36b826cea03bb56
-label 32f95573073c40cd8461ac04e6206543
+goto 65a91b0762f447619b3050e8c00289f0
+label 96d232af150244cca9e1114751b4e72f
 push constant 15
 call String.new 1
 push constant 84

@@ -150,12 +150,17 @@ class CompilationEngine:
             self.eat("[")
             self.compile_expression()
             self.eat("]")
-            self.vm_writer.write_push(VM_LOCAL, self.st.index_of(var_name))
+            segment = VM_LOCAL
+            if self.st.kind_of(var_name) == ARG:
+                segment = VM_ARGUMENT
+            self.vm_writer.write_push(segment, self.st.index_of(var_name))
             self.vm_writer.write_arithmetic(VM_ADD)
-            self.vm_writer.write_pop(VM_POINTER, "1")
             self.eat("=")
             self.compile_expression()
             self.eat(";")
+            self.vm_writer.write_pop(VM_TEMP, "0")
+            self.vm_writer.write_pop(VM_POINTER, "1")
+            self.vm_writer.write_push(VM_TEMP, "0")
             self.vm_writer.write_pop(VM_THAT, "0")
         else:
             self.eat("=")
@@ -302,7 +307,10 @@ class CompilationEngine:
                 self.eat("[")
                 self.compile_expression()
                 self.eat("]")
-                self.vm_writer.write_push(VM_LOCAL, self.st.index_of(array))
+                segment = VM_LOCAL
+                if self.st.kind_of(array) == ARG:
+                    segment = VM_ARGUMENT
+                self.vm_writer.write_push(segment, self.st.index_of(array))
                 self.vm_writer.write_arithmetic(VM_ADD)
                 self.vm_writer.write_pop(VM_POINTER, "1")
                 self.vm_writer.write_push(VM_THAT, "0")
