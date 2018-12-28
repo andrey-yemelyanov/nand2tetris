@@ -44,12 +44,12 @@ call Array.new 1
 pop local 0
 push constant 0
 pop local 2
-label 65a91b0762f447619b3050e8c00289f0
+label 1c6cad7a84bf42bfa03543cf4e8e7932
 push local 2
 push local 1
 lt
 not
-if-goto 96d232af150244cca9e1114751b4e72f
+if-goto 64abbf2c7c764b8e9571688172baaf88
 push local 2
 push local 0
 add
@@ -104,8 +104,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto 65a91b0762f447619b3050e8c00289f0
-label 96d232af150244cca9e1114751b4e72f
+goto 1c6cad7a84bf42bfa03543cf4e8e7932
+label 64abbf2c7c764b8e9571688172baaf88
 push constant 15
 call String.new 1
 push constant 84

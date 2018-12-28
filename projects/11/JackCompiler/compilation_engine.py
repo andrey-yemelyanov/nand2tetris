@@ -65,20 +65,55 @@ class CompilationEngine:
             self.st.start_subroutine()
             
             # eat subroutine type: method, function or constructor
-            self.eat(self.tokenizer.current_token) 
-
+            subroutine_type = self.tokenizer.current_token
+            self.eat(self.tokenizer.current_token)
             # eat subroutine return type
             self.eat(self.tokenizer.current_token) 
-
             # eat subroutine name
-            func_name = self.class_name + "." + self.tokenizer.current_token
+            subroutine_name = self.class_name + "." + self.tokenizer.current_token
             self.eat(self.tokenizer.current_token)
-            
+            if subroutine_type == METHOD: # arg0 in methods is always this object
+                self.st.define("thisObject", "type", ARG)
             # compile subroutine parameter list (possibly empty)
             self.compile_parameter_list()
+
+            if subroutine_type == CONSTRUCTOR:
+                self.compile_constructor(subroutine_name)
+            elif subroutine_type == METHOD:
+                self.compile_method(subroutine_name)
+            elif subroutine_type == FUNCTION:
+                self.compile_function(subroutine_name)
             
-            # compile subroutine body
-            self.compile_subroutine_body(func_name)
+    def compile_constructor(self, constr_name):
+        # compile constructor body
+        self.compile_subroutine_body(constr_name)
+
+        self.vm_writer.write_push(VM_CONST, self.st.var_count(FIELD))
+        self.vm_writer.write_call("Memory.alloc", "1")
+        self.vm_writer.write_pop(VM_POINTER, "0")
+
+         # compile statements
+        self.compile_statements()
+        self.eat("}")
+    
+    def compile_method(self, method_name):
+        # compile method body
+        self.compile_subroutine_body(method_name)
+
+        self.vm_writer.write_push(VM_ARGUMENT, "0")
+        self.vm_writer.write_pop(VM_POINTER, "0")
+
+         # compile statements
+        self.compile_statements()
+        self.eat("}")
+    
+    def compile_function(self, func_name):
+        # compile function body
+        self.compile_subroutine_body(func_name)
+
+         # compile statements
+        self.compile_statements()
+        self.eat("}")
 
     def compile_subroutine_body(self, subroutine_name):
         self.eat("{")
@@ -105,11 +140,6 @@ class CompilationEngine:
             self.eat(";")
 
         self.vm_writer.write_function(subroutine_name, self.st.var_count(VAR))
-
-        # compile statements
-        self.compile_statements()
-        
-        self.eat("}")
 
     def compile_parameter_list(self):
         self.eat("(")
@@ -153,6 +183,8 @@ class CompilationEngine:
             segment = VM_LOCAL
             if self.st.kind_of(var_name) == ARG:
                 segment = VM_ARGUMENT
+            elif self.st.kind_of(var_name) == STATIC:
+                segment = VM_STATIC
             self.vm_writer.write_push(segment, self.st.index_of(var_name))
             self.vm_writer.write_arithmetic(VM_ADD)
             self.eat("=")
@@ -170,6 +202,10 @@ class CompilationEngine:
                 self.vm_writer.write_pop(VM_LOCAL, self.st.index_of(var_name))
             elif self.st.kind_of(var_name) == ARG:
                 self.vm_writer.write_pop(VM_ARGUMENT, self.st.index_of(var_name))
+            elif self.st.kind_of(var_name) == FIELD:
+                self.vm_writer.write_pop(VM_THIS, self.st.index_of(var_name))
+            elif self.st.kind_of(var_name) == STATIC:
+                self.vm_writer.write_pop(VM_STATIC, self.st.index_of(var_name))
 
     def compile_do_statement(self):
         self.eat(DO)
@@ -183,9 +219,10 @@ class CompilationEngine:
         identifier = self.tokenizer.current_token
         self.eat(identifier)
         nArgs = 0
-        if self.tokenizer.current_token == "(":
+        if self.tokenizer.current_token == "(": # it is a method call
+            self.vm_writer.write_push(VM_POINTER, "0")
             self.eat("(")
-            if self.is_valid_term(self.tokenizer.current_token):
+            if self.tokenizer.is_valid_term(self.tokenizer.current_token):
                 self.compile_expression()
                 nArgs += 1
             while self.tokenizer.current_token == ",":
@@ -193,8 +230,18 @@ class CompilationEngine:
                 self.compile_expression()
                 nArgs += 1   
             self.eat(")")
-            self.vm_writer.write_call(self.class_name + "." + identifier, nArgs)
+            self.vm_writer.write_call(self.class_name + "." + identifier, nArgs + 1)
         elif self.tokenizer.current_token == ".":
+            type = self.st.type_of(identifier)
+            if type is not None:
+                if self.st.kind_of(identifier) == FIELD:
+                    self.vm_writer.write_push(VM_THIS, self.st.index_of(identifier))
+                elif self.st.kind_of(identifier) == VAR:
+                    self.vm_writer.write_push(VM_LOCAL, self.st.index_of(identifier))
+                elif self.st.kind_of(identifier) == ARG:
+                    self.vm_writer.write_push(VM_ARGUMENT, self.st.index_of(identifier))
+                elif self.st.kind_of(identifier) == STATIC:
+                    self.vm_writer.write_push(VM_STATIC, self.st.index_of(identifier))
             self.eat(".")
             # eat subroutine name
             subroutine_name = self.tokenizer.current_token
@@ -208,13 +255,10 @@ class CompilationEngine:
                 self.compile_expression()
                 nArgs += 1
             self.eat(")")
-            type = self.st.type_of(identifier)
-            if type is None:
-                type = identifier
-
-            # all arguments have been pushed on to stack
-            # call the subroutine
-            self.vm_writer.write_call(type + "." + subroutine_name, nArgs)
+            if type is None: # this is a function call
+                self.vm_writer.write_call(identifier + "." + subroutine_name, nArgs)
+            else: # this is a method call
+                self.vm_writer.write_call(type + "." + subroutine_name, nArgs + 1)
 
     def compile_if_statement(self):
         L1 = str(uuid.uuid4().hex)
@@ -286,6 +330,8 @@ class CompilationEngine:
             if self.tokenizer.current_token == TRUE:
                 self.vm_writer.write_push(VM_CONST, "1")
                 self.vm_writer.write_arithmetic(VM_NEG)
+            elif self.tokenizer.current_token == THIS:
+                self.vm_writer.write_push(VM_POINTER, 0)
             else:
                 self.vm_writer.write_push(VM_CONST, "0")
             self.eat(self.tokenizer.current_token)
@@ -310,6 +356,10 @@ class CompilationEngine:
                 segment = VM_LOCAL
                 if self.st.kind_of(array) == ARG:
                     segment = VM_ARGUMENT
+                elif self.st.kind_of(array) == FIELD:
+                    segment = VM_THIS
+                elif self.st.kind_of(array) == STATIC:
+                    segment = VM_STATIC
                 self.vm_writer.write_push(segment, self.st.index_of(array))
                 self.vm_writer.write_arithmetic(VM_ADD)
                 self.vm_writer.write_pop(VM_POINTER, "1")
@@ -323,6 +373,10 @@ class CompilationEngine:
                     self.vm_writer.write_push(VM_LOCAL, self.st.index_of(var_name))
                 elif self.st.kind_of(var_name) == ARG:
                     self.vm_writer.write_push(VM_ARGUMENT, self.st.index_of(var_name))
+                elif self.st.kind_of(var_name) == FIELD:
+                    self.vm_writer.write_push(VM_THIS, self.st.index_of(var_name))
+                elif self.st.kind_of(var_name) == STATIC:
+                    self.vm_writer.write_push(VM_STATIC, self.st.index_of(var_name))
 
     def eat(self, token):
         current_token = self.tokenizer.current_token
