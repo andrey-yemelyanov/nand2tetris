@@ -74,11 +74,11 @@ class Math {
         while((x > y) | (x = y)){
             let powerOfTwo = 0;
             let i = 0;
-            while((Math.multiply(mask[i], y) < x) | (Math.multiply(mask[i], y) = x)){
+            while(((mask[i] * y) < x) | ((mask[i] * y) = x)){
                 let powerOfTwo = mask[i];
                 let i = i + 1;
             }
-            let x = x - Math.multiply(powerOfTwo, y);
+            let x = x - (powerOfTwo * y);
             let quotient = quotient + powerOfTwo;
         }
 
@@ -98,12 +98,12 @@ class Math {
 
         let start = 1; let end = x; let ans = 0;
         while((start < end) | (start = end)){
-            let mid = (start + end) / 2;
-            if(mid > 256){ // handle potential overflow
+            let mid = start + ((end - start) / 2);
+            if(mid > 181){ // handle potential overflow
                 let end = mid - 1;
             }
             else{
-                let midSquared = Math.multiply(mid, mid);
+                let midSquared = mid * mid;
                 if(midSquared = x){
                     return mid;
                 }
