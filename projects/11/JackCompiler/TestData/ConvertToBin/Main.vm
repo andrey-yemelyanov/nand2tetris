@@ -17,10 +17,10 @@ function Main.convert 3
 push constant 1
 neg
 pop local 2
-label 30558f8414c64b68961cceae06126224
+label c2d9f5fd21af40b8a3a9d441ce449a58
 push local 2
 not
-if-goto b1faae4703a644f5bca38979e53e1719
+if-goto 304369670a044e0facd9bb087c06d682
 push local 1
 push constant 1
 add
@@ -33,7 +33,7 @@ push constant 16
 gt
 not
 not
-if-goto 9f2c2ea26aa2411baa15a843a5f1ae52
+if-goto d99de1d07ce34ae5858265fa91d99685
 push argument 0
 push local 0
 and
@@ -41,29 +41,29 @@ push constant 0
 eq
 not
 not
-if-goto deff5922fa4c43008fa89824e8e9c195
+if-goto 0f8f680992d348baa18d359fc67097f6
 push constant 8000
 push local 1
 add
 push constant 1
 call Memory.poke 2
 pop temp 0
-goto 39e918cc56844b6998018acedf9a5ac5
-label deff5922fa4c43008fa89824e8e9c195
+goto 1088e94042d4418eb38e4b7326abd438
+label 0f8f680992d348baa18d359fc67097f6
 push constant 8000
 push local 1
 add
 push constant 0
 call Memory.poke 2
 pop temp 0
-label 39e918cc56844b6998018acedf9a5ac5
-goto 921c9438ad0a411cb0d7866aa8819853
-label 9f2c2ea26aa2411baa15a843a5f1ae52
+label 1088e94042d4418eb38e4b7326abd438
+goto dd4011efdb424068ae17b2a4cbee892c
+label d99de1d07ce34ae5858265fa91d99685
 push constant 0
 pop local 2
-label 921c9438ad0a411cb0d7866aa8819853
-goto 30558f8414c64b68961cceae06126224
-label b1faae4703a644f5bca38979e53e1719
+label dd4011efdb424068ae17b2a4cbee892c
+goto c2d9f5fd21af40b8a3a9d441ce449a58
+label 304369670a044e0facd9bb087c06d682
 push constant 0
 return
 function Main.nextMask 0
@@ -71,23 +71,23 @@ push argument 0
 push constant 0
 eq
 not
-if-goto 81a9e3bf9f51497481454c025f61c36f
+if-goto 94fdbfab7ba94210af7349ceefa69d6a
 push constant 1
 return
-goto 50acf5f60b514a2494c06939e5f8e010
-label 81a9e3bf9f51497481454c025f61c36f
+goto 380ba5dcb7f148be8673cd043ddec5a9
+label 94fdbfab7ba94210af7349ceefa69d6a
 push argument 0
 push constant 2
 call Math.multiply 2
 return
-label 50acf5f60b514a2494c06939e5f8e010
+label 380ba5dcb7f148be8673cd043ddec5a9
 function Main.fillMemory 0
-label bb60dddae9134236951f3551cbe7b23e
+label 95598134f8c3487292d34f8ba29eefc4
 push argument 1
 push constant 0
 gt
 not
-if-goto bc7f4b1fc7fa4a48a8d146f146071868
+if-goto 5ebd6743331a4c149d1b1710e16641f1
 push argument 0
 push argument 2
 call Memory.poke 2
@@ -100,7 +100,7 @@ push argument 0
 push constant 1
 add
 pop argument 0
-goto bb60dddae9134236951f3551cbe7b23e
-label bc7f4b1fc7fa4a48a8d146f146071868
+goto 95598134f8c3487292d34f8ba29eefc4
+label 5ebd6743331a4c149d1b1710e16641f1
 push constant 0
 return

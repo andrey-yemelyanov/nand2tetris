@@ -67,58 +67,30 @@ class CompilationEngine:
             # eat subroutine type: method, function or constructor
             subroutine_type = self.tokenizer.current_token
             self.eat(self.tokenizer.current_token)
+
             # eat subroutine return type
             self.eat(self.tokenizer.current_token) 
+
             # eat subroutine name
             subroutine_name = self.class_name + "." + self.tokenizer.current_token
             self.eat(self.tokenizer.current_token)
-            if subroutine_type == METHOD: # arg0 in methods is always this object
-                self.st.define("thisObject", "type", ARG)
-            # compile subroutine parameter list (possibly empty)
-            self.compile_parameter_list()
-
-            if subroutine_type == CONSTRUCTOR:
-                self.compile_constructor(subroutine_name)
-            elif subroutine_type == METHOD:
-                self.compile_method(subroutine_name)
-            elif subroutine_type == FUNCTION:
-                self.compile_function(subroutine_name)
             
-    def compile_constructor(self, constr_name):
-        # compile constructor body
-        self.compile_subroutine_body(constr_name)
+            # compile parameter list and add args to symbol table
+            self.compile_parameter_list(subroutine_type)
 
-        self.vm_writer.write_push(VM_CONST, self.st.var_count(FIELD))
-        self.vm_writer.write_call("Memory.alloc", "1")
-        self.vm_writer.write_pop(VM_POINTER, "0")
+            self.eat("{")
 
-         # compile statements
-        self.compile_statements()
-        self.eat("}")
-    
-    def compile_method(self, method_name):
-        # compile method body
-        self.compile_subroutine_body(method_name)
+            # compile func local VARs and add them to symbol table
+            # output subroutine type specific VM code
+            self.compile_subroutine_header(subroutine_name, subroutine_type)
 
-        self.vm_writer.write_push(VM_ARGUMENT, "0")
-        self.vm_writer.write_pop(VM_POINTER, "0")
+            # compile subroutine statements
+            self.compile_statements()
 
-         # compile statements
-        self.compile_statements()
-        self.eat("}")
-    
-    def compile_function(self, func_name):
-        # compile function body
-        self.compile_subroutine_body(func_name)
-
-         # compile statements
-        self.compile_statements()
-        self.eat("}")
-
-    def compile_subroutine_body(self, subroutine_name):
-        self.eat("{")
-
-        # compile variable declarations
+            self.eat("}")
+            
+    def compile_subroutine_header(self, subroutine_name, subroutine_type):
+        # compile local variable declarations
         while self.tokenizer.current_token == VAR:
             # eat keyword 'var'
             self.eat(VAR)
@@ -141,7 +113,20 @@ class CompilationEngine:
 
         self.vm_writer.write_function(subroutine_name, self.st.var_count(VAR))
 
-    def compile_parameter_list(self):
+        # add subroutine type specific VM code
+        if subroutine_type == CONSTRUCTOR:
+            # allocate memory for the object being constructed
+            self.vm_writer.write_push(VM_CONST, self.st.var_count(FIELD))
+            self.vm_writer.write_call("Memory.alloc", "1")
+            self.vm_writer.write_pop(VM_POINTER, "0")
+        elif subroutine_type == METHOD:
+            # anchor THIS to the current object
+            self.vm_writer.write_push(VM_ARGUMENT, "0")
+            self.vm_writer.write_pop(VM_POINTER, "0")
+
+    def compile_parameter_list(self, subroutine_type):
+        if subroutine_type == METHOD: # arg0 in a method is always THIS object
+            self.st.define("thisObject", "type", ARG) # dummy entry, just to make sure all other method args will begin indexing from 1
         self.eat("(")
         if self.tokenizer.current_token != ")":
             # eat var type
@@ -164,8 +149,15 @@ class CompilationEngine:
         self.eat(")")
 
     def compile_statements(self):
+        statement_map = {
+            LET : self.compile_let_statement,
+            IF : self.compile_if_statement,
+            WHILE : self.compile_while_statement,
+            DO : self.compile_do_statement,
+            RETURN : self.compile_return_statement
+        }
         while self.tokenizer.current_token in [LET, IF, WHILE, DO, RETURN]:
-            self.statement_map[self.tokenizer.current_token](self)
+            statement_map[self.tokenizer.current_token]()
 
     def compile_let_statement(self):
         # eat 'let' keyword
@@ -180,12 +172,7 @@ class CompilationEngine:
             self.eat("[")
             self.compile_expression()
             self.eat("]")
-            segment = VM_LOCAL
-            if self.st.kind_of(var_name) == ARG:
-                segment = VM_ARGUMENT
-            elif self.st.kind_of(var_name) == STATIC:
-                segment = VM_STATIC
-            self.vm_writer.write_push(segment, self.st.index_of(var_name))
+            self.vm_writer.write_push(segment_map[self.st.kind_of(var_name)], self.st.index_of(var_name))
             self.vm_writer.write_arithmetic(VM_ADD)
             self.eat("=")
             self.compile_expression()
@@ -198,14 +185,7 @@ class CompilationEngine:
             self.eat("=")
             self.compile_expression()
             self.eat(";")
-            if self.st.kind_of(var_name) == VAR:
-                self.vm_writer.write_pop(VM_LOCAL, self.st.index_of(var_name))
-            elif self.st.kind_of(var_name) == ARG:
-                self.vm_writer.write_pop(VM_ARGUMENT, self.st.index_of(var_name))
-            elif self.st.kind_of(var_name) == FIELD:
-                self.vm_writer.write_pop(VM_THIS, self.st.index_of(var_name))
-            elif self.st.kind_of(var_name) == STATIC:
-                self.vm_writer.write_pop(VM_STATIC, self.st.index_of(var_name))
+            self.vm_writer.write_pop(segment_map[self.st.kind_of(var_name)], self.st.index_of(var_name))
 
     def compile_do_statement(self):
         self.eat(DO)
@@ -219,8 +199,10 @@ class CompilationEngine:
         identifier = self.tokenizer.current_token
         self.eat(identifier)
         nArgs = 0
-        if self.tokenizer.current_token == "(": # it is a method call
+        if self.tokenizer.current_token == "(": # 'subroutine_name()' is always a method call
             self.vm_writer.write_push(VM_POINTER, "0")
+
+            # eat arguments
             self.eat("(")
             if self.tokenizer.is_valid_term(self.tokenizer.current_token):
                 self.compile_expression()
@@ -230,22 +212,21 @@ class CompilationEngine:
                 self.compile_expression()
                 nArgs += 1   
             self.eat(")")
+
             self.vm_writer.write_call(self.class_name + "." + identifier, nArgs + 1)
         elif self.tokenizer.current_token == ".":
-            type = self.st.type_of(identifier)
-            if type is not None:
-                if self.st.kind_of(identifier) == FIELD:
-                    self.vm_writer.write_push(VM_THIS, self.st.index_of(identifier))
-                elif self.st.kind_of(identifier) == VAR:
-                    self.vm_writer.write_push(VM_LOCAL, self.st.index_of(identifier))
-                elif self.st.kind_of(identifier) == ARG:
-                    self.vm_writer.write_push(VM_ARGUMENT, self.st.index_of(identifier))
-                elif self.st.kind_of(identifier) == STATIC:
-                    self.vm_writer.write_push(VM_STATIC, self.st.index_of(identifier))
+            is_method_call = self.st.type_of(identifier) is not None
+
+            if is_method_call:
+                self.vm_writer.write_push(segment_map[self.st.kind_of(identifier)], self.st.index_of(identifier))
+            
             self.eat(".")
+            
             # eat subroutine name
             subroutine_name = self.tokenizer.current_token
             self.eat(subroutine_name)
+
+            # eat arguments
             self.eat("(")
             if self.tokenizer.is_valid_term(self.tokenizer.current_token):
                 self.compile_expression()
@@ -255,10 +236,13 @@ class CompilationEngine:
                 self.compile_expression()
                 nArgs += 1
             self.eat(")")
-            if type is None: # this is a function call
-                self.vm_writer.write_call(identifier + "." + subroutine_name, nArgs)
-            else: # this is a method call
-                self.vm_writer.write_call(type + "." + subroutine_name, nArgs + 1)
+
+            prefix = identifier
+            if is_method_call:
+                nArgs += 1
+                prefix = self.st.type_of(identifier)
+
+            self.vm_writer.write_call(prefix + "." + subroutine_name, nArgs)
 
     def compile_if_statement(self):
         L1 = str(uuid.uuid4().hex)
@@ -316,67 +300,68 @@ class CompilationEngine:
 
     def compile_term(self):
         if lexical_elements.is_int_constant(self.tokenizer.current_token):
-            self.vm_writer.write_push(VM_CONST, self.tokenizer.current_token)
-            self.eat(self.tokenizer.current_token)
+            self.compile_int_constant()
         elif lexical_elements.is_string_constant(self.tokenizer.current_token):
-            constant = self.tokenizer.current_token.replace('"', '')
-            self.eat(self.tokenizer.current_token)
-            self.vm_writer.write_push(VM_CONST, len(constant))
-            self.vm_writer.write_call("String.new", 1)
-            for c in constant:
-                self.vm_writer.write_push(VM_CONST, ord(c))
-                self.vm_writer.write_call("String.appendChar", "2")
+            self.compile_string_constant()
         elif self.tokenizer.is_keyword_constant(self.tokenizer.current_token):
-            if self.tokenizer.current_token == TRUE:
-                self.vm_writer.write_push(VM_CONST, "1")
-                self.vm_writer.write_arithmetic(VM_NEG)
-            elif self.tokenizer.current_token == THIS:
-                self.vm_writer.write_push(VM_POINTER, 0)
-            else:
-                self.vm_writer.write_push(VM_CONST, "0")
-            self.eat(self.tokenizer.current_token)
+            self.compile_keyword_constant()
         elif self.tokenizer.current_token == "(":
             self.eat("(")
             self.compile_expression()
             self.eat(")")
         elif self.tokenizer.current_token == "-" or self.tokenizer.current_token == "~":
-            op = VM_NEG
-            if self.tokenizer.current_token == "~":
-                op = VM_NOT
-            self.eat(self.tokenizer.current_token)
-            self.compile_term()
-            self.vm_writer.write_arithmetic(op)
+            self.compile_unary()
         elif lexical_elements.is_identifier(self.tokenizer.current_token):
             if self.tokenizer.peek() == "[":
-                array = self.tokenizer.current_token
-                self.eat(self.tokenizer.current_token)
-                self.eat("[")
-                self.compile_expression()
-                self.eat("]")
-                segment = VM_LOCAL
-                if self.st.kind_of(array) == ARG:
-                    segment = VM_ARGUMENT
-                elif self.st.kind_of(array) == FIELD:
-                    segment = VM_THIS
-                elif self.st.kind_of(array) == STATIC:
-                    segment = VM_STATIC
-                self.vm_writer.write_push(segment, self.st.index_of(array))
-                self.vm_writer.write_arithmetic(VM_ADD)
-                self.vm_writer.write_pop(VM_POINTER, "1")
-                self.vm_writer.write_push(VM_THAT, "0")
+                self.compile_array_expression()
             elif self.tokenizer.peek() == "(" or self.tokenizer.peek() == ".":
                 self.compile_subroutine_call()
             else:
                 var_name = self.tokenizer.current_token
                 self.eat(var_name)
-                if self.st.kind_of(var_name) == VAR:
-                    self.vm_writer.write_push(VM_LOCAL, self.st.index_of(var_name))
-                elif self.st.kind_of(var_name) == ARG:
-                    self.vm_writer.write_push(VM_ARGUMENT, self.st.index_of(var_name))
-                elif self.st.kind_of(var_name) == FIELD:
-                    self.vm_writer.write_push(VM_THIS, self.st.index_of(var_name))
-                elif self.st.kind_of(var_name) == STATIC:
-                    self.vm_writer.write_push(VM_STATIC, self.st.index_of(var_name))
+                self.vm_writer.write_push(segment_map[self.st.kind_of(var_name)], self.st.index_of(var_name))
+
+    def compile_int_constant(self):
+        self.vm_writer.write_push(VM_CONST, self.tokenizer.current_token)
+        self.eat(self.tokenizer.current_token)
+
+    def compile_string_constant(self):
+        constant = self.tokenizer.current_token.replace('"', '')
+        self.eat(self.tokenizer.current_token)
+        self.vm_writer.write_push(VM_CONST, len(constant))
+        self.vm_writer.write_call("String.new", 1)
+        for c in constant:
+            self.vm_writer.write_push(VM_CONST, ord(c))
+            self.vm_writer.write_call("String.appendChar", "2")
+
+    def compile_keyword_constant(self):
+        if self.tokenizer.current_token == TRUE:
+            self.vm_writer.write_push(VM_CONST, "1")
+            self.vm_writer.write_arithmetic(VM_NEG)
+        elif self.tokenizer.current_token == THIS:
+            self.vm_writer.write_push(VM_POINTER, 0)
+        else:
+            self.vm_writer.write_push(VM_CONST, "0") # handles both FALSE and NULL
+        self.eat(self.tokenizer.current_token)
+
+    def compile_unary(self):
+        op = VM_NEG
+        if self.tokenizer.current_token == "~":
+            op = VM_NOT
+        self.eat(self.tokenizer.current_token)
+        self.compile_term()
+        self.vm_writer.write_arithmetic(op)
+
+    def compile_array_expression(self):
+        array = self.tokenizer.current_token
+        self.eat(self.tokenizer.current_token)
+        self.eat("[")
+        self.compile_expression()
+        self.eat("]")
+        self.vm_writer.write_push(segment_map[self.st.kind_of(array)], self.st.index_of(array))
+        self.vm_writer.write_arithmetic(VM_ADD)
+        self.vm_writer.write_pop(VM_POINTER, "1") # anchor THAT to array entry
+        self.vm_writer.write_push(VM_THAT, "0") # push result of array evaluation to stack
 
     def eat(self, token):
         current_token = self.tokenizer.current_token
@@ -384,11 +369,3 @@ class CompilationEngine:
             raise CompilationError(
                 "Expected to find token '{0:}' but found '{1:}'".format(token, current_token))
         self.tokenizer.advance()
-
-    statement_map = {
-        LET : compile_let_statement,
-        IF : compile_if_statement,
-        WHILE : compile_while_statement,
-        DO : compile_do_statement,
-        RETURN : compile_return_statement
-    }

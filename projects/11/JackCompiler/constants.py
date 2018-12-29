@@ -72,3 +72,10 @@ operation_map = {
     "=" : "eq",
     "~" : "not"
 }
+
+segment_map = {
+    ARG : VM_ARGUMENT,
+    VAR : VM_LOCAL,
+    FIELD : VM_THIS,
+    STATIC : VM_STATIC
+}
