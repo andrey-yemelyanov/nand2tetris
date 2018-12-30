@@ -1,0 +1,181 @@
+function Memory.init 0
+push constant 2
+pop static 3
+push constant 0
+pop static 0
+push constant 2048
+pop static 1
+push static 1
+pop static 2
+push constant 0
+push static 1
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 1
+add
+push constant 14335
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.peek 0
+push argument 0
+push static 0
+add
+pop pointer 1
+push that 0
+return
+function Memory.poke 0
+push argument 0
+push static 0
+add
+push argument 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.alloc 3
+push static 2
+pop local 0
+push argument 0
+push static 3
+add
+pop local 1
+label bdf6bedcb28040408b877a18291a9a3e
+push local 0
+push constant 0
+eq
+not
+push local 0
+call Memory.getLen 1
+push local 1
+lt
+and
+not
+if-goto 6c1760ba6c4542519aa8fded09a7eb80
+push local 0
+call Memory.getNextSegment 1
+pop local 0
+goto bdf6bedcb28040408b877a18291a9a3e
+label 6c1760ba6c4542519aa8fded09a7eb80
+push local 0
+push constant 0
+eq
+not
+if-goto 616db8f9608545c5aad436c6b7b0ef00
+push constant 0
+return
+goto 0a8b0a55b1ea4dfb8a5a41029fc3f4f9
+label 616db8f9608545c5aad436c6b7b0ef00
+label 0a8b0a55b1ea4dfb8a5a41029fc3f4f9
+push local 0
+push local 0
+call Memory.getLen 1
+push local 1
+sub
+call Memory.setLen 2
+pop temp 0
+push local 0
+push local 0
+call Memory.getLen 1
+add
+push static 3
+add
+push local 1
+sub
+pop local 2
+push local 2
+push constant 0
+call Memory.setNextSegment 2
+pop temp 0
+push local 2
+push argument 0
+call Memory.setLen 2
+pop temp 0
+push local 2
+push static 3
+add
+return
+function Memory.getNextSegment 0
+push argument 0
+push static 1
+sub
+push static 1
+add
+pop pointer 1
+push that 0
+return
+function Memory.setNextSegment 0
+push argument 0
+push static 1
+sub
+push static 1
+add
+push argument 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.getLen 0
+push argument 0
+push constant 1
+add
+push static 1
+sub
+push static 1
+add
+pop pointer 1
+push that 0
+return
+function Memory.setLen 0
+push argument 0
+push constant 1
+add
+push static 1
+sub
+push static 1
+add
+push argument 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Memory.deAlloc 2
+push argument 0
+push static 3
+sub
+pop local 1
+push static 2
+pop local 0
+label e752bfdcf04340319ea03f91f43adb8a
+push local 0
+call Memory.getNextSegment 1
+push constant 0
+eq
+not
+not
+if-goto d6ab0de3f6144444b3921f668a8c7273
+push local 0
+call Memory.getNextSegment 1
+pop local 0
+goto e752bfdcf04340319ea03f91f43adb8a
+label d6ab0de3f6144444b3921f668a8c7273
+push local 0
+push local 1
+call Memory.setNextSegment 2
+pop temp 0
+push constant 0
+return
