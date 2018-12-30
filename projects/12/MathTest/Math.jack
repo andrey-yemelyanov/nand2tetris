@@ -64,8 +64,8 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
-        var int quotient, powerOfTwo, i;
-        var boolean isNegative, xNeg, yNeg;
+        var int quotient, powerOfTwo, i, mult;
+        var boolean isNegative, xNeg, yNeg, done;
         let xNeg = (x < 0); let yNeg = (y < 0);
         let isNegative = (xNeg | yNeg) & (~(xNeg & yNeg));
         let x = Math.abs(x); let y = Math.abs(y);
@@ -74,9 +74,15 @@ class Math {
         while((x > y) | (x = y)){
             let powerOfTwo = 0;
             let i = 0;
-            while(((mask[i] * y) < x) | ((mask[i] * y) = x)){
-                let powerOfTwo = mask[i];
-                let i = i + 1;
+            let done = false;
+            while(~done){
+                let mult = mask[i] * y;
+                if((mult < 0) | (mult > x)){ // overflow when mult < 0
+                    let done = true;
+                }else{
+                    let powerOfTwo = mask[i];
+                    let i = i + 1;
+                }
             }
             let x = x - (powerOfTwo * y);
             let quotient = quotient + powerOfTwo;
@@ -107,7 +113,6 @@ class Math {
                 if(midSquared = x){
                     return mid;
                 }
-            
                 if(midSquared < x){
                     let start = mid + 1;
                     let ans = mid;
