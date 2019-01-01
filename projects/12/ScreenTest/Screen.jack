@@ -71,7 +71,73 @@ class Screen {
             if(y1 = y2){
                 do Screen.drawHorizontalLine(x1, x2, y1);
             }else{
+                if(Screen.isAscendingLine(x1, y1, x2, y2)){
+                    do Screen.drawAscendingLine(x1, y1, x2, y2);
+                }else{
+                    if(Screen.isDescendingLine(x1, y1, x2, y2)){
+                        do Screen.drawDescendingLine(x1, y1, x2, y2);
+                    }
+                }
+            }
+        }
+        return;
+    }
 
+    function boolean isAscendingLine(int x1, int y1, int x2, int y2){
+        if(y1 < y2){
+            return x1 > x2;
+        }else{
+            return x2 > x1;
+        }
+    }
+
+    function boolean isDescendingLine(int x1, int y1, int x2, int y2){
+        if(y1 < y2){
+            return x2 > x1;
+        }else{
+            return x1 > x2;
+        }
+    }
+
+    function void drawDescendingLine(int x1, int y1, int x2, int y2){
+        var int dx, dy, a, b, diff, x, y;
+        let dx = Math.abs(x2 - x1); let dy = Math.abs(y2 - y1);
+        let a = 0; let b = 0; let diff = 0;
+        if(y1 < y2){
+            let y = y1; let x = x1;
+        }else{
+            let y = y2; let x = x2;
+        }
+        while(((a < dx) | (a = dx)) & ((b < dy) | (b = dy))){
+            do Screen.drawPixel(x + a, y + b);
+            if(diff < 0){
+                let a = a + 1;
+                let diff = diff + dy;
+            }else{
+                let b = b + 1;
+                let diff = diff - dx;
+            }
+        }
+        return;
+    }
+
+    function void drawAscendingLine(int x1, int y1, int x2, int y2){
+        var int dx, dy, a, b, diff, x, y;
+        let dx = Math.abs(x2 - x1); let dy = Math.abs(y2 - y1);
+        let a = 0; let b = 0; let diff = 0;
+        if(y1 > y2){
+            let y = y1; let x = x1;
+        }else{
+            let y = y2; let x = x2;
+        }
+        while(((a < dx) | (a = dx)) & ((b < dy) | (b = dy))){
+            do Screen.drawPixel(x + a, y - b);
+            if(diff < 0){
+                let a = a + 1;
+                let diff = diff + dy;
+            }else{
+                let b = b + 1;
+                let diff = diff - dx;
             }
         }
         return;
