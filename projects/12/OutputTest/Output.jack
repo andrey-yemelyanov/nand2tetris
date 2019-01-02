@@ -17,10 +17,32 @@
 class Output {
 
     // Character map for displaying characters
-    static Array charMaps; 
+    static Array charMaps;
+    static Array mask; 
+
+    static int cursorRow;
+    static int cursorCol;
+    static int nRows;
+    static int nCols;
+    static int charFrameWidth;
+    static int charFrameHeight;
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
+        var int i;
+        let mask = Array.new(8);
+        let mask[0] = 1;
+        let i = 1;
+        while(i < 8){
+            let mask[i] = mask[i - 1] + mask[i - 1];
+            let i = i + 1;
+        }
+
+        let nRows = 23; let nCols = 64;
+        let charFrameHeight = 11; let charFrameWidth = 8; 
+        do Output.initMap();
+        do Output.moveCursor(0, 0);
+        return;
     }
 
     // Initializes the character map array
@@ -71,7 +93,7 @@ class Output {
         do Output.create(64,30,51,51,59,59,59,27,3,30,0,0);  // @
         do Output.create(63,30,51,51,24,12,12,0,12,12,0,0);  // ?
 
-        do Output.create(65,0,0,0,0,0,0,0,0,0,0,0);          // A ** TO BE FILLED **
+        do Output.create(65,12,30,51,51,63,51,51,51,51,0,0); // A
         do Output.create(66,31,51,51,51,31,51,51,51,31,0,0); // B
         do Output.create(67,28,54,35,3,3,3,35,54,28,0,0);    // C
         do Output.create(68,15,27,51,51,51,51,51,27,15,0,0); // D
@@ -137,7 +159,7 @@ class Output {
         do Output.create(125,7,12,12,12,56,12,12,12,7,0,0);    // }
         do Output.create(126,38,45,25,0,0,0,0,0,0,0,0);        // ~
 
-	return;
+	    return;
     }
 
     // Creates the character map array of the given character index, using the given values.
@@ -173,31 +195,144 @@ class Output {
         return charMaps[c];
     }
 
+    function void eraseCharAtCursor(){
+        var int x, y, i, j;
+        do Screen.setColor(false); // set pen color to white
+        let x = cursorCol * charFrameWidth;
+        let y = cursorRow * charFrameHeight;
+        let i = 0;
+        while(i < charFrameHeight){
+            let j = 0;
+            while(j < charFrameWidth){
+                do Screen.drawPixel(x + j, y + i);
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
     /** Moves the cursor to the j-th column of the i-th row,
      *  and erases the character displayed there. */
     function void moveCursor(int i, int j) {
+        let cursorRow = i; let cursorCol = j;
+        do Output.eraseCharAtCursor();
+        return;
+    }
+
+    function void moveCursorRight(){
+        if(cursorCol = (nCols - 1)){
+            if(cursorRow = (nRows - 1)){
+                do Output.moveCursor(0, 0);
+            }else{
+                do Output.moveCursorToNewLine();
+            }
+        }else{
+            do Output.moveCursor(cursorRow, cursorCol + 1);
+        }
+        return;
+    }
+
+    function void moveCursorToNewLine(){
+        if(cursorRow = (nRows - 1)){
+            do Output.moveCursor(0, 0);
+        }else{
+            do Output.moveCursor(cursorRow + 1, 0);
+        }
+        return;
+    }
+
+    function void moveCursorLeft(){
+        if(cursorCol = 0){
+            if(cursorRow = 0){
+                do Output.moveCursor(nRows - 1, nCols - 1);
+            }else{
+                do Output.moveCursor(cursorRow - 1, nCols - 1);
+            }
+        }else{
+            do Output.moveCursor(cursorRow, cursorCol - 1);
+        }
+        return;
     }
 
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
+        var int x, y, rowBitmap, i, j;
+        var Array charMap;
+        var boolean BLACK, WHITE;
+        let BLACK = true; let WHITE = false;
+        let charMap = Output.getMap(c);
+        let x = cursorCol * charFrameWidth;
+        let y = cursorRow * charFrameHeight;
+        let i = 0;
+        while(i < charFrameHeight){
+            let j = 0;
+            let rowBitmap = charMap[i];
+            while(j < charFrameWidth){
+                if(Output.bitSet(rowBitmap, j)){
+                    do Screen.setColor(BLACK);
+                }else{
+                    do Screen.setColor(WHITE);
+                }
+                do Screen.drawPixel(x + j, y + i);
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        do Output.moveCursorRight();
+        return;
+    }
+
+    function boolean bitSet(int x, int i){
+        return ~((mask[i] & x) = 0);
     }
 
     /** displays the given string starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printString(String s) {
+        var int i;
+        let i = 0;
+        while(i < s.length()){
+            do Output.printChar(s.charAt(i));
+            let i = i + 1;
+        }
+        return;
     }
 
     /** Displays the given integer starting at the cursor location,
      *  and advances the cursor appropriately. */
     function void printInt(int i) {
+        if(i < 0){
+            do Output.printChar(45); // print minus sign
+        }
+        do Output.printIntRecursive(Math.abs(i));
+        return;
+    }
+
+    function void printIntRecursive(int i){
+        var int lastDigit;
+        var char c;
+        let lastDigit = i - ((i / 10) * 10);
+        let c = lastDigit + 48;
+        if(i < 10){
+            do Output.printChar(c);
+        }else{
+            do Output.printInt(i / 10);
+            do Output.printChar(c);
+        }
+        return;
     }
 
     /** Advances the cursor to the beginning of the next line. */
     function void println() {
+        do Output.moveCursorToNewLine();
+        return;
     }
 
     /** Moves the cursor one column back. */
     function void backSpace() {
+        do Output.moveCursorLeft();
+        return;
     }
 }

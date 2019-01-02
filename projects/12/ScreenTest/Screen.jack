@@ -37,6 +37,14 @@ class Screen {
 
     /** Erases the entire screen. */
     function void clearScreen() {
+        var int screenMemorySize, startAddress, endAddress;
+        let screenMemorySize = 8 * 1024; // 8K graphics memory
+        let startAddress = screenBaseAddress;
+        let endAddress = startAddress + screenMemorySize;
+        while((startAddress < endAddress) | (startAddress = endAddress)){
+            do Memory.poke(startAddress, 0);
+            let startAddress = startAddress + 1;
+        }
         return;
     }
 
