@@ -95,8 +95,6 @@ class String {
 
     /** Sets this string to hold a representation of the given value. */
     method void setInt(int val) {
-        do Output.printInt(val);
-        do Output.printString(" ");
         let length = 0;
         if(val < 0){
             do appendChar(45); // add minus sign if the number is negative
