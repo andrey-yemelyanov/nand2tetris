@@ -50,7 +50,7 @@ push argument 0
 push static 3
 add
 pop local 1
-label bdf6bedcb28040408b877a18291a9a3e
+label 439c646b45184150a77931523eec3bba
 push local 0
 push constant 0
 eq
@@ -61,22 +61,22 @@ push local 1
 lt
 and
 not
-if-goto 6c1760ba6c4542519aa8fded09a7eb80
+if-goto dc14aaf6ecc343fa9a6def8fe59f3b25
 push local 0
 call Memory.getNextSegment 1
 pop local 0
-goto bdf6bedcb28040408b877a18291a9a3e
-label 6c1760ba6c4542519aa8fded09a7eb80
+goto 439c646b45184150a77931523eec3bba
+label dc14aaf6ecc343fa9a6def8fe59f3b25
 push local 0
 push constant 0
 eq
 not
-if-goto 616db8f9608545c5aad436c6b7b0ef00
+if-goto 4b5d6ecaf5b7412c90bc12ca2be1e152
 push constant 0
 return
-goto 0a8b0a55b1ea4dfb8a5a41029fc3f4f9
-label 616db8f9608545c5aad436c6b7b0ef00
-label 0a8b0a55b1ea4dfb8a5a41029fc3f4f9
+goto 20adecca4cf54a9fa9e620dc73ad3318
+label 4b5d6ecaf5b7412c90bc12ca2be1e152
+label 20adecca4cf54a9fa9e620dc73ad3318
 push local 0
 push local 0
 call Memory.getLen 1
@@ -160,19 +160,19 @@ sub
 pop local 1
 push static 2
 pop local 0
-label e752bfdcf04340319ea03f91f43adb8a
+label 77be4217814046798e44f1c4392101cb
 push local 0
 call Memory.getNextSegment 1
 push constant 0
 eq
 not
 not
-if-goto d6ab0de3f6144444b3921f668a8c7273
+if-goto c4c97db1a28c4e0c84f779afbbf8cb5d
 push local 0
 call Memory.getNextSegment 1
 pop local 0
-goto e752bfdcf04340319ea03f91f43adb8a
-label d6ab0de3f6144444b3921f668a8c7273
+goto 77be4217814046798e44f1c4392101cb
+label c4c97db1a28c4e0c84f779afbbf8cb5d
 push local 0
 push local 1
 call Memory.setNextSegment 2

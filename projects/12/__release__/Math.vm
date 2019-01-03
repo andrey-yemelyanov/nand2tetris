@@ -1,0 +1,335 @@
+function Math.init 1
+push constant 16
+call Array.new 1
+pop static 0
+push constant 0
+push static 0
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+pop local 0
+label 58287d7a7d9b42cd8301c4c614338eb2
+push local 0
+push constant 16
+lt
+not
+if-goto 25d77b41896841edbc4a7ca31a6fd0f0
+push local 0
+push static 0
+add
+push local 0
+push constant 1
+sub
+push static 0
+add
+pop pointer 1
+push that 0
+push local 0
+push constant 1
+sub
+push static 0
+add
+pop pointer 1
+push that 0
+add
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto 58287d7a7d9b42cd8301c4c614338eb2
+label 25d77b41896841edbc4a7ca31a6fd0f0
+push constant 0
+return
+function Math.abs 0
+push argument 0
+push constant 0
+eq
+push argument 0
+push constant 0
+gt
+or
+not
+if-goto bf8bfa2e50744103bba01479398ad062
+push argument 0
+return
+goto 7cec42ced7b34d388add98d2deb076d9
+label bf8bfa2e50744103bba01479398ad062
+label 7cec42ced7b34d388add98d2deb076d9
+push argument 0
+neg
+return
+function Math.multiply 3
+push constant 0
+pop local 0
+push argument 0
+pop local 1
+push constant 0
+pop local 2
+label 7820e245fba14b83bf20211c4a1b4025
+push local 2
+push constant 16
+lt
+not
+if-goto 0e09083cee8f459699701e25339ba3c4
+push argument 1
+push local 2
+call Math.bitSet 2
+not
+if-goto d18580fe57c8413b87c7eaf40bb698bf
+push local 0
+push local 1
+add
+pop local 0
+goto 7a7cab75776348a7a71b0c1e79a2e5cc
+label d18580fe57c8413b87c7eaf40bb698bf
+label 7a7cab75776348a7a71b0c1e79a2e5cc
+push local 1
+push local 1
+add
+pop local 1
+push local 2
+push constant 1
+add
+pop local 2
+goto 7820e245fba14b83bf20211c4a1b4025
+label 0e09083cee8f459699701e25339ba3c4
+push local 0
+return
+function Math.bitSet 0
+push argument 1
+push static 0
+add
+pop pointer 1
+push that 0
+push argument 0
+and
+push constant 0
+eq
+not
+return
+function Math.divide 8
+push argument 0
+push constant 0
+lt
+pop local 5
+push argument 1
+push constant 0
+lt
+pop local 6
+push local 5
+push local 6
+or
+push local 5
+push local 6
+and
+not
+and
+pop local 4
+push argument 0
+call Math.abs 1
+pop argument 0
+push argument 1
+call Math.abs 1
+pop argument 1
+push constant 0
+pop local 0
+label bb8ff836dd3f456e8b79d1b4f41ed31f
+push argument 0
+push argument 1
+gt
+push argument 0
+push argument 1
+eq
+or
+not
+if-goto 87ffbbc333cf4a4dbf200aea5baca149
+push constant 0
+pop local 1
+push constant 0
+pop local 2
+push constant 0
+pop local 7
+label 2ce828d47e5742d6856b721eb53586a8
+push local 7
+not
+not
+if-goto 0ee8c5bccaf54edbaa12c9e53d82751e
+push local 2
+push static 0
+add
+pop pointer 1
+push that 0
+push argument 1
+call Math.multiply 2
+pop local 3
+push local 3
+push constant 0
+lt
+push local 3
+push argument 0
+gt
+or
+not
+if-goto dd67862db94845fd908967d0bc77c2ab
+push constant 1
+neg
+pop local 7
+goto d3a24d9311cc4548899f9195acf86afe
+label dd67862db94845fd908967d0bc77c2ab
+push local 2
+push static 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 2
+push constant 1
+add
+pop local 2
+label d3a24d9311cc4548899f9195acf86afe
+goto 2ce828d47e5742d6856b721eb53586a8
+label 0ee8c5bccaf54edbaa12c9e53d82751e
+push argument 0
+push local 1
+push argument 1
+call Math.multiply 2
+sub
+pop argument 0
+push local 0
+push local 1
+add
+pop local 0
+goto bb8ff836dd3f456e8b79d1b4f41ed31f
+label 87ffbbc333cf4a4dbf200aea5baca149
+push local 4
+not
+if-goto fb4fb714a3b144f1b3cee41318cfc937
+push local 0
+neg
+pop local 0
+goto 01bbb4b751464a7ca4e351684652d447
+label fb4fb714a3b144f1b3cee41318cfc937
+label 01bbb4b751464a7ca4e351684652d447
+push local 0
+return
+function Math.sqrt 5
+push argument 0
+push constant 0
+eq
+push argument 0
+push constant 1
+eq
+or
+not
+if-goto fff7678253dc493587f7154d06846114
+push argument 0
+return
+goto da7dcc5d25c548b2bf49fd708d29224a
+label fff7678253dc493587f7154d06846114
+label da7dcc5d25c548b2bf49fd708d29224a
+push constant 1
+pop local 0
+push argument 0
+pop local 1
+push constant 0
+pop local 2
+label 862b07a7c78f4c2485fbbf77160ace11
+push local 0
+push local 1
+lt
+push local 0
+push local 1
+eq
+or
+not
+if-goto e4c990fe33f348a0a2c77bb05f33cfd9
+push local 0
+push local 1
+push local 0
+sub
+push constant 2
+call Math.divide 2
+add
+pop local 4
+push local 4
+push constant 181
+gt
+not
+if-goto 9de9f0bbd9d24b23bd239a6b9e3fa95c
+push local 4
+push constant 1
+sub
+pop local 1
+goto 6ab9991adac747888ecfca6df2a8b315
+label 9de9f0bbd9d24b23bd239a6b9e3fa95c
+push local 4
+push local 4
+call Math.multiply 2
+pop local 3
+push local 3
+push argument 0
+eq
+not
+if-goto 08597a77f3d54900927f5ef464bfdfcb
+push local 4
+return
+goto fee3733f77c84efbae703a31a2311429
+label 08597a77f3d54900927f5ef464bfdfcb
+label fee3733f77c84efbae703a31a2311429
+push local 3
+push argument 0
+lt
+not
+if-goto ca0e32d7784d41f8973c52db38f9843d
+push local 4
+push constant 1
+add
+pop local 0
+push local 4
+pop local 2
+goto 4f6eec4846154ddc8907c98d6e3a7965
+label ca0e32d7784d41f8973c52db38f9843d
+push local 4
+push constant 1
+sub
+pop local 1
+label 4f6eec4846154ddc8907c98d6e3a7965
+label 6ab9991adac747888ecfca6df2a8b315
+goto 862b07a7c78f4c2485fbbf77160ace11
+label e4c990fe33f348a0a2c77bb05f33cfd9
+push local 2
+return
+function Math.max 0
+push argument 0
+push argument 1
+gt
+not
+if-goto 97e07f08165a4a2cb947d04a3ea807b9
+push argument 0
+return
+goto 820f4657f17a4023bb364e61ebd3e026
+label 97e07f08165a4a2cb947d04a3ea807b9
+label 820f4657f17a4023bb364e61ebd3e026
+push argument 1
+return
+function Math.min 0
+push argument 0
+push argument 1
+lt
+not
+if-goto a771e05e82e849e9a64249c1d35fffa8
+push argument 0
+return
+goto bea11a010f534b28934569e0c39d3d72
+label a771e05e82e849e9a64249c1d35fffa8
+label bea11a010f534b28934569e0c39d3d72
+push argument 1
+return

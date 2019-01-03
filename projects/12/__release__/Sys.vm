@@ -1,0 +1,74 @@
+function Sys.init 0
+call Math.init 0
+pop temp 0
+call Keyboard.init 0
+pop temp 0
+call Memory.init 0
+pop temp 0
+call Output.init 0
+pop temp 0
+call Screen.init 0
+pop temp 0
+call Main.main 0
+pop temp 0
+call Sys.halt 0
+pop temp 0
+push constant 0
+return
+function Sys.halt 0
+label 70fbb115104c44849604a78d4d1fcd04
+push constant 1
+neg
+not
+if-goto dc5ae072c76441dea62b6bfeeb042dd8
+goto 70fbb115104c44849604a78d4d1fcd04
+label dc5ae072c76441dea62b6bfeeb042dd8
+push constant 0
+return
+function Sys.wait 2
+push constant 0
+pop local 0
+label 8a5dd0997d3c47bcb1e1a20744cf2c95
+push local 0
+push argument 0
+lt
+not
+if-goto 4b5ef308a39342f1b9ef893f0d52ebfe
+push constant 0
+pop local 1
+label ca2f1a99b2be4aae911dae59d661be64
+push local 1
+push constant 200
+lt
+not
+if-goto 2786dd766cf74c238339e30284e63b60
+push local 1
+push constant 1
+add
+pop local 1
+goto ca2f1a99b2be4aae911dae59d661be64
+label 2786dd766cf74c238339e30284e63b60
+push local 0
+push constant 1
+add
+pop local 0
+goto 8a5dd0997d3c47bcb1e1a20744cf2c95
+label 4b5ef308a39342f1b9ef893f0d52ebfe
+push constant 0
+return
+function Sys.error 0
+push constant 3
+call String.new 1
+push constant 69
+call String.appendChar 2
+push constant 82
+call String.appendChar 2
+push constant 82
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push argument 0
+call Output.printInt 1
+pop temp 0
+call Sys.halt 0
+pop temp 0

@@ -22,8 +22,8 @@ class JackCompiler:
         file_name = os.path.splitext(os.path.basename(file_path))[0]
         dir_name = os.path.split(file_path)[0]
         vm_file_name = os.path.join(dir_name, file_name + ".vm")
-        with open(vm_file_name, "w") as vm_file:
-            with open(file_path) as jack_file:
+        with open(file_path) as jack_file:
+            with open(vm_file_name, "w") as vm_file:
                 try:
                     CompilationEngine(Tokenizer(jack_file), VMWriter(vm_file)).compile()
                     print("Compilation successful! Generated:", vm_file_name)
