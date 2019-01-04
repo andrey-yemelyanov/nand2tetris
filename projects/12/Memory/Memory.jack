@@ -12,7 +12,6 @@ class Memory {
 
     static Array ram;
     static Array heap;
-    static int freeList;
     static int headerSize;
 
     /** Initializes the class. */
@@ -20,9 +19,8 @@ class Memory {
         let headerSize = 2;
         let ram = 0;
         let heap = 2048; // heapBase
-        let freeList = heap;
         let heap[0] = null; // next available segment - none
-        let heap[1] = 14335; // segment length = size of the entire heap
+        let heap[1] = 14334; // segment length = size of the entire heap
         return;
     }
 
@@ -40,38 +38,23 @@ class Memory {
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
-        var int segment, blockSize, block;
-        let segment = freeList;
+        var int segment, blockSize, blockAddr;
+        let segment = heap;
         let blockSize = size + headerSize;
-        while((~(segment = null)) & (Memory.getLen(segment) < blockSize)){
-            let segment = Memory.getNextSegment(segment);
+        
+        while((~(segment = null)) & (segment[1] < blockSize)){
+            let segment = segment[0];
         }
+
         if(segment = null){
             return null; // no free memory available to satisfy the request
         }
-        do Memory.setLen(segment, Memory.getLen(segment) - blockSize);
-        let block = segment + Memory.getLen(segment) + headerSize - blockSize;
-        do Memory.setNextSegment(block, null);
-        do Memory.setLen(block, size);
-        return block + headerSize;
-    }
 
-    function int getNextSegment(int segment){
-        return heap[segment - heap];
-    }
-
-    function void setNextSegment(int segment, int nextSegment){
-        let heap[segment - heap] = nextSegment;
-        return;
-    }
-
-    function int getLen(int segment){
-        return heap[segment + 1 - heap];
-    }
-
-    function void setLen(int segment, int len){
-        let heap[segment + 1 - heap] = len;
-        return;
+        let blockAddr = segment + segment[1] + headerSize - blockSize;
+        let segment[1] = segment[1] - blockSize;
+        let blockAddr[0] = null;
+        let blockAddr[1] = size;
+        return blockAddr + headerSize;
     }
 
     /** De-allocates the given object (cast as an array) by making
@@ -80,11 +63,11 @@ class Memory {
         var int segment, recycledSegment;
         let recycledSegment = o - headerSize;
         // append the recycled segment to the end of the free list
-        let segment = freeList;
-        while(~(Memory.getNextSegment(segment) = null)){
-            let segment = Memory.getNextSegment(segment);
+        let segment = heap;
+        while(~(segment[0] = null)){
+            let segment = segment[0];
         }
-        do Memory.setNextSegment(segment, recycledSegment);
+        let segment[0] = recycledSegment;
         return;
     }    
 }

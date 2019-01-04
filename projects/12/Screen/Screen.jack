@@ -15,7 +15,7 @@ class Screen {
     static boolean currentColor;
     static boolean BLACK;
     static boolean WHITE;
-    static int screenBaseAddress;
+    static int screen;
 
     /** Initializes the Screen. */
     function void init() {
@@ -28,7 +28,7 @@ class Screen {
             let i = i + 1;
         }
         
-        let screenBaseAddress = 16384;
+        let screen = 16384;
         let BLACK = true;
         let WHITE =  false;
         do Screen.setColor(BLACK);
@@ -37,13 +37,11 @@ class Screen {
 
     /** Erases the entire screen. */
     function void clearScreen() {
-        var int screenMemorySize, startAddress, endAddress;
+        var int screenMemorySize, i;
         let screenMemorySize = 8 * 1024; // 8K graphics memory
-        let startAddress = screenBaseAddress;
-        let endAddress = startAddress + screenMemorySize;
-        while((startAddress < endAddress) | (startAddress = endAddress)){
-            do Memory.poke(startAddress, 0);
-            let startAddress = startAddress + 1;
+        while(i < screenMemorySize){
+            let screen[i] = 0; 
+            let i = i + 1;
         }
         return;
     }
@@ -60,14 +58,14 @@ class Screen {
         var int address, value, div, mod16;
         let div = x / 16;
         let mod16 = x - (div * 16);
-        let address = screenBaseAddress + (32 * y) + div;
-        let value = Memory.peek(address);
+        let address = (32 * y) + div;
+        let value = screen[address];
         if(currentColor = BLACK){
             let value = value | mask[mod16];
         }else{
             let value = value & (~mask[mod16]);
         }
-        do Memory.poke(address, value);
+        let screen[address] = value;
         return;
     }
 

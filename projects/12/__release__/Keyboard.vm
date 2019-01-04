@@ -1,14 +1,89 @@
 function Keyboard.init 0
+push constant 24576
+pop static 0
 push constant 0
 return
 function Keyboard.keyPressed 0
-push constant 0
+push static 0
+call Memory.peek 1
 return
-function Keyboard.readChar 0
+function Keyboard.readChar 2
 push constant 0
+pop local 1
+label c19bb389dd8c4b5dacbd0c3385a7240e
+push local 1
+push constant 0
+eq
+not
+if-goto e8e2a7edcee54b50995e172886363100
+call Keyboard.keyPressed 0
+pop local 1
+goto c19bb389dd8c4b5dacbd0c3385a7240e
+label e8e2a7edcee54b50995e172886363100
+push local 1
+pop local 0
+label c6670aa8302c4612a9b8ab139de4682b
+push local 1
+push constant 0
+eq
+not
+not
+if-goto d30b44f796d141a2b67c6f1381392c0c
+call Keyboard.keyPressed 0
+pop local 1
+goto c6670aa8302c4612a9b8ab139de4682b
+label d30b44f796d141a2b67c6f1381392c0c
+push local 0
+call Output.printChar 1
+pop temp 0
+push local 0
 return
-function Keyboard.readLine 0
-push constant 0
+function Keyboard.readLine 2
+push constant 64
+call String.new 1
+pop local 1
+push argument 0
+call Output.printString 1
+pop temp 0
+label c925392d5f794c57a4a4132543003bcc
+push constant 1
+neg
+not
+if-goto 3ac91dc19d884d2eb34675cbc19cd164
+call Keyboard.readChar 0
+pop local 0
+push local 0
+call String.newLine 0
+eq
+not
+if-goto 7760be5e440d49ab9dfa8dd5829b1386
+call Output.println 0
+pop temp 0
+push local 1
+return
+goto 3de8d7532ea04ec4b06d11b55323825a
+label 7760be5e440d49ab9dfa8dd5829b1386
+push local 0
+call String.backSpace 0
+eq
+not
+if-goto 617e326dea3f4d3296f90b5063c63c2f
+push local 1
+call String.eraseLastChar 1
+pop temp 0
+call Output.backSpace 0
+pop temp 0
+goto 338d1c9512a847039fdddf02957fafb6
+label 617e326dea3f4d3296f90b5063c63c2f
+push local 1
+push local 0
+call String.appendChar 2
+pop local 1
+label 338d1c9512a847039fdddf02957fafb6
+label 3de8d7532ea04ec4b06d11b55323825a
+goto c925392d5f794c57a4a4132543003bcc
+label 3ac91dc19d884d2eb34675cbc19cd164
+push local 1
 return
 function Keyboard.readInt 0
 push constant 0

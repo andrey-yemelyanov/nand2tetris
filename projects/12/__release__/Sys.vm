@@ -1,13 +1,13 @@
 function Sys.init 0
+call Memory.init 0
+pop temp 0
 call Math.init 0
 pop temp 0
-call Keyboard.init 0
-pop temp 0
-call Memory.init 0
+call Screen.init 0
 pop temp 0
 call Output.init 0
 pop temp 0
-call Screen.init 0
+call Keyboard.init 0
 pop temp 0
 call Main.main 0
 pop temp 0
@@ -16,44 +16,44 @@ pop temp 0
 push constant 0
 return
 function Sys.halt 0
-label 70fbb115104c44849604a78d4d1fcd04
+label 3f6b8dc7183145c7b3f63d1dab2ec07f
 push constant 1
 neg
 not
-if-goto dc5ae072c76441dea62b6bfeeb042dd8
-goto 70fbb115104c44849604a78d4d1fcd04
-label dc5ae072c76441dea62b6bfeeb042dd8
+if-goto 3c92faab000c47c9a795927c8d27e37c
+goto 3f6b8dc7183145c7b3f63d1dab2ec07f
+label 3c92faab000c47c9a795927c8d27e37c
 push constant 0
 return
 function Sys.wait 2
 push constant 0
 pop local 0
-label 8a5dd0997d3c47bcb1e1a20744cf2c95
+label fcd5909b66234e66a069ed75c8c97b3c
 push local 0
 push argument 0
 lt
 not
-if-goto 4b5ef308a39342f1b9ef893f0d52ebfe
+if-goto e0fac10d9ca646d290406d5425cc968c
 push constant 0
 pop local 1
-label ca2f1a99b2be4aae911dae59d661be64
+label 6b9da1d652b44e598261bf56897a35c7
 push local 1
 push constant 200
 lt
 not
-if-goto 2786dd766cf74c238339e30284e63b60
+if-goto 1bf0cea0855e4828a7ff7caa0ebf80ad
 push local 1
 push constant 1
 add
 pop local 1
-goto ca2f1a99b2be4aae911dae59d661be64
-label 2786dd766cf74c238339e30284e63b60
+goto 6b9da1d652b44e598261bf56897a35c7
+label 1bf0cea0855e4828a7ff7caa0ebf80ad
 push local 0
 push constant 1
 add
 pop local 0
-goto 8a5dd0997d3c47bcb1e1a20744cf2c95
-label 4b5ef308a39342f1b9ef893f0d52ebfe
+goto fcd5909b66234e66a069ed75c8c97b3c
+label e0fac10d9ca646d290406d5425cc968c
 push constant 0
 return
 function Sys.error 0
