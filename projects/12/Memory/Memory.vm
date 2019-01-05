@@ -48,7 +48,7 @@ push argument 0
 push static 2
 add
 pop local 1
-label c927128b17694d26b6bbf2e966b94320
+label 858830e4e322484b84a341aa9db841e3
 push local 0
 push constant 0
 eq
@@ -62,25 +62,25 @@ push local 1
 lt
 and
 not
-if-goto 4b5badc1c4de460f993ace4f534fcd59
+if-goto 09d9c41a49ef4d818795f0bd2e93dfe0
 push constant 0
 push local 0
 add
 pop pointer 1
 push that 0
 pop local 0
-goto c927128b17694d26b6bbf2e966b94320
-label 4b5badc1c4de460f993ace4f534fcd59
+goto 858830e4e322484b84a341aa9db841e3
+label 09d9c41a49ef4d818795f0bd2e93dfe0
 push local 0
 push constant 0
 eq
 not
-if-goto 474694829c874f64befe969084a37fbc
+if-goto 470589822b084e9aa244797f8e64f78a
 push constant 0
 return
-goto 9ff1cebee430404e8ddba39f82ab2ad2
-label 474694829c874f64befe969084a37fbc
-label 9ff1cebee430404e8ddba39f82ab2ad2
+goto 50b9f105a5544cef9d8d87b26710b48d
+label 470589822b084e9aa244797f8e64f78a
+label 50b9f105a5544cef9d8d87b26710b48d
 push local 0
 push constant 1
 push local 0
@@ -134,7 +134,7 @@ sub
 pop local 1
 push static 1
 pop local 0
-label ea9a429273a64b5499f5f6d2f04cb2de
+label ff047e2ac4bc4cf18edb25376e2a29af
 push constant 0
 push local 0
 add
@@ -144,15 +144,15 @@ push constant 0
 eq
 not
 not
-if-goto 0e2eef5910ab405bb4fe504ac1b731ab
+if-goto 905bb128f6e24062a03ad1e6e9b37240
 push constant 0
 push local 0
 add
 pop pointer 1
 push that 0
 pop local 0
-goto ea9a429273a64b5499f5f6d2f04cb2de
-label 0e2eef5910ab405bb4fe504ac1b731ab
+goto ff047e2ac4bc4cf18edb25376e2a29af
+label 905bb128f6e24062a03ad1e6e9b37240
 push constant 0
 push local 0
 add

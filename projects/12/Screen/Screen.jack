@@ -12,6 +12,8 @@
 class Screen {
 
     static Array mask;
+    static Array leftMask;
+    static Array rightMask;
     static boolean currentColor;
     static boolean BLACK;
     static boolean WHITE;
@@ -27,6 +29,42 @@ class Screen {
             let mask[i] = mask[i - 1] + mask[i - 1];
             let i = i + 1;
         }
+
+        let rightMask = Array.new(16);
+        let rightMask[0] = 0;
+        let rightMask[1] = 1;
+        let rightMask[2] = 3;
+        let rightMask[3] = 7;
+        let rightMask[4] = 15;
+        let rightMask[5] = 31;
+        let rightMask[6] = 63;
+        let rightMask[7] = 127;
+        let rightMask[8] = 255;
+        let rightMask[9] = 511;
+        let rightMask[10] = 1023;
+        let rightMask[11] = 2047;
+        let rightMask[12] = 4095;
+        let rightMask[13] = 8191;
+        let rightMask[14] = 16383;
+        let rightMask[15] = 32767;
+
+        let leftMask = Array.new(16);
+        let leftMask[0] = 0;
+        let leftMask[1] = -(32767 + 1);
+        let leftMask[2] = -16384;
+        let leftMask[3] = -8192;
+        let leftMask[4] = -4096;
+        let leftMask[5] = -2048;
+        let leftMask[6] = -1024;
+        let leftMask[7] = -512;
+        let leftMask[8] = -256;
+        let leftMask[9] = -128;
+        let leftMask[10] = -64;
+        let leftMask[11] = -32;
+        let leftMask[12] = -16;
+        let leftMask[13] = -8;
+        let leftMask[14] = -4;
+        let leftMask[15] = -2;
         
         let screen = 16384;
         let BLACK = true;
@@ -53,17 +91,24 @@ class Screen {
         return;
     }
 
+    function int mod(int a, int b){
+        return a - ((a / b) * b);
+    }
+
+    function int getWordAddress(int x, int y){
+        return (32 * y) + (x / 16);
+    }
+
     /** Draws the (x,y) pixel, using the current color. */
     function void drawPixel(int x, int y) {
-        var int address, value, div, mod16;
-        let div = x / 16;
-        let mod16 = x - (div * 16);
-        let address = (32 * y) + div;
+        var int value, mod, address;
+        let address = Screen.getWordAddress(x, y);
         let value = screen[address];
+        let mod = Screen.mod(x, 16);
         if(currentColor = BLACK){
-            let value = value | mask[mod16];
+            let value = value | mask[mod];
         }else{
-            let value = value & (~mask[mod16]);
+            let value = value & (~mask[mod]);
         }
         let screen[address] = value;
         return;
@@ -150,13 +195,35 @@ class Screen {
     }
 
     function void drawHorizontalLine(int x1, int x2, int y){
-        var int fromX, toX;
-        let fromX = Math.min(x1, x2);
-        let toX = Math.max(x1, x2);
-        while((fromX < toX) | (fromX = toX)){
-            do Screen.drawPixel(fromX, y);
-            let fromX = fromX + 1;
+        var int fromAddress, toAddress, value;
+        let fromAddress = Screen.getWordAddress(x1, y);
+        let toAddress = Screen.getWordAddress(x2, y);
+
+        if(fromAddress = toAddress){
+            while((x1 < x2) | (x1 = x2)){
+                do Screen.drawPixel(x1, y);
+                let x1 = x1 + 1;
+            }
+        }else{
+            if(currentColor = BLACK){
+                let screen[fromAddress] = screen[fromAddress] | leftMask[Screen.mod(x1, 16)];
+                let fromAddress = fromAddress + 1;
+                while(fromAddress < toAddress){
+                    let screen[fromAddress] = -1;
+                    let fromAddress = fromAddress + 1;
+                }
+                let screen[fromAddress] = screen[fromAddress] | rightMask[Screen.mod(x2, 16)];
+            }else{
+                let screen[fromAddress] = screen[fromAddress] & (~leftMask[Screen.mod(x1, 16)]);
+                let fromAddress = fromAddress + 1;
+                while(fromAddress < toAddress){
+                    let screen[fromAddress] = 0;
+                    let fromAddress = fromAddress + 1;
+                }
+                let screen[fromAddress] = screen[fromAddress] & (~rightMask[Screen.mod(x2, 16)]);
+            }
         }
+        
         return;
     }
 

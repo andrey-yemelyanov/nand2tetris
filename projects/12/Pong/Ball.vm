@@ -106,7 +106,7 @@ lt
 pop this 7
 push this 7
 not
-if-goto 24f860db23db4579b7250eb9db0bd451
+if-goto 34e840f2fd404d1db1338840c8abc260
 push local 0
 pop local 2
 push local 1
@@ -121,8 +121,8 @@ push this 0
 push argument 1
 lt
 pop this 9
-goto f275824f9d2a4ab2948419b2b8b85491
-label 24f860db23db4579b7250eb9db0bd451
+goto b8f18eee019340fb9c7d165d0f82f8c2
+label 34e840f2fd404d1db1338840c8abc260
 push this 0
 push argument 1
 lt
@@ -131,7 +131,7 @@ push this 1
 push argument 2
 lt
 pop this 9
-label f275824f9d2a4ab2948419b2b8b85491
+label b8f18eee019340fb9c7d165d0f82f8c2
 push constant 2
 push local 1
 call Math.multiply 2
@@ -160,138 +160,138 @@ push this 4
 push constant 0
 lt
 not
-if-goto f7a56d53a54f4968aa6f62c11df14752
+if-goto c56b4b0d43484cba93dc87f0b988ae48
 push this 4
 push this 5
 add
 pop this 4
-goto 6bffb30f61a243f595c0a39e52f9ea55
-label f7a56d53a54f4968aa6f62c11df14752
+goto 93253bad33fe499495f72b2397daa6ca
+label c56b4b0d43484cba93dc87f0b988ae48
 push this 4
 push this 6
 add
 pop this 4
 push this 9
 not
-if-goto 3e8a3ea3bbc143e4a94513e93a2d6736
+if-goto 5c2efd768a7d49e5be6da229c82f050d
 push this 7
 not
-if-goto 938f4c17f2284ee3aea31f1423e86d7c
+if-goto 6a3f5c99a0424db9a44bbee6fb0aa453
 push this 0
 push constant 4
 add
 pop this 0
-goto 18371c7d08cc44a991f36eef31ce952b
-label 938f4c17f2284ee3aea31f1423e86d7c
+goto 2f2901fcb9fb427091980ff96386a7d0
+label 6a3f5c99a0424db9a44bbee6fb0aa453
 push this 1
 push constant 4
 add
 pop this 1
-label 18371c7d08cc44a991f36eef31ce952b
-goto e4aa4dc725be4ae190802fd29e1eeb4a
-label 3e8a3ea3bbc143e4a94513e93a2d6736
+label 2f2901fcb9fb427091980ff96386a7d0
+goto 508187a2b83343f88eb765a9254e4e6c
+label 5c2efd768a7d49e5be6da229c82f050d
 push this 7
 not
-if-goto aff4950155d3478a86fde72c139df45e
+if-goto cd6b51ae11014cba86312461ad6c8ea4
 push this 0
 push constant 4
 sub
 pop this 0
-goto 629b3ad04481466eae0bfca865276c3b
-label aff4950155d3478a86fde72c139df45e
+goto 11cc8d4af1764e998e8af24b9363c895
+label cd6b51ae11014cba86312461ad6c8ea4
 push this 1
 push constant 4
 sub
 pop this 1
-label 629b3ad04481466eae0bfca865276c3b
-label e4aa4dc725be4ae190802fd29e1eeb4a
-label 6bffb30f61a243f595c0a39e52f9ea55
+label 11cc8d4af1764e998e8af24b9363c895
+label 508187a2b83343f88eb765a9254e4e6c
+label 93253bad33fe499495f72b2397daa6ca
 push this 8
 not
-if-goto 863f34a106804989a4ff3634951efbbd
+if-goto 7dcf5858507e4e8d945da112ee0ac3e9
 push this 7
 not
-if-goto d19f2963784e4359beb1e68fd074b8f5
+if-goto 91e712398d9548c9ad1612f64f17c1c8
 push this 1
 push constant 4
 add
 pop this 1
-goto 8ff39abf891745dca67b73c30cff861b
-label d19f2963784e4359beb1e68fd074b8f5
+goto f3e92458862e441993437c0faeeed95e
+label 91e712398d9548c9ad1612f64f17c1c8
 push this 0
 push constant 4
 add
 pop this 0
-label 8ff39abf891745dca67b73c30cff861b
-goto 84b83e5152f045c2bfe3a923bf623fbb
-label 863f34a106804989a4ff3634951efbbd
+label f3e92458862e441993437c0faeeed95e
+goto b5341a7a5dfd4f8db251aaadda23d224
+label 7dcf5858507e4e8d945da112ee0ac3e9
 push this 7
 not
-if-goto 52a223faec7241cc9880de6a64da0767
+if-goto bdc9849473b143b99200f7cd72764a1f
 push this 1
 push constant 4
 sub
 pop this 1
-goto 05c64445abdd44f880f6be12ac937010
-label 52a223faec7241cc9880de6a64da0767
+goto a1bf37e66a3d4abaa6f20a8aec298a0d
+label bdc9849473b143b99200f7cd72764a1f
 push this 0
 push constant 4
 sub
 pop this 0
-label 05c64445abdd44f880f6be12ac937010
-label 84b83e5152f045c2bfe3a923bf623fbb
+label a1bf37e66a3d4abaa6f20a8aec298a0d
+label b5341a7a5dfd4f8db251aaadda23d224
 push this 0
 push this 10
 gt
 not
 not
-if-goto c1f9377b8ffa449fa09a5900c8b0e1c5
+if-goto a57f9426ccce44c187b92243c10249d2
 push constant 1
 pop this 14
 push this 10
 pop this 0
-goto 3fb1e96aedbe44e0b4546cce89aa285a
-label c1f9377b8ffa449fa09a5900c8b0e1c5
-label 3fb1e96aedbe44e0b4546cce89aa285a
+goto d3655be654134b71a375ac9bc54e2744
+label a57f9426ccce44c187b92243c10249d2
+label d3655be654134b71a375ac9bc54e2744
 push this 0
 push this 11
 lt
 not
 not
-if-goto 6609c6a7a3684eb790b680887ed60d51
+if-goto 99f3274f832c4635aeb3bd9dd889316a
 push constant 2
 pop this 14
 push this 11
 pop this 0
-goto e8e36be486034e709c14f8d5dfbad82e
-label 6609c6a7a3684eb790b680887ed60d51
-label e8e36be486034e709c14f8d5dfbad82e
+goto 886609e4dac54b7f92d57df33cd5ff0d
+label 99f3274f832c4635aeb3bd9dd889316a
+label 886609e4dac54b7f92d57df33cd5ff0d
 push this 1
 push this 12
 gt
 not
 not
-if-goto 5f7c63f6368f4282a6502c6776b49859
+if-goto f291eff1090a4df2b8d76f550b9cc939
 push constant 3
 pop this 14
 push this 12
 pop this 1
-goto f5ff4c3a5dbd4af4a612210d08af9289
-label 5f7c63f6368f4282a6502c6776b49859
-label f5ff4c3a5dbd4af4a612210d08af9289
+goto b8177445d1cc4f81918712280f0bc925
+label f291eff1090a4df2b8d76f550b9cc939
+label b8177445d1cc4f81918712280f0bc925
 push this 1
 push this 13
 lt
 not
 not
-if-goto e34afbf40df24d769f023b19d94df0b4
+if-goto 9a9431499224415cb5d947124fbf3078
 push constant 4
 pop this 14
 push this 13
 pop this 1
-goto 6e98a9c1041544e5904f7630ac547b8b
-label e34afbf40df24d769f023b19d94df0b4
-label 6e98a9c1041544e5904f7630ac547b8b
+goto c3b39e5ed1f746658b9803d052a953c1
+label 9a9431499224415cb5d947124fbf3078
+label c3b39e5ed1f746658b9803d052a953c1
 push pointer 0
 call Ball.show 1
 pop temp 0
@@ -312,11 +312,11 @@ push argument 1
 push constant 0
 eq
 not
-if-goto 09c0d481c813472e948fb7c949abbe65
+if-goto 0ed7b7a7b1ad486290e80a9dd315890e
 push constant 10
 pop local 4
-goto dc19c7813cdb493aaf95164bb4f16408
-label 09c0d481c813472e948fb7c949abbe65
+goto 3c155f2d45674051bcab41b46c7f8ccb
+label 0ed7b7a7b1ad486290e80a9dd315890e
 push this 2
 push constant 0
 lt
@@ -335,20 +335,20 @@ eq
 and
 or
 not
-if-goto a0e228396d8947cab24922bf9c623be8
+if-goto a0be1911c6b546078462ce6e3d39b6b1
 push constant 20
 pop local 4
-goto 38c01383d1af401b832151401ed36b78
-label a0e228396d8947cab24922bf9c623be8
+goto d0e7a4d1525c4577aa41e410abcdb0d8
+label a0be1911c6b546078462ce6e3d39b6b1
 push constant 5
 pop local 4
-label 38c01383d1af401b832151401ed36b78
-label dc19c7813cdb493aaf95164bb4f16408
+label d0e7a4d1525c4577aa41e410abcdb0d8
+label 3c155f2d45674051bcab41b46c7f8ccb
 push this 14
 push constant 1
 eq
 not
-if-goto 3c8d00fdc733455d8a3949095f24a305
+if-goto 3a99e767e1624b779788427c6232abd1
 push constant 506
 pop local 0
 push local 3
@@ -364,13 +364,13 @@ push local 4
 call Math.multiply 2
 add
 pop local 1
-goto b5b6567f77e349e1b4e98092c25d456a
-label 3c8d00fdc733455d8a3949095f24a305
+goto 072551fd1e684a70a0fc75f9fa3a56d2
+label 3a99e767e1624b779788427c6232abd1
 push this 14
 push constant 2
 eq
 not
-if-goto 3e8860a518b74c528dadfa1f1e3fea15
+if-goto 30cb373168f6403a8eeae11aacc6f030
 push constant 0
 pop local 0
 push local 3
@@ -385,13 +385,13 @@ push local 4
 call Math.multiply 2
 add
 pop local 1
-goto b8d0939ce30f47ce924b5d9d74d8d700
-label 3e8860a518b74c528dadfa1f1e3fea15
+goto 4680b6d0a3dd4207bd3e889bb0b2710c
+label 30cb373168f6403a8eeae11aacc6f030
 push this 14
 push constant 3
 eq
 not
-if-goto 10a1c2244bfe428092e93b2cf9ad49aa
+if-goto 3928da2de070410d86cafc87518f8934
 push constant 250
 pop local 1
 push local 2
@@ -407,8 +407,8 @@ push local 4
 call Math.multiply 2
 add
 pop local 0
-goto 14c1dff9807c4957b8030f2c85acafb8
-label 10a1c2244bfe428092e93b2cf9ad49aa
+goto 2fa544e99c404c678fe860acf560bd45
+label 3928da2de070410d86cafc87518f8934
 push constant 0
 pop local 1
 push local 2
@@ -423,9 +423,9 @@ push local 4
 call Math.multiply 2
 add
 pop local 0
-label 14c1dff9807c4957b8030f2c85acafb8
-label b8d0939ce30f47ce924b5d9d74d8d700
-label b5b6567f77e349e1b4e98092c25d456a
+label 2fa544e99c404c678fe860acf560bd45
+label 4680b6d0a3dd4207bd3e889bb0b2710c
+label 072551fd1e684a70a0fc75f9fa3a56d2
 push pointer 0
 push local 0
 push local 1

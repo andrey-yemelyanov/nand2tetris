@@ -12,12 +12,12 @@ push temp 0
 pop that 0
 push constant 1
 pop local 0
-label 0d0e54391a0241388f614bedb11ca9b8
+label bdb4b80b3764491ab74e9ce7eb95ff74
 push local 0
 push constant 8
 lt
 not
-if-goto 8e21eecb3f0f4bd7b83f1f52926081a0
+if-goto 18f2654c41a041dea6589d7cef173a8e
 push local 0
 push static 1
 add
@@ -44,8 +44,8 @@ push local 0
 push constant 1
 add
 pop local 0
-goto 0d0e54391a0241388f614bedb11ca9b8
-label 8e21eecb3f0f4bd7b83f1f52926081a0
+goto bdb4b80b3764491ab74e9ce7eb95ff74
+label 18f2654c41a041dea6589d7cef173a8e
 push constant 23
 pop static 4
 push constant 64
@@ -1523,12 +1523,12 @@ push constant 126
 gt
 or
 not
-if-goto 16b6fcbb48ea4f858daea7e79130380c
+if-goto 4f8b9b8962b148f794d5e0caec0cbe8c
 push constant 0
 pop argument 0
-goto 2b4bbdee5e464dc5b284b5fff346b93b
-label 16b6fcbb48ea4f858daea7e79130380c
-label 2b4bbdee5e464dc5b284b5fff346b93b
+goto e4bad5ed6cce4e029d0752069a471204
+label 4f8b9b8962b148f794d5e0caec0cbe8c
+label e4bad5ed6cce4e029d0752069a471204
 push argument 0
 push static 0
 add
@@ -1549,20 +1549,20 @@ call Math.multiply 2
 pop local 1
 push constant 0
 pop local 2
-label 23be945e113a49f1a6fb8c402829611a
+label 5f06637852f94d1ebdebe390dddce6a8
 push local 2
 push static 7
 lt
 not
-if-goto 69873b5063b347e994cc4b3f1e1210d2
+if-goto 7c17089b9b6a407b9e95571297fd0e85
 push constant 0
 pop local 3
-label 8b3d87d9cf0c4c139fa7a717e8062b6d
+label 4aea3dd518d946f89f613d345428833d
 push local 3
 push static 6
 lt
 not
-if-goto 0eeab6d7bf3f48bf80d3c0a73485b91f
+if-goto 97feca69d63a4691b41418aaafea3eb4
 push local 0
 push local 3
 add
@@ -1575,14 +1575,14 @@ push local 3
 push constant 1
 add
 pop local 3
-goto 8b3d87d9cf0c4c139fa7a717e8062b6d
-label 0eeab6d7bf3f48bf80d3c0a73485b91f
+goto 4aea3dd518d946f89f613d345428833d
+label 97feca69d63a4691b41418aaafea3eb4
 push local 2
 push constant 1
 add
 pop local 2
-goto 23be945e113a49f1a6fb8c402829611a
-label 69873b5063b347e994cc4b3f1e1210d2
+goto 5f06637852f94d1ebdebe390dddce6a8
+label 7c17089b9b6a407b9e95571297fd0e85
 push constant 0
 return
 function Output.moveCursor 0
@@ -1601,32 +1601,32 @@ push constant 1
 sub
 eq
 not
-if-goto 40c2204ff092477fb8b40f6b91b80060
+if-goto c5fc7791210a4d37ab4cd8969be5c2c7
 push static 2
 push static 4
 push constant 1
 sub
 eq
 not
-if-goto fb47aa0cb98248d2af7132b69ed7a376
+if-goto 18f5efe1164844a3b54d0cce322aefe5
 push constant 0
 push constant 0
 call Output.moveCursor 2
 pop temp 0
-goto f2072bc22cc0490c9c20e7f2bd5e85a7
-label fb47aa0cb98248d2af7132b69ed7a376
+goto 030fdfbde39b487c9d3275b8e16b4efb
+label 18f5efe1164844a3b54d0cce322aefe5
 call Output.moveCursorToNewLine 0
 pop temp 0
-label f2072bc22cc0490c9c20e7f2bd5e85a7
-goto 5dc378855b8f4c5888cc127b1496f6be
-label 40c2204ff092477fb8b40f6b91b80060
+label 030fdfbde39b487c9d3275b8e16b4efb
+goto cc8f36400ebb4a048ad00c1e4fae264d
+label c5fc7791210a4d37ab4cd8969be5c2c7
 push static 2
 push static 3
 push constant 1
 add
 call Output.moveCursor 2
 pop temp 0
-label 5dc378855b8f4c5888cc127b1496f6be
+label cc8f36400ebb4a048ad00c1e4fae264d
 push constant 0
 return
 function Output.moveCursorToNewLine 0
@@ -1636,20 +1636,20 @@ push constant 1
 sub
 eq
 not
-if-goto 8767d52d3d474f9c96f51565f47217d7
+if-goto 6232d2e0ee5e4ef3bb416ad3fce4a47e
 push constant 0
 push constant 0
 call Output.moveCursor 2
 pop temp 0
-goto 177569bf82b84964afb08d0e466efa6d
-label 8767d52d3d474f9c96f51565f47217d7
+goto b3b6a7f88ead4b669741f4e91d415e38
+label 6232d2e0ee5e4ef3bb416ad3fce4a47e
 push static 2
 push constant 1
 add
 push constant 0
 call Output.moveCursor 2
 pop temp 0
-label 177569bf82b84964afb08d0e466efa6d
+label b3b6a7f88ead4b669741f4e91d415e38
 push constant 0
 return
 function Output.moveCursorLeft 0
@@ -1657,12 +1657,12 @@ push static 3
 push constant 0
 eq
 not
-if-goto 654cde6ada2e40b29762f20747f0e9ce
+if-goto abd963a9fd274a8d99dd1043413dbc05
 push static 2
 push constant 0
 eq
 not
-if-goto 20290b118981459db104d74d6e0609d1
+if-goto 9981e482ba8c4220835552ab6296dec3
 push static 4
 push constant 1
 sub
@@ -1671,8 +1671,8 @@ push constant 1
 sub
 call Output.moveCursor 2
 pop temp 0
-goto 26c8a1497aae4ba3930456bd8d2aa82e
-label 20290b118981459db104d74d6e0609d1
+goto 95d7d79836bc4b609ba487cd6e800c80
+label 9981e482ba8c4220835552ab6296dec3
 push static 2
 push constant 1
 sub
@@ -1681,16 +1681,16 @@ push constant 1
 sub
 call Output.moveCursor 2
 pop temp 0
-label 26c8a1497aae4ba3930456bd8d2aa82e
-goto 66212f1a6e184c6f9eb4cb07a8cfdc88
-label 654cde6ada2e40b29762f20747f0e9ce
+label 95d7d79836bc4b609ba487cd6e800c80
+goto 5df730d740204f7cb1fca12c45bf46e1
+label abd963a9fd274a8d99dd1043413dbc05
 push static 2
 push static 3
 push constant 1
 sub
 call Output.moveCursor 2
 pop temp 0
-label 66212f1a6e184c6f9eb4cb07a8cfdc88
+label 5df730d740204f7cb1fca12c45bf46e1
 push constant 0
 return
 function Output.printChar 8
@@ -1712,12 +1712,12 @@ call Math.multiply 2
 pop local 1
 push constant 0
 pop local 3
-label f0c32e6accde45f293c5576f8c585522
+label e1ff2420d6ab491fa499a1f8a1f2db21
 push local 3
 push static 7
 lt
 not
-if-goto 393a7984b390490cac0cda0b96fb905a
+if-goto c30ca8e38bc14cfdbb000eac426e1a97
 push constant 0
 pop local 4
 push local 3
@@ -1726,26 +1726,26 @@ add
 pop pointer 1
 push that 0
 pop local 2
-label aec1086d7d684d4786fadcd18e484214
+label d4a94841525f411196c6133375750529
 push local 4
 push static 6
 lt
 not
-if-goto 954b227433d94832bfdca181b5a30fea
+if-goto 2b9625f7fdb345799e609933f41af91e
 push local 2
 push local 4
 call Output.bitSet 2
 not
-if-goto 96486de5abd7402788b1e7ceace13c98
+if-goto d1bf3e2d835d4e2d8ed284910eb83da8
 push local 6
 call Screen.setColor 1
 pop temp 0
-goto 355a9fdef57d4bb2ae3417970bf42892
-label 96486de5abd7402788b1e7ceace13c98
+goto 33de9f2f2208499e872cf13176f99ce3
+label d1bf3e2d835d4e2d8ed284910eb83da8
 push local 7
 call Screen.setColor 1
 pop temp 0
-label 355a9fdef57d4bb2ae3417970bf42892
+label 33de9f2f2208499e872cf13176f99ce3
 push local 0
 push local 4
 add
@@ -1758,14 +1758,14 @@ push local 4
 push constant 1
 add
 pop local 4
-goto aec1086d7d684d4786fadcd18e484214
-label 954b227433d94832bfdca181b5a30fea
+goto d4a94841525f411196c6133375750529
+label 2b9625f7fdb345799e609933f41af91e
 push local 3
 push constant 1
 add
 pop local 3
-goto f0c32e6accde45f293c5576f8c585522
-label 393a7984b390490cac0cda0b96fb905a
+goto e1ff2420d6ab491fa499a1f8a1f2db21
+label c30ca8e38bc14cfdbb000eac426e1a97
 call Output.moveCursorRight 0
 pop temp 0
 push constant 0
@@ -1785,13 +1785,13 @@ return
 function Output.printString 1
 push constant 0
 pop local 0
-label 0f9cdedec0054251a666a0af3431dc20
+label 21d1d5d682974b9f9e2f88a3e7e53e85
 push local 0
 push argument 0
 call String.length 1
 lt
 not
-if-goto b2cbb595a6d949039f49d38e04aa187a
+if-goto bee9b72e26bc44849fd412e79e77c256
 push argument 0
 push local 0
 call String.charAt 2
@@ -1801,8 +1801,8 @@ push local 0
 push constant 1
 add
 pop local 0
-goto 0f9cdedec0054251a666a0af3431dc20
-label b2cbb595a6d949039f49d38e04aa187a
+goto 21d1d5d682974b9f9e2f88a3e7e53e85
+label bee9b72e26bc44849fd412e79e77c256
 push constant 0
 return
 function Output.printInt 0
@@ -1810,13 +1810,13 @@ push argument 0
 push constant 0
 lt
 not
-if-goto 2902ff3788654a2fb6b1a874163d9466
+if-goto 50d0a84a6eb54b62976809d5af920dac
 push constant 45
 call Output.printChar 1
 pop temp 0
-goto 742a0a948260490692adf02a0d833fab
-label 2902ff3788654a2fb6b1a874163d9466
-label 742a0a948260490692adf02a0d833fab
+goto 0a4c961253154f22b6b7f46e97a28e81
+label 50d0a84a6eb54b62976809d5af920dac
+label 0a4c961253154f22b6b7f46e97a28e81
 push argument 0
 call Math.abs 1
 call Output.printIntRecursive 1
@@ -1840,12 +1840,12 @@ push argument 0
 push constant 10
 lt
 not
-if-goto c70a425f48984204a543df546a9baa4c
+if-goto 9c33eda96d13420ba365a7f771d9b2fa
 push local 1
 call Output.printChar 1
 pop temp 0
-goto 331cab5d5dca47bdab5d84b446d68dd9
-label c70a425f48984204a543df546a9baa4c
+goto d7073a15729e4cfcb2b62ec1dd5c1557
+label 9c33eda96d13420ba365a7f771d9b2fa
 push argument 0
 push constant 10
 call Math.divide 2
@@ -1854,7 +1854,7 @@ pop temp 0
 push local 1
 call Output.printChar 1
 pop temp 0
-label 331cab5d5dca47bdab5d84b446d68dd9
+label d7073a15729e4cfcb2b62ec1dd5c1557
 push constant 0
 return
 function Output.println 0

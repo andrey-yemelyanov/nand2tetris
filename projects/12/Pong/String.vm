@@ -6,12 +6,12 @@ push argument 0
 push constant 0
 eq
 not
-if-goto b69b6e2bbf5043bf8cbcb154615353c9
+if-goto d9f65d777b0c4e54897a0b7e21ebe8c4
 push constant 1
 pop argument 0
-goto 4cee1126f1014fd189cf44d792227674
-label b69b6e2bbf5043bf8cbcb154615353c9
-label 4cee1126f1014fd189cf44d792227674
+goto aaa164008da7440a994a753cc469b391
+label d9f65d777b0c4e54897a0b7e21ebe8c4
+label aaa164008da7440a994a753cc469b391
 push argument 0
 call Array.new 1
 pop this 2
@@ -50,7 +50,7 @@ push argument 1
 push this 0
 lt
 not
-if-goto 786338fbe7054d49adf882d2cdf6e1ea
+if-goto 218ca64a3e294256af46899edab1c5c8
 push argument 1
 push this 2
 add
@@ -59,9 +59,9 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-goto 2ee9fe6fd77e4cf3bdc4ed1beaf2380b
-label 786338fbe7054d49adf882d2cdf6e1ea
-label 2ee9fe6fd77e4cf3bdc4ed1beaf2380b
+goto 538be660020b452d81712ec3bf60e601
+label 218ca64a3e294256af46899edab1c5c8
+label 538be660020b452d81712ec3bf60e601
 push constant 0
 return
 function String.appendChar 0
@@ -71,7 +71,7 @@ push this 0
 push this 1
 lt
 not
-if-goto cb9ea6a13e94440d8a2e4bd5ecc1b4d5
+if-goto d52ca395bef6426c95aa17c49dcbca72
 push this 0
 push this 2
 add
@@ -84,9 +84,9 @@ push this 0
 push constant 1
 add
 pop this 0
-goto f4e380f1c4e148a98d555f0304764dc6
-label cb9ea6a13e94440d8a2e4bd5ecc1b4d5
-label f4e380f1c4e148a98d555f0304764dc6
+goto b4f4822125db4a00870506acdb1d921b
+label d52ca395bef6426c95aa17c49dcbca72
+label b4f4822125db4a00870506acdb1d921b
 push pointer 0
 return
 function String.eraseLastChar 0
@@ -115,16 +115,16 @@ call String.charAt 2
 push constant 45
 eq
 not
-if-goto 2d5bef58271e4997906dd4b8b23c7569
+if-goto f405a3b90afc4aa597a9a9185184e59b
 push constant 1
 neg
 pop local 0
 push constant 1
 pop local 1
-goto 0e86b80ee71e40caa3bb7136d187e425
-label 2d5bef58271e4997906dd4b8b23c7569
-label 0e86b80ee71e40caa3bb7136d187e425
-label 9e6e413c15484459a15eababb6d68730
+goto fe89beec0bd64ef89a808bf8549561b9
+label f405a3b90afc4aa597a9a9185184e59b
+label fe89beec0bd64ef89a808bf8549561b9
+label e42f0b5ba67b470784c446e793582f8e
 push local 1
 push this 0
 lt
@@ -132,7 +132,7 @@ push local 4
 not
 and
 not
-if-goto 241d767ebd8d4599bcd0ed7fff1f8114
+if-goto 2e76ea0b038b447793c3cfc1c44a2d00
 push pointer 0
 push local 1
 call String.charAt 2
@@ -145,7 +145,7 @@ push constant 58
 lt
 and
 not
-if-goto 088a8ba08c8848c38254882ba7aa9bbb
+if-goto ed82a612906f4680babe6be7e1e666b3
 push local 2
 push constant 10
 call Math.multiply 2
@@ -154,18 +154,18 @@ push constant 48
 sub
 add
 pop local 2
-goto 622d1acb85f944288d7d9f909b1e37af
-label 088a8ba08c8848c38254882ba7aa9bbb
+goto 0438d9bcf5a943d8901ae057c1972983
+label ed82a612906f4680babe6be7e1e666b3
 push constant 1
 neg
 pop local 4
-label 622d1acb85f944288d7d9f909b1e37af
+label 0438d9bcf5a943d8901ae057c1972983
 push local 1
 push constant 1
 add
 pop local 1
-goto 9e6e413c15484459a15eababb6d68730
-label 241d767ebd8d4599bcd0ed7fff1f8114
+goto e42f0b5ba67b470784c446e793582f8e
+label 2e76ea0b038b447793c3cfc1c44a2d00
 push local 2
 push local 0
 call Math.multiply 2
@@ -179,14 +179,14 @@ push argument 1
 push constant 0
 lt
 not
-if-goto 5f6a5929a7924ca399e6469fcaa59482
+if-goto f0a157827f854b99a0be434be195915c
 push pointer 0
 push constant 45
 call String.appendChar 2
 pop temp 0
-goto cb9afb7eafdc4abda03d5588828f69f2
-label 5f6a5929a7924ca399e6469fcaa59482
-label cb9afb7eafdc4abda03d5588828f69f2
+goto 7d1c1e868d864ca48037e35058b525f2
+label f0a157827f854b99a0be434be195915c
+label 7d1c1e868d864ca48037e35058b525f2
 push pointer 0
 push argument 1
 call Math.abs 1
@@ -213,13 +213,13 @@ push argument 1
 push constant 10
 lt
 not
-if-goto c3792d965a2240c9a527b4c0458bffa1
+if-goto 8b7e4fbd766840c897475a855cc5d472
 push pointer 0
 push local 1
 call String.appendChar 2
 pop temp 0
-goto e10de164c4d84b6a893617eecd6f2b80
-label c3792d965a2240c9a527b4c0458bffa1
+goto 7eaf1f1bf6154c5cae609c2916ad13c7
+label 8b7e4fbd766840c897475a855cc5d472
 push pointer 0
 push argument 1
 push constant 10
@@ -230,7 +230,7 @@ push pointer 0
 push local 1
 call String.appendChar 2
 pop temp 0
-label e10de164c4d84b6a893617eecd6f2b80
+label 7eaf1f1bf6154c5cae609c2916ad13c7
 push constant 0
 return
 function String.newLine 0

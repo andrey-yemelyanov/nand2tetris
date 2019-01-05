@@ -90,12 +90,12 @@ return
 function PongGame.run 1
 push argument 0
 pop pointer 0
-label 90f94b170f964673805351b826244e60
+label 2d5ed6abc0664ebe8fc9e81dc58b08ce
 push this 3
 not
 not
-if-goto 3e8fde86e7f34028b019c405d397b941
-label d65c6ee3634e4daf924d71d19fd90245
+if-goto 0a1b5c80ab0b4280b3905a5205851f01
+label c2b37ae8fb4b4e289d1c0864c6394350
 push local 0
 push constant 0
 eq
@@ -103,7 +103,7 @@ push this 3
 not
 and
 not
-if-goto f84292b2a5ba47c5a03fd4c86c1f3cb2
+if-goto 6b60b65d342a4e86bfcc8f4245f50e2b
 call Keyboard.keyPressed 0
 pop local 0
 push this 0
@@ -115,44 +115,44 @@ pop temp 0
 push constant 50
 call Sys.wait 1
 pop temp 0
-goto d65c6ee3634e4daf924d71d19fd90245
-label f84292b2a5ba47c5a03fd4c86c1f3cb2
+goto c2b37ae8fb4b4e289d1c0864c6394350
+label 6b60b65d342a4e86bfcc8f4245f50e2b
 push local 0
 push constant 130
 eq
 not
-if-goto f4df35f5581c4e3a9bab4aa808112ae8
+if-goto b6bbc35514a44c11bdbe83768b8fad4e
 push this 0
 push constant 1
 call Bat.setDirection 2
 pop temp 0
-goto 228e7115ce97425bad9dcab5be8fb163
-label f4df35f5581c4e3a9bab4aa808112ae8
+goto a3fa3d3ffd124231a5e98b08f0cbaadd
+label b6bbc35514a44c11bdbe83768b8fad4e
 push local 0
 push constant 132
 eq
 not
-if-goto a40b5644fbf34c4588c9f0164221ff65
+if-goto a88ad936dfa94461b44d71104a48ee6f
 push this 0
 push constant 2
 call Bat.setDirection 2
 pop temp 0
-goto d9a5ce9b424c4528a63351cc5488fcb7
-label a40b5644fbf34c4588c9f0164221ff65
+goto 0f2da9cffeac4f0ba903e6dd1d2c7f18
+label a88ad936dfa94461b44d71104a48ee6f
 push local 0
 push constant 140
 eq
 not
-if-goto ea4c396451e04cb0a83cea9720688811
+if-goto 750c85c5885b42d8a439d089d1836f42
 push constant 1
 neg
 pop this 3
-goto 102a18579e6040f4b4afbd343d5ed9dc
-label ea4c396451e04cb0a83cea9720688811
-label 102a18579e6040f4b4afbd343d5ed9dc
-label d9a5ce9b424c4528a63351cc5488fcb7
-label 228e7115ce97425bad9dcab5be8fb163
-label 27424f81aef64d0e9d8354db6e5af696
+goto d27f0edaacd24e309a51ec760dd69b99
+label 750c85c5885b42d8a439d089d1836f42
+label d27f0edaacd24e309a51ec760dd69b99
+label 0f2da9cffeac4f0ba903e6dd1d2c7f18
+label a3fa3d3ffd124231a5e98b08f0cbaadd
+label 3379ed582a414300afbd875b14ea920b
 push local 0
 push constant 0
 eq
@@ -161,7 +161,7 @@ push this 3
 not
 and
 not
-if-goto 0a32f540237b4f6abc0724c488ccff1f
+if-goto ec5426b28f784e5883c34753ef2610bc
 call Keyboard.keyPressed 0
 pop local 0
 push this 0
@@ -173,13 +173,13 @@ pop temp 0
 push constant 50
 call Sys.wait 1
 pop temp 0
-goto 27424f81aef64d0e9d8354db6e5af696
-label 0a32f540237b4f6abc0724c488ccff1f
-goto 90f94b170f964673805351b826244e60
-label 3e8fde86e7f34028b019c405d397b941
+goto 3379ed582a414300afbd875b14ea920b
+label ec5426b28f784e5883c34753ef2610bc
+goto 2d5ed6abc0664ebe8fc9e81dc58b08ce
+label 0a1b5c80ab0b4280b3905a5205851f01
 push this 3
 not
-if-goto b31ce0e931124eedb01b9bae4d6e97be
+if-goto 3768071f5d844066bd476b962baac84d
 push constant 10
 push constant 27
 call Output.moveCursor 2
@@ -206,9 +206,9 @@ push constant 114
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-goto 06b89f43b2944871b03004a06090a587
-label b31ce0e931124eedb01b9bae4d6e97be
-label 06b89f43b2944871b03004a06090a587
+goto 9619d12c84a74b2e927fe2f4563c818f
+label 3768071f5d844066bd476b962baac84d
+label 9619d12c84a74b2e927fe2f4563c818f
 push constant 0
 return
 function PongGame.moveBall 5
@@ -226,7 +226,7 @@ eq
 not
 and
 not
-if-goto 9f27de9745c845a5b0a4cc571118d30e
+if-goto 1e34f55ca3604070a2f9254df4fb1e1f
 push this 2
 pop this 5
 push constant 0
@@ -247,7 +247,7 @@ push this 2
 push constant 4
 eq
 not
-if-goto 2216436089a9427192f12551ef656953
+if-goto 50bb3824543849638238299fb1ad2a7f
 push local 1
 push local 4
 gt
@@ -259,32 +259,32 @@ pop this 3
 push this 3
 not
 not
-if-goto a9ed11895fc94b30a1e4ff8043eee318
+if-goto e0159305e59a4bdd8b92e6daa5bdce6d
 push local 4
 push local 1
 push constant 10
 add
 lt
 not
-if-goto 24a529366a094e04b33ddab4aee4c3fb
+if-goto 2c123422afc24a3caf3d741a06f7564c
 push constant 1
 neg
 pop local 0
-goto 8f8dca847d6a4240b6378258d5dbb2be
-label 24a529366a094e04b33ddab4aee4c3fb
+goto 70b78af9c9424f64aac0e07e18cd5773
+label 2c123422afc24a3caf3d741a06f7564c
 push local 3
 push local 2
 push constant 10
 sub
 gt
 not
-if-goto 68ee56c5250842b7bc11e5091bc962e1
+if-goto 77e965d37012453fa74cbdb27d6479c4
 push constant 1
 pop local 0
-goto 134fd738e1d9444bb56aa3f4d83ce495
-label 68ee56c5250842b7bc11e5091bc962e1
-label 134fd738e1d9444bb56aa3f4d83ce495
-label 8f8dca847d6a4240b6378258d5dbb2be
+goto 6bef0f96493c445e9dad3e356a9b1563
+label 77e965d37012453fa74cbdb27d6479c4
+label 6bef0f96493c445e9dad3e356a9b1563
+label 70b78af9c9424f64aac0e07e18cd5773
 push this 6
 push constant 2
 sub
@@ -304,18 +304,18 @@ pop temp 0
 push this 4
 call Output.printInt 1
 pop temp 0
-goto d92b8829533046c6bdaca8fdfe06443b
-label a9ed11895fc94b30a1e4ff8043eee318
-label d92b8829533046c6bdaca8fdfe06443b
-goto 3580b6b0997a4866914c463eb3e7045f
-label 2216436089a9427192f12551ef656953
-label 3580b6b0997a4866914c463eb3e7045f
+goto 39dc2c6eef924cb4a8ea243352c11c76
+label e0159305e59a4bdd8b92e6daa5bdce6d
+label 39dc2c6eef924cb4a8ea243352c11c76
+goto 7876e8a341314983a4b5704c316ce941
+label 50bb3824543849638238299fb1ad2a7f
+label 7876e8a341314983a4b5704c316ce941
 push this 1
 push local 0
 call Ball.bounce 2
 pop temp 0
-goto 60b57906effc4eb1ada43af9c9874749
-label 9f27de9745c845a5b0a4cc571118d30e
-label 60b57906effc4eb1ada43af9c9874749
+goto f41965921b03450b8f47544048ad27f8
+label 1e34f55ca3604070a2f9254df4fb1e1f
+label f41965921b03450b8f47544048ad27f8
 push constant 0
 return
