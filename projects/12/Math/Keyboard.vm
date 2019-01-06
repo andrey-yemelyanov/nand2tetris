@@ -10,29 +10,29 @@ return
 function Keyboard.readChar 2
 push constant 0
 pop local 1
-label 7eb9e8e034ff4823b33e4774066be1e8
+label efc505dc7b824489bf87e274344bcf14
 push local 1
 push constant 0
 eq
 not
-if-goto 7106509226c94339b7e74c22a498481a
+if-goto 269d39b27ea946108a16c8ad31fd6c7a
 call Keyboard.keyPressed 0
 pop local 1
-goto 7eb9e8e034ff4823b33e4774066be1e8
-label 7106509226c94339b7e74c22a498481a
+goto efc505dc7b824489bf87e274344bcf14
+label 269d39b27ea946108a16c8ad31fd6c7a
 push local 1
 pop local 0
-label ac50b1c202e347dd96e636efc5ca867a
+label 95878abb73be44669131d5a9065850b4
 push local 1
 push constant 0
 eq
 not
 not
-if-goto d1d84399f5844eedab448f6422faea3b
+if-goto f547ff80139b4303b6e160bec67d8220
 call Keyboard.keyPressed 0
 pop local 1
-goto ac50b1c202e347dd96e636efc5ca867a
-label d1d84399f5844eedab448f6422faea3b
+goto 95878abb73be44669131d5a9065850b4
+label f547ff80139b4303b6e160bec67d8220
 push local 0
 call Output.printChar 1
 pop temp 0
@@ -45,44 +45,44 @@ pop local 1
 push argument 0
 call Output.printString 1
 pop temp 0
-label c594a0a333b14e9582ae5f1fa5239c3d
+label 1615803e786340d39f563e13b4195cd0
 push constant 1
 neg
 not
-if-goto 30580af46e3944578b42037f400ff185
+if-goto a92f93d78d414c77861e18cf35c2d9d4
 call Keyboard.readChar 0
 pop local 0
 push local 0
 call String.newLine 0
 eq
 not
-if-goto 75b768220b0d4f519a026f12947b3614
+if-goto 41052b0dc3f84734bac1608fe2ab3656
 call Output.println 0
 pop temp 0
 push local 1
 return
-goto 39fbc6ce872f43f3996a1314b23e1e83
-label 75b768220b0d4f519a026f12947b3614
+goto 40c524503aed41e9a7b1525432f51771
+label 41052b0dc3f84734bac1608fe2ab3656
 push local 0
 call String.backSpace 0
 eq
 not
-if-goto fed79185383249e7a5d4ce50b6074320
+if-goto b19f38f33ede4806b6e165fb82d0b7d9
 push local 1
 call String.eraseLastChar 1
 pop temp 0
 call Output.backSpace 0
 pop temp 0
-goto 59305140854347a4a18bb36f4c5fdf91
-label fed79185383249e7a5d4ce50b6074320
+goto 2373b0b4c8164b5d96953a7cf8f1c210
+label b19f38f33ede4806b6e165fb82d0b7d9
 push local 1
 push local 0
 call String.appendChar 2
 pop local 1
-label 59305140854347a4a18bb36f4c5fdf91
-label 39fbc6ce872f43f3996a1314b23e1e83
-goto c594a0a333b14e9582ae5f1fa5239c3d
-label 30580af46e3944578b42037f400ff185
+label 2373b0b4c8164b5d96953a7cf8f1c210
+label 40c524503aed41e9a7b1525432f51771
+goto 1615803e786340d39f563e13b4195cd0
+label a92f93d78d414c77861e18cf35c2d9d4
 push local 1
 return
 function Keyboard.readInt 0
