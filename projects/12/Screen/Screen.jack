@@ -195,36 +195,46 @@ class Screen {
     }
 
     function void drawHorizontalLine(int x1, int x2, int y){
-        var int fromAddress, toAddress, value, max, min;
+        var int fromAddress, toAddress, max, min;
         let max = Math.max(x1, x2); let min = Math.min(x1, x2);
         let x1 = min; let x2 = max;
         let fromAddress = Screen.getWordAddress(x1, y);
         let toAddress = Screen.getWordAddress(x2, y);
+        do Screen.drawHorizontalLineEfficient(Screen.mod(x1, 16), Screen.mod(x2, 16), fromAddress, toAddress, 1);
+        return;
+    }
 
-        if(fromAddress = toAddress){
-            if(currentColor = BLACK){
-                let screen[fromAddress] = screen[fromAddress] | (leftMask[15 - Screen.mod(x1, 16)] & rightMask[Screen.mod(x2, 16)]);
-            }else{
-                let screen[fromAddress] = screen[fromAddress] & (~(leftMask[15 - Screen.mod(x1, 16)] & rightMask[Screen.mod(x2, 16)]));
-            }
-        }else{
-            if(currentColor = BLACK){
-                let screen[fromAddress] = screen[fromAddress] | leftMask[15 - Screen.mod(x1, 16)];
-                let fromAddress = fromAddress + 1;
-                while(fromAddress < toAddress){
-                    let screen[fromAddress] = -1;
-                    let fromAddress = fromAddress + 1;
+    function void drawHorizontalLineEfficient(int x1Mod16, int x2Mod16, int fromAddress, int toAddress, int nLines){
+        while(nLines > 0){
+            if(fromAddress = toAddress){
+                if(currentColor = BLACK){
+                    let screen[fromAddress] = screen[fromAddress] | (leftMask[15 - x1Mod16] & rightMask[x2Mod16]);
+                }else{
+                    let screen[fromAddress] = screen[fromAddress] & (~(leftMask[15 - x1Mod16] & rightMask[x2Mod16]));
                 }
-                let screen[fromAddress] = screen[fromAddress] | rightMask[Screen.mod(x2, 16)];
             }else{
-                let screen[fromAddress] = screen[fromAddress] & (~leftMask[15 - Screen.mod(x1, 16)]);
-                let fromAddress = fromAddress + 1;
-                while(fromAddress < toAddress){
-                    let screen[fromAddress] = 0;
+                if(currentColor = BLACK){
+                    let screen[fromAddress] = screen[fromAddress] | leftMask[15 - x1Mod16];
                     let fromAddress = fromAddress + 1;
+                    while(fromAddress < toAddress){
+                        let screen[fromAddress] = -1;
+                        let fromAddress = fromAddress + 1;
+                    }
+                    let screen[fromAddress] = screen[fromAddress] | rightMask[x2Mod16];
+                }else{
+                    let screen[fromAddress] = screen[fromAddress] & (~leftMask[15 - x1Mod16]);
+                    let fromAddress = fromAddress + 1;
+                    while(fromAddress < toAddress){
+                        let screen[fromAddress] = 0;
+                        let fromAddress = fromAddress + 1;
+                    }
+                    let screen[fromAddress] = screen[fromAddress] & (~rightMask[x2Mod16]);
                 }
-                let screen[fromAddress] = screen[fromAddress] & (~rightMask[Screen.mod(x2, 16)]);
             }
+            
+            let fromAddress = fromAddress + 32;
+            let toAddress = toAddress + 32;
+            let nLines = nLines - 1;
         }
         
         return;
@@ -244,16 +254,17 @@ class Screen {
     /** Draws a filled rectangle whose top left corner is (x1, y1)
      * and bottom right corner is (x2,y2), using the current color. */
     function void drawRectangle(int x1, int y1, int x2, int y2) {
-        var int lineLen, nLines, x, y;
+        var int lineLen, nLines, x, y, fromAddress, toAddress;
         let lineLen = Math.abs(x1 - x2);
         let nLines = Math.abs(y1 - y2);
         let x = Math.min(x1, x2);
         let y = Math.min(y1, y2);
-        while(nLines > 0){
-            do Screen.drawHorizontalLine(x, x + lineLen, y);
-            let y = y + 1;
-            let nLines = nLines - 1;
-        }
+
+        let fromAddress = Screen.getWordAddress(x, y);
+        let toAddress = Screen.getWordAddress(x + lineLen, y);
+
+        do Screen.drawHorizontalLineEfficient(Screen.mod(x, 16), Screen.mod(x + lineLen, 16), fromAddress, toAddress, nLines);
+
         return;
     }
 
