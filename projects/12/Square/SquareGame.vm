@@ -29,46 +29,46 @@ push this 1
 push constant 1
 eq
 not
-if-goto 8c1c0edc462d4cfaa52a1ca19b2324d8
+if-goto f759fcdb70174bbca7604526e730c074
 push this 0
 call Square.moveUp 1
 pop temp 0
-goto d90f42fafe624049a25ef2c26c34fecf
-label 8c1c0edc462d4cfaa52a1ca19b2324d8
-label d90f42fafe624049a25ef2c26c34fecf
+goto 8a29a40e3b35491eb9ce48eaf61853ff
+label f759fcdb70174bbca7604526e730c074
+label 8a29a40e3b35491eb9ce48eaf61853ff
 push this 1
 push constant 2
 eq
 not
-if-goto 86411512eb424d0e8f2cfc1f3d2169b9
+if-goto 4dbfd69cc0464727bccabd7d015d1fe0
 push this 0
 call Square.moveDown 1
 pop temp 0
-goto 84655b3137ec44349e01469409838a54
-label 86411512eb424d0e8f2cfc1f3d2169b9
-label 84655b3137ec44349e01469409838a54
+goto 53fc7356347741a2a05b10048007c3fe
+label 4dbfd69cc0464727bccabd7d015d1fe0
+label 53fc7356347741a2a05b10048007c3fe
 push this 1
 push constant 3
 eq
 not
-if-goto 3c056325369843bca4b2ab6cc07c6a15
+if-goto c040c3c543394ccbaba1013c64036e07
 push this 0
 call Square.moveLeft 1
 pop temp 0
-goto f2b07f13cd56478180be6b3b6cf87b82
-label 3c056325369843bca4b2ab6cc07c6a15
-label f2b07f13cd56478180be6b3b6cf87b82
+goto 982cfdff7ff04846aa454fdb4e6c0526
+label c040c3c543394ccbaba1013c64036e07
+label 982cfdff7ff04846aa454fdb4e6c0526
 push this 1
 push constant 4
 eq
 not
-if-goto f4f87a3129324472af9b0fd40587b931
+if-goto 5aca2d8b3f854abf83f74b8225a65730
 push this 0
 call Square.moveRight 1
 pop temp 0
-goto 7c95ad10f4824478b416676883d2a143
-label f4f87a3129324472af9b0fd40587b931
-label 7c95ad10f4824478b416676883d2a143
+goto 2d6913b92b83467db89f85ac81238e9b
+label 5aca2d8b3f854abf83f74b8225a65730
+label 2d6913b92b83467db89f85ac81238e9b
 push constant 5
 call Sys.wait 1
 pop temp 0
@@ -79,112 +79,112 @@ push argument 0
 pop pointer 0
 push constant 0
 pop local 1
-label ba8922589f6c43159fed97cce390e19d
+label 8505824af40a471aa2165a9f53c5e7e8
 push local 1
 not
 not
-if-goto 154cb29bfcaa4465ac239b2e794a3a34
-label f9fdd9d7db814fc696d4ca9c5d7d6c84
+if-goto b6e33b55f50d41799fe73dddc5d26759
+label 48160c51ea724150ae3ff5a76cfa8563
 push local 0
 push constant 0
 eq
 not
-if-goto 0d83d31183134b1dbcf89b8d31fdc012
+if-goto d74429a5fd764e489094beba1319b0dd
 call Keyboard.keyPressed 0
 pop local 0
 push pointer 0
 call SquareGame.moveSquare 1
 pop temp 0
-goto f9fdd9d7db814fc696d4ca9c5d7d6c84
-label 0d83d31183134b1dbcf89b8d31fdc012
+goto 48160c51ea724150ae3ff5a76cfa8563
+label d74429a5fd764e489094beba1319b0dd
 push local 0
 push constant 81
 eq
 not
-if-goto 5a805c8fc4e446b5808c6b6010d58a00
+if-goto ac2c432e439f418aa293b3831ca89b03
 push constant 1
 neg
 pop local 1
-goto 0fa6b488b51549bba7cb0c9c3e08fea5
-label 5a805c8fc4e446b5808c6b6010d58a00
-label 0fa6b488b51549bba7cb0c9c3e08fea5
+goto 3f13e516fd7b4b6a82d3159eec6e3f9b
+label ac2c432e439f418aa293b3831ca89b03
+label 3f13e516fd7b4b6a82d3159eec6e3f9b
 push local 0
 push constant 90
 eq
 not
-if-goto 96156cebd9394ada99b15e626a4dae73
+if-goto cfe406d9d6d1434dbf0b896e1b7a26e5
 push this 0
 call Square.decSize 1
 pop temp 0
-goto 667de6f7d7bc468dae3d37937778138f
-label 96156cebd9394ada99b15e626a4dae73
-label 667de6f7d7bc468dae3d37937778138f
+goto 6809ef20fdc34ec3a70c84ed4a93807e
+label cfe406d9d6d1434dbf0b896e1b7a26e5
+label 6809ef20fdc34ec3a70c84ed4a93807e
 push local 0
 push constant 88
 eq
 not
-if-goto 364278d6e5ad49d882df5b92ce0f1319
+if-goto f0a0b4739dac475a83c4ba92366f6fc7
 push this 0
 call Square.incSize 1
 pop temp 0
-goto 4ac171089aef4713975c85b08af19ea9
-label 364278d6e5ad49d882df5b92ce0f1319
-label 4ac171089aef4713975c85b08af19ea9
+goto 651e463e7e8a4b0cb8de729ab4eb51e6
+label f0a0b4739dac475a83c4ba92366f6fc7
+label 651e463e7e8a4b0cb8de729ab4eb51e6
 push local 0
 push constant 131
 eq
 not
-if-goto 57c698c843e94482b55a85649477df67
+if-goto b783f3bf1fdd46a6a29a001423f6a498
 push constant 1
 pop this 1
-goto 5061d84ea62e4243acaf96b7a1e0b063
-label 57c698c843e94482b55a85649477df67
-label 5061d84ea62e4243acaf96b7a1e0b063
+goto 6b820bce7c80460eb46fa5ca840baee1
+label b783f3bf1fdd46a6a29a001423f6a498
+label 6b820bce7c80460eb46fa5ca840baee1
 push local 0
 push constant 133
 eq
 not
-if-goto 99be264bae67443dabebaa98ef31821b
+if-goto 94f65ae97a1f46038005887646df77e9
 push constant 2
 pop this 1
-goto 438c018083274d1aa76eeb97c1a5b882
-label 99be264bae67443dabebaa98ef31821b
-label 438c018083274d1aa76eeb97c1a5b882
+goto 6e6e589a16a14aa290807a2825589bf2
+label 94f65ae97a1f46038005887646df77e9
+label 6e6e589a16a14aa290807a2825589bf2
 push local 0
 push constant 130
 eq
 not
-if-goto abf98549409947c283adac3404faad14
+if-goto 8a33b7bc691042f9b8f54eefd800ef22
 push constant 3
 pop this 1
-goto c55fbfe968084230934f6da089259fc5
-label abf98549409947c283adac3404faad14
-label c55fbfe968084230934f6da089259fc5
+goto f78182479e42405dad5a05db7de4daa0
+label 8a33b7bc691042f9b8f54eefd800ef22
+label f78182479e42405dad5a05db7de4daa0
 push local 0
 push constant 132
 eq
 not
-if-goto c86e8500b2f44801b6209d42290926bc
+if-goto 95f42d68d1564967b66b323eecbf73c8
 push constant 4
 pop this 1
-goto 69f632d7006e46618ceed044885bed2b
-label c86e8500b2f44801b6209d42290926bc
-label 69f632d7006e46618ceed044885bed2b
-label f41c4ce6008c4143a33aab1ab7e91436
+goto ffc4e84d7b264fe1b78c37a25a8c4cf0
+label 95f42d68d1564967b66b323eecbf73c8
+label ffc4e84d7b264fe1b78c37a25a8c4cf0
+label c15f423e77c546719d7a6f95a4ed971f
 push local 0
 push constant 0
 eq
 not
 not
-if-goto 36b5ab68e4e2451592087ec3c219c82b
+if-goto 49f5fc2498be43218c62555e82a58ad0
 call Keyboard.keyPressed 0
 pop local 0
 push pointer 0
 call SquareGame.moveSquare 1
 pop temp 0
-goto f41c4ce6008c4143a33aab1ab7e91436
-label 36b5ab68e4e2451592087ec3c219c82b
-goto ba8922589f6c43159fed97cce390e19d
-label 154cb29bfcaa4465ac239b2e794a3a34
+goto c15f423e77c546719d7a6f95a4ed971f
+label 49f5fc2498be43218c62555e82a58ad0
+goto 8505824af40a471aa2165a9f53c5e7e8
+label b6e33b55f50d41799fe73dddc5d26759
 push constant 0
 return
