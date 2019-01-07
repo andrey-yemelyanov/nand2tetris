@@ -209,6 +209,7 @@ class Output {
             }
             let i = i + 1;
         }
+        do Screen.setColor(true); // restore pen color to black
         return;
     }
 

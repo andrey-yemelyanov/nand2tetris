@@ -33,12 +33,15 @@ if __name__ == "__main__":
                 os.path.join(release_folder, file_name),
                 os.path.join(component, file_name))
 
+    print()
     installations = ["Pong", "Square"]
     for installation in installations:
+        print("Building", installation,"...")
         jack_compiler.JackCompiler(installation).compile()
         for file_name in os.listdir(release_folder):
             shutil.copyfile(
                 os.path.join(release_folder, file_name),
                 os.path.join(installation, file_name))
 
+    print()
     print("Build completed successfully.")
