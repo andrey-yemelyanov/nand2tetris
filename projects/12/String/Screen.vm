@@ -12,12 +12,12 @@ push temp 0
 pop that 0
 push constant 1
 pop local 0
-label 00982f399bbe48838ae0e956eafd59f7
+label e58b11524969436bb6dab69935bacb78
 push local 0
 push constant 16
 lt
 not
-if-goto 6d7d67ffb7ab490786b4150cdf5e3765
+if-goto fa804eed6ced40ff82b6dc4f2d5b1c39
 push local 0
 push static 0
 add
@@ -44,8 +44,8 @@ push local 0
 push constant 1
 add
 pop local 0
-goto 00982f399bbe48838ae0e956eafd59f7
-label 6d7d67ffb7ab490786b4150cdf5e3765
+goto e58b11524969436bb6dab69935bacb78
+label fa804eed6ced40ff82b6dc4f2d5b1c39
 push constant 16
 call Array.new 1
 pop static 2
@@ -344,12 +344,12 @@ push constant 8
 push constant 1024
 call Math.multiply 2
 pop local 0
-label 0f3cc64678ad4f26a227cfa99d4a32f1
+label c07ad98749ec4966a4199f3c6e5c4aaa
 push local 1
 push local 0
 lt
 not
-if-goto f773ed10c7d14d60878c67c532992a32
+if-goto 6aec677a4bf74cf3911c15eca50f1a70
 push local 1
 push static 6
 add
@@ -362,8 +362,8 @@ push local 1
 push constant 1
 add
 pop local 1
-goto 0f3cc64678ad4f26a227cfa99d4a32f1
-label f773ed10c7d14d60878c67c532992a32
+goto c07ad98749ec4966a4199f3c6e5c4aaa
+label 6aec677a4bf74cf3911c15eca50f1a70
 push constant 0
 return
 function Screen.setColor 0
@@ -408,7 +408,7 @@ push static 3
 push static 4
 eq
 not
-if-goto 4fe6582bc72942789326c17cd5cdb057
+if-goto 85326db1cfad4c2f9b64203d7ea853e9
 push local 0
 push local 1
 push static 0
@@ -417,8 +417,8 @@ pop pointer 1
 push that 0
 or
 pop local 0
-goto 0d2666de2fd24d18ab26c4f08bd69208
-label 4fe6582bc72942789326c17cd5cdb057
+goto 6e41c0d107f14c7fa2579de8359c0f8e
+label 85326db1cfad4c2f9b64203d7ea853e9
 push local 0
 push local 1
 push static 0
@@ -428,7 +428,7 @@ push that 0
 not
 and
 pop local 0
-label 0d2666de2fd24d18ab26c4f08bd69208
+label 6e41c0d107f14c7fa2579de8359c0f8e
 push local 2
 push static 6
 add
@@ -444,60 +444,60 @@ push argument 0
 push argument 2
 eq
 not
-if-goto 39e98505cbdd4865b961d215988b5c4a
+if-goto 06dcca1904f04be78e07059baec4f20d
 push argument 1
 push argument 3
 push argument 0
 call Screen.drawVerticalLine 3
 pop temp 0
-goto b754e6e29f304082bb2f5155ef90bb0a
-label 39e98505cbdd4865b961d215988b5c4a
+goto 0d43974abf1c42a88bc53da3659d9250
+label 06dcca1904f04be78e07059baec4f20d
 push argument 1
 push argument 3
 eq
 not
-if-goto 83022d1aa93847e68928def929a9d8d8
+if-goto 210fdf7a914a4f428d9e26f8b2e65045
 push argument 0
 push argument 2
 push argument 1
 call Screen.drawHorizontalLine 3
 pop temp 0
-goto 76e6df95ce7b4ed48256b3693fce9c57
-label 83022d1aa93847e68928def929a9d8d8
+goto 559188609099466fa71fa129b6b9c170
+label 210fdf7a914a4f428d9e26f8b2e65045
 push argument 0
 push argument 1
 push argument 2
 push argument 3
 call Screen.isAscendingLine 4
 not
-if-goto fbf0264a8df04e779ffde24fd9e6fbde
+if-goto 9010a30ab42347019e2f43d434990565
 push argument 0
 push argument 1
 push argument 2
 push argument 3
 call Screen.drawAscendingLine 4
 pop temp 0
-goto 74e29c49a89945a0a29b326411a3162a
-label fbf0264a8df04e779ffde24fd9e6fbde
+goto 9b9a39996e54478a9ed6f0c730492158
+label 9010a30ab42347019e2f43d434990565
 push argument 0
 push argument 1
 push argument 2
 push argument 3
 call Screen.isDescendingLine 4
 not
-if-goto c3d9344645cb485883031bf98f5b451b
+if-goto 9daf219761ee4214abccb30b28aeb5e5
 push argument 0
 push argument 1
 push argument 2
 push argument 3
 call Screen.drawDescendingLine 4
 pop temp 0
-goto 2a2a26b887e24f699168b1f67e5ff2c6
-label c3d9344645cb485883031bf98f5b451b
-label 2a2a26b887e24f699168b1f67e5ff2c6
-label 74e29c49a89945a0a29b326411a3162a
-label 76e6df95ce7b4ed48256b3693fce9c57
-label b754e6e29f304082bb2f5155ef90bb0a
+goto b96eb48b9d6a481993e6860b4a70183c
+label 9daf219761ee4214abccb30b28aeb5e5
+label b96eb48b9d6a481993e6860b4a70183c
+label 9b9a39996e54478a9ed6f0c730492158
+label 559188609099466fa71fa129b6b9c170
+label 0d43974abf1c42a88bc53da3659d9250
 push constant 0
 return
 function Screen.isAscendingLine 0
@@ -505,35 +505,35 @@ push argument 1
 push argument 3
 lt
 not
-if-goto d34d4e8548f448da9d71336efae76610
+if-goto aaaf649ca32d4e16acfde5f1e6823e96
 push argument 0
 push argument 2
 gt
 return
-goto a99bb2f015ec4ad1ba1b69344682650b
-label d34d4e8548f448da9d71336efae76610
+goto d22d6ef7098d43bab3f21b27d9e4a550
+label aaaf649ca32d4e16acfde5f1e6823e96
 push argument 2
 push argument 0
 gt
 return
-label a99bb2f015ec4ad1ba1b69344682650b
+label d22d6ef7098d43bab3f21b27d9e4a550
 function Screen.isDescendingLine 0
 push argument 1
 push argument 3
 lt
 not
-if-goto b0a72fe1cb8e41dcae181a402dc9298e
+if-goto fe61b50dc645435292a0b9c6f8816c7a
 push argument 2
 push argument 0
 gt
 return
-goto 1f0ecd33b1c7479696bfe218449edfef
-label b0a72fe1cb8e41dcae181a402dc9298e
+goto 8f2da91de4ff446282e32f2465a08bde
+label fe61b50dc645435292a0b9c6f8816c7a
 push argument 0
 push argument 2
 gt
 return
-label 1f0ecd33b1c7479696bfe218449edfef
+label 8f2da91de4ff446282e32f2465a08bde
 function Screen.drawDescendingLine 7
 push argument 2
 push argument 0
@@ -555,19 +555,19 @@ push argument 1
 push argument 3
 lt
 not
-if-goto 5d2dca1c395146b3ba12b726642932c2
+if-goto 36f2a169ca724df6be63bc27fd65f701
 push argument 1
 pop local 6
 push argument 0
 pop local 5
-goto 0f5c891c5d4147619702b5d8d8b97706
-label 5d2dca1c395146b3ba12b726642932c2
+goto f7e7a6a626af41b2b3ab88b66c694c35
+label 36f2a169ca724df6be63bc27fd65f701
 push argument 3
 pop local 6
 push argument 2
 pop local 5
-label 0f5c891c5d4147619702b5d8d8b97706
-label e97c3ccdf0334dc2815a3bd5aef49a5e
+label f7e7a6a626af41b2b3ab88b66c694c35
+label c668254484db4fcc9c5ce8a419c2f413
 push local 2
 push local 0
 lt
@@ -584,7 +584,7 @@ eq
 or
 and
 not
-if-goto 582d94b5638d4c318d07b9cebfe8e0b0
+if-goto f5a75003f5e84d8c8745f4c52c0ba969
 push local 5
 push local 2
 add
@@ -597,7 +597,7 @@ push local 4
 push constant 0
 lt
 not
-if-goto 609f9a3302c049be80b1ca18a2ec20df
+if-goto a759f5651e8442bb984d242b79609251
 push local 2
 push constant 1
 add
@@ -606,8 +606,8 @@ push local 4
 push local 1
 add
 pop local 4
-goto 89722069136a405ea47193e1815126de
-label 609f9a3302c049be80b1ca18a2ec20df
+goto a67e93b4af234bf08fbae018140acd24
+label a759f5651e8442bb984d242b79609251
 push local 3
 push constant 1
 add
@@ -616,9 +616,9 @@ push local 4
 push local 0
 sub
 pop local 4
-label 89722069136a405ea47193e1815126de
-goto e97c3ccdf0334dc2815a3bd5aef49a5e
-label 582d94b5638d4c318d07b9cebfe8e0b0
+label a67e93b4af234bf08fbae018140acd24
+goto c668254484db4fcc9c5ce8a419c2f413
+label f5a75003f5e84d8c8745f4c52c0ba969
 push constant 0
 return
 function Screen.drawAscendingLine 7
@@ -642,19 +642,19 @@ push argument 1
 push argument 3
 gt
 not
-if-goto 283f168bff594161b48c79dc727c7464
+if-goto 1d6dbdece83b4f3f852f89237fd79ce1
 push argument 1
 pop local 6
 push argument 0
 pop local 5
-goto cfac0ea3b48742b8a78e508766c03e39
-label 283f168bff594161b48c79dc727c7464
+goto 3364993186814a2dab527a3379252985
+label 1d6dbdece83b4f3f852f89237fd79ce1
 push argument 3
 pop local 6
 push argument 2
 pop local 5
-label cfac0ea3b48742b8a78e508766c03e39
-label 534b8f6ed8af4f94a54598cecc705c9b
+label 3364993186814a2dab527a3379252985
+label d435788c43ab442ea944a9a7aa302ade
 push local 2
 push local 0
 lt
@@ -671,7 +671,7 @@ eq
 or
 and
 not
-if-goto a5b6a22a00204cd498539bd2d449c2af
+if-goto 6f2e302135e74d33b48b6766a192d56d
 push local 5
 push local 2
 add
@@ -684,7 +684,7 @@ push local 4
 push constant 0
 lt
 not
-if-goto 26abd5093d9a4b90a26a01b1a4d11bfa
+if-goto 5e384d0ff2c84d97ae7d33ed930e2586
 push local 2
 push constant 1
 add
@@ -693,8 +693,8 @@ push local 4
 push local 1
 add
 pop local 4
-goto c2aef00f6beb4194895ddb212dc7ca7b
-label 26abd5093d9a4b90a26a01b1a4d11bfa
+goto f41cede59a0b4ac6aa527dc7530105d8
+label 5e384d0ff2c84d97ae7d33ed930e2586
 push local 3
 push constant 1
 add
@@ -703,9 +703,9 @@ push local 4
 push local 0
 sub
 pop local 4
-label c2aef00f6beb4194895ddb212dc7ca7b
-goto 534b8f6ed8af4f94a54598cecc705c9b
-label a5b6a22a00204cd498539bd2d449c2af
+label f41cede59a0b4ac6aa527dc7530105d8
+goto d435788c43ab442ea944a9a7aa302ade
+label 6f2e302135e74d33b48b6766a192d56d
 push constant 0
 return
 function Screen.drawHorizontalLine 4
@@ -742,23 +742,23 @@ call Screen.drawHorizontalLineEfficient 5
 pop temp 0
 push constant 0
 return
-function Screen.drawHorizontalLineEfficient 0
-label b9c5a864d39f483e9783417540cff22b
+function Screen.drawHorizontalLineEfficient 1
+label 637d43558c1f4494bcc39bec21d2f5c2
 push argument 4
 push constant 0
 gt
 not
-if-goto 78ef20ace9e4412d95e824ec6b23ab89
+if-goto a7795ea3f41d49fdbf5c67ff2a887476
 push argument 2
 push argument 3
 eq
 not
-if-goto df932d24a1b244a3a52a9808ca3f5527
+if-goto a879cb0901b7442b8bd030b1f48f567e
 push static 3
 push static 4
 eq
 not
-if-goto 240701995bf147bdb7e86860f0eaf5ac
+if-goto 1f34a27676e64f6cab92d5589a3ca6cc
 push argument 2
 push static 6
 add
@@ -785,8 +785,8 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-goto 31afcf09ebdf4c95967f9fd9b996c7ae
-label 240701995bf147bdb7e86860f0eaf5ac
+goto 915575708fc44e4bab0e63cf81cb9eac
+label 1f34a27676e64f6cab92d5589a3ca6cc
 push argument 2
 push static 6
 add
@@ -814,18 +814,20 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-label 31afcf09ebdf4c95967f9fd9b996c7ae
-goto 9de708936f1e421a8d599721ff186eb4
-label df932d24a1b244a3a52a9808ca3f5527
+label 915575708fc44e4bab0e63cf81cb9eac
+goto be2aa41a4c7940fdb28d6c2cdb4e870c
+label a879cb0901b7442b8bd030b1f48f567e
+push argument 2
+pop local 0
 push static 3
 push static 4
 eq
 not
-if-goto 74dce737649042388e30cfc7d9bb321d
-push argument 2
+if-goto 032eeeb0f7e04e7597df5305c726cc99
+push local 0
 push static 6
 add
-push argument 2
+push local 0
 push static 6
 add
 pop pointer 1
@@ -842,17 +844,17 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push argument 2
+push local 0
 push constant 1
 add
-pop argument 2
-label 9f6b81bc72084803b6c9192627a38198
-push argument 2
+pop local 0
+label 8112faaf8d9b423b827e9cc935c9e9dd
+push local 0
 push argument 3
 lt
 not
-if-goto e468f04c1670400eac6ae4da02f3f3fd
-push argument 2
+if-goto 2ca3b496fe584d568c99687ca4f265c8
+push local 0
 push static 6
 add
 push constant 1
@@ -861,16 +863,16 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push argument 2
+push local 0
 push constant 1
 add
-pop argument 2
-goto 9f6b81bc72084803b6c9192627a38198
-label e468f04c1670400eac6ae4da02f3f3fd
-push argument 2
+pop local 0
+goto 8112faaf8d9b423b827e9cc935c9e9dd
+label 2ca3b496fe584d568c99687ca4f265c8
+push local 0
 push static 6
 add
-push argument 2
+push local 0
 push static 6
 add
 pop pointer 1
@@ -885,12 +887,12 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-goto 09c41462d3af402790986dea52851c5c
-label 74dce737649042388e30cfc7d9bb321d
-push argument 2
+goto deeb68eba03246f88452d41bf5167d01
+label 032eeeb0f7e04e7597df5305c726cc99
+push local 0
 push static 6
 add
-push argument 2
+push local 0
 push static 6
 add
 pop pointer 1
@@ -908,17 +910,17 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push argument 2
+push local 0
 push constant 1
 add
-pop argument 2
-label 285dc3cd0f844792bf4430b773541739
-push argument 2
+pop local 0
+label 3f9df807387148578833f1c1d71959db
+push local 0
 push argument 3
 lt
 not
-if-goto 02196f3d37744ca89e33ec0868249118
-push argument 2
+if-goto 8cfedd591865406c8096d55bd5779e9b
+push local 0
 push static 6
 add
 push constant 0
@@ -926,16 +928,16 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push argument 2
+push local 0
 push constant 1
 add
-pop argument 2
-goto 285dc3cd0f844792bf4430b773541739
-label 02196f3d37744ca89e33ec0868249118
-push argument 2
+pop local 0
+goto 3f9df807387148578833f1c1d71959db
+label 8cfedd591865406c8096d55bd5779e9b
+push local 0
 push static 6
 add
-push argument 2
+push local 0
 push static 6
 add
 pop pointer 1
@@ -951,8 +953,8 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-label 09c41462d3af402790986dea52851c5c
-label 9de708936f1e421a8d599721ff186eb4
+label deeb68eba03246f88452d41bf5167d01
+label be2aa41a4c7940fdb28d6c2cdb4e870c
 push argument 2
 push constant 32
 add
@@ -965,8 +967,8 @@ push argument 4
 push constant 1
 sub
 pop argument 4
-goto b9c5a864d39f483e9783417540cff22b
-label 78ef20ace9e4412d95e824ec6b23ab89
+goto 637d43558c1f4494bcc39bec21d2f5c2
+label a7795ea3f41d49fdbf5c67ff2a887476
 push constant 0
 return
 function Screen.drawVerticalLine 2
@@ -978,7 +980,7 @@ push argument 0
 push argument 1
 call Math.max 2
 pop local 1
-label afbb849755c447de95b3955c9ba69099
+label d1a5896d41894f22a5e43242d6172ffd
 push local 0
 push local 1
 lt
@@ -987,7 +989,7 @@ push local 1
 eq
 or
 not
-if-goto 0425303d85e341579a459185145b0543
+if-goto d0c6dc7a61c146f6a1fe7bb43d9eda13
 push argument 2
 push local 0
 call Screen.drawPixel 2
@@ -996,8 +998,8 @@ push local 0
 push constant 1
 add
 pop local 0
-goto afbb849755c447de95b3955c9ba69099
-label 0425303d85e341579a459185145b0543
+goto d1a5896d41894f22a5e43242d6172ffd
+label d0c6dc7a61c146f6a1fe7bb43d9eda13
 push constant 0
 return
 function Screen.drawRectangle 6
@@ -1010,6 +1012,8 @@ push argument 1
 push argument 3
 sub
 call Math.abs 1
+push constant 1
+add
 pop local 1
 push argument 0
 push argument 2
@@ -1056,8 +1060,8 @@ push constant 181
 eq
 or
 not
-if-goto d420cf63b9ab404eb050e26e67acb23b
-label 418676aea966415d9d67c0068831303e
+if-goto 8fcd08cb8efa43429e10f2ebf98ce6cd
+label 9b0b9f023e864ddbb92ba709899a73c0
 push local 0
 push argument 2
 lt
@@ -1066,7 +1070,7 @@ push argument 2
 eq
 or
 not
-if-goto 9e2693a29b014f35855bf9753be47ae6
+if-goto 64099164f1dc4c5fa428acb06e40255c
 push argument 2
 push argument 2
 call Math.multiply 2
@@ -1091,10 +1095,10 @@ push local 0
 push constant 1
 add
 pop local 0
-goto 418676aea966415d9d67c0068831303e
-label 9e2693a29b014f35855bf9753be47ae6
-goto 4c21079f937b4c688a3907934801ba84
-label d420cf63b9ab404eb050e26e67acb23b
-label 4c21079f937b4c688a3907934801ba84
+goto 9b0b9f023e864ddbb92ba709899a73c0
+label 64099164f1dc4c5fa428acb06e40255c
+goto e990ff86fdd444eb9f6b881c7501a27e
+label 8fcd08cb8efa43429e10f2ebf98ce6cd
+label e990ff86fdd444eb9f6b881c7501a27e
 push constant 0
 return

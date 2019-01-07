@@ -33,10 +33,12 @@ if __name__ == "__main__":
                 os.path.join(release_folder, file_name),
                 os.path.join(component, file_name))
 
-    jack_compiler.JackCompiler("Pong").compile()
-    for file_name in os.listdir(release_folder):
-        shutil.copyfile(
-            os.path.join(release_folder, file_name),
-            os.path.join("Pong", file_name))
+    installations = ["Pong", "Square"]
+    for installation in installations:
+        jack_compiler.JackCompiler(installation).compile()
+        for file_name in os.listdir(release_folder):
+            shutil.copyfile(
+                os.path.join(release_folder, file_name),
+                os.path.join(installation, file_name))
 
     print("Build completed successfully.")

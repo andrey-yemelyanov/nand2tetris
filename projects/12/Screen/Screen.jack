@@ -205,6 +205,7 @@ class Screen {
     }
 
     function void drawHorizontalLineEfficient(int x1Mod16, int x2Mod16, int fromAddress, int toAddress, int nLines){
+        var int address;
         while(nLines > 0){
             if(fromAddress = toAddress){
                 if(currentColor = BLACK){
@@ -213,22 +214,23 @@ class Screen {
                     let screen[fromAddress] = screen[fromAddress] & (~(leftMask[15 - x1Mod16] & rightMask[x2Mod16]));
                 }
             }else{
+                let address = fromAddress;
                 if(currentColor = BLACK){
-                    let screen[fromAddress] = screen[fromAddress] | leftMask[15 - x1Mod16];
-                    let fromAddress = fromAddress + 1;
-                    while(fromAddress < toAddress){
-                        let screen[fromAddress] = -1;
-                        let fromAddress = fromAddress + 1;
+                    let screen[address] = screen[address] | leftMask[15 - x1Mod16];
+                    let address = address + 1;
+                    while(address < toAddress){
+                        let screen[address] = -1;
+                        let address = address + 1;
                     }
-                    let screen[fromAddress] = screen[fromAddress] | rightMask[x2Mod16];
+                    let screen[address] = screen[address] | rightMask[x2Mod16];
                 }else{
-                    let screen[fromAddress] = screen[fromAddress] & (~leftMask[15 - x1Mod16]);
-                    let fromAddress = fromAddress + 1;
-                    while(fromAddress < toAddress){
-                        let screen[fromAddress] = 0;
-                        let fromAddress = fromAddress + 1;
+                    let screen[address] = screen[address] & (~leftMask[15 - x1Mod16]);
+                    let address = address + 1;
+                    while(address < toAddress){
+                        let screen[address] = 0;
+                        let address = address + 1;
                     }
-                    let screen[fromAddress] = screen[fromAddress] & (~rightMask[x2Mod16]);
+                    let screen[address] = screen[address] & (~rightMask[x2Mod16]);
                 }
             }
             
@@ -256,13 +258,12 @@ class Screen {
     function void drawRectangle(int x1, int y1, int x2, int y2) {
         var int lineLen, nLines, x, y, fromAddress, toAddress;
         let lineLen = Math.abs(x1 - x2);
-        let nLines = Math.abs(y1 - y2);
+        let nLines = Math.abs(y1 - y2) + 1;
         let x = Math.min(x1, x2);
         let y = Math.min(y1, y2);
 
         let fromAddress = Screen.getWordAddress(x, y);
         let toAddress = Screen.getWordAddress(x + lineLen, y);
-
         do Screen.drawHorizontalLineEfficient(Screen.mod(x, 16), Screen.mod(x + lineLen, 16), fromAddress, toAddress, nLines);
 
         return;

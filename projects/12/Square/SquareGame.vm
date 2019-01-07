@@ -1,0 +1,190 @@
+function SquareGame.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+push constant 0
+push constant 30
+call Square.new 3
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return
+function SquareGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Square.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function SquareGame.moveSquare 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+eq
+not
+if-goto 27cbe897f8344e3d884df25558e9938d
+push this 0
+call Square.moveUp 1
+pop temp 0
+goto cb47435d2d9a4c8fb6e1fd93b93040ef
+label 27cbe897f8344e3d884df25558e9938d
+label cb47435d2d9a4c8fb6e1fd93b93040ef
+push this 1
+push constant 2
+eq
+not
+if-goto fc42d74c5b4840a8a414b40cda4fb397
+push this 0
+call Square.moveDown 1
+pop temp 0
+goto a6ecdd57f7954f7b903fee68fad15eb5
+label fc42d74c5b4840a8a414b40cda4fb397
+label a6ecdd57f7954f7b903fee68fad15eb5
+push this 1
+push constant 3
+eq
+not
+if-goto 4937faf301854281939ee1818764ab70
+push this 0
+call Square.moveLeft 1
+pop temp 0
+goto 5232e3262b754c0883a86ff1861e66ed
+label 4937faf301854281939ee1818764ab70
+label 5232e3262b754c0883a86ff1861e66ed
+push this 1
+push constant 4
+eq
+not
+if-goto 2af45a203faf4b15abb127efb8300626
+push this 0
+call Square.moveRight 1
+pop temp 0
+goto 099a41e38566455cbac5f3967e2a6cd8
+label 2af45a203faf4b15abb127efb8300626
+label 099a41e38566455cbac5f3967e2a6cd8
+push constant 5
+call Sys.wait 1
+pop temp 0
+push constant 0
+return
+function SquareGame.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label fc39e9d844cf4a9fb781ebf8408a27a0
+push local 1
+not
+not
+if-goto 12ab10fce17048c98b5754127c0fd923
+label fc4b0d9c63d74017bc4e802970737b73
+push local 0
+push constant 0
+eq
+not
+if-goto 0b6e24e70fff49aba8ba67a2e7fa2c68
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call SquareGame.moveSquare 1
+pop temp 0
+goto fc4b0d9c63d74017bc4e802970737b73
+label 0b6e24e70fff49aba8ba67a2e7fa2c68
+push local 0
+push constant 81
+eq
+not
+if-goto 85f78878c2154de68fc76ee8df525a7a
+push constant 1
+neg
+pop local 1
+goto 78b60d6a5ec246e3bf7790aa80403688
+label 85f78878c2154de68fc76ee8df525a7a
+label 78b60d6a5ec246e3bf7790aa80403688
+push local 0
+push constant 90
+eq
+not
+if-goto 0af20bb1d49e4f939264a23296e166aa
+push this 0
+call Square.decSize 1
+pop temp 0
+goto 1a788d3960944502b1d849962b8332be
+label 0af20bb1d49e4f939264a23296e166aa
+label 1a788d3960944502b1d849962b8332be
+push local 0
+push constant 88
+eq
+not
+if-goto 652a129015a24f5ca58b20331e900b25
+push this 0
+call Square.incSize 1
+pop temp 0
+goto 5ff34a471ac44bfdb425a87443c89826
+label 652a129015a24f5ca58b20331e900b25
+label 5ff34a471ac44bfdb425a87443c89826
+push local 0
+push constant 131
+eq
+not
+if-goto cb8b5eec4cbc4ee09e01047af68cc40b
+push constant 1
+pop this 1
+goto 2efbfba553ab4fca9e06e8d0e07c0e97
+label cb8b5eec4cbc4ee09e01047af68cc40b
+label 2efbfba553ab4fca9e06e8d0e07c0e97
+push local 0
+push constant 133
+eq
+not
+if-goto 03528fb38c124c96a4a65ce943348096
+push constant 2
+pop this 1
+goto 9ae92c2959d54073bf7c43d33fbe6d52
+label 03528fb38c124c96a4a65ce943348096
+label 9ae92c2959d54073bf7c43d33fbe6d52
+push local 0
+push constant 130
+eq
+not
+if-goto e37f807e23124833a680ad3797bf7269
+push constant 3
+pop this 1
+goto e74cd622dbf84c759f64303be2d866a2
+label e37f807e23124833a680ad3797bf7269
+label e74cd622dbf84c759f64303be2d866a2
+push local 0
+push constant 132
+eq
+not
+if-goto 803413c1c68c4c32866abadee70ef7d2
+push constant 4
+pop this 1
+goto a25fedb362d34fcaaa480951787de247
+label 803413c1c68c4c32866abadee70ef7d2
+label a25fedb362d34fcaaa480951787de247
+label 5efa7f4ed6b441e69fc63df73802e428
+push local 0
+push constant 0
+eq
+not
+not
+if-goto 31cbde14fe16443eb306d8dee0e1834f
+call Keyboard.keyPressed 0
+pop local 0
+push pointer 0
+call SquareGame.moveSquare 1
+pop temp 0
+goto 5efa7f4ed6b441e69fc63df73802e428
+label 31cbde14fe16443eb306d8dee0e1834f
+goto fc39e9d844cf4a9fb781ebf8408a27a0
+label 12ab10fce17048c98b5754127c0fd923
+push constant 0
+return
