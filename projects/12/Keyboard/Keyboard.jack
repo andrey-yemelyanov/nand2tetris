@@ -61,7 +61,11 @@ class Keyboard {
             let key = Keyboard.keyPressed();
         }
 
-        do Output.printChar(c);
+        // echo char to screen unless this is a backspace or newLine char
+        if(~((c = String.backSpace()) | (c = String.newLine()))){
+            do Output.printChar(c);
+        }
+        
         return c;
     }
 

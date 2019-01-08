@@ -39,11 +39,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label 11943a41b1fc47148eef74b707ee19ec
+label e27b2565c7034c5095c25d42bbbdf827
 push local 4
 not
 not
-if-goto 2013efbed1cd483a8c815e931906f3ab
+if-goto ef7cfbbfd51142bba2f72e181cde31f5
 push constant 32
 call String.new 1
 push constant 80
@@ -112,36 +112,36 @@ push constant 121
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-label 8c0d2443282a45738c5f0ca3f5e09bde
+label 4c54713b33bd43869fc6c7d1f075eea1
 push local 1
 push constant 0
 eq
 not
-if-goto 7f4bacf1ef1246048bd4d8a75e557da8
+if-goto 989111110c774441a9ceed2769934ec3
 call Keyboard.keyPressed 0
 pop local 1
-goto 8c0d2443282a45738c5f0ca3f5e09bde
-label 7f4bacf1ef1246048bd4d8a75e557da8
+goto 4c54713b33bd43869fc6c7d1f075eea1
+label 989111110c774441a9ceed2769934ec3
 push local 1
 pop local 0
-label 3822a11862da49099c8c89eb3300818b
+label ed5af02a6d4340349bc5d447e19f4a7e
 push local 1
 push constant 0
 eq
 not
 not
-if-goto c5060921a7ba4e84b05a7d7508aef435
+if-goto 6338e578480048bf9095830c02b73662
 call Keyboard.keyPressed 0
 pop local 1
-goto 3822a11862da49099c8c89eb3300818b
-label c5060921a7ba4e84b05a7d7508aef435
+goto ed5af02a6d4340349bc5d447e19f4a7e
+label 6338e578480048bf9095830c02b73662
 call Output.println 0
 pop temp 0
 push local 0
 push constant 137
 eq
 not
-if-goto a9355e415f4e48ab95624f587c7a5823
+if-goto b57ff06b8e05461ea8d0b7d9ea519b38
 push constant 2
 call String.new 1
 push constant 111
@@ -155,11 +155,11 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto baa9dc0ec5244d6083e2969d2c5b44b2
-label a9355e415f4e48ab95624f587c7a5823
-label baa9dc0ec5244d6083e2969d2c5b44b2
-goto 11943a41b1fc47148eef74b707ee19ec
-label 2013efbed1cd483a8c815e931906f3ab
+goto 8475a54d4c4f448d8f6a47279623a976
+label b57ff06b8e05461ea8d0b7d9ea519b38
+label 8475a54d4c4f448d8f6a47279623a976
+goto e27b2565c7034c5095c25d42bbbdf827
+label ef7cfbbfd51142bba2f72e181cde31f5
 push constant 0
 pop local 4
 push constant 14
@@ -320,11 +320,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label a92dd1851a97404a8377bd2c9eabd88b
+label c487f8b53c4546a289e1a6b372049638
 push local 4
 not
 not
-if-goto b06c71faf7f84c068ced3b3347ab71d7
+if-goto 3c7bc1ec19064230a86dbef91c55318d
 push constant 29
 call String.new 1
 push constant 80
@@ -395,7 +395,7 @@ push local 0
 push constant 51
 eq
 not
-if-goto 16493df885444a29866f71329ed970c7
+if-goto f9b6ede8a7294c30aa3ef98d08d02527
 push constant 2
 call String.new 1
 push constant 111
@@ -409,11 +409,11 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto 50cce18c13274d97a4a58dd94d0d27e0
-label 16493df885444a29866f71329ed970c7
-label 50cce18c13274d97a4a58dd94d0d27e0
-goto a92dd1851a97404a8377bd2c9eabd88b
-label b06c71faf7f84c068ced3b3347ab71d7
+goto 01d5fbe1ece94d6eaec6824cdf7a6e41
+label f9b6ede8a7294c30aa3ef98d08d02527
+label 01d5fbe1ece94d6eaec6824cdf7a6e41
+goto c487f8b53c4546a289e1a6b372049638
+label 3c7bc1ec19064230a86dbef91c55318d
 push constant 0
 pop local 4
 push constant 14
@@ -532,11 +532,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label 7c63f116852547edbaf96b911096e235
+label f9a087a7b0ee4011b1b846aaa644ec72
 push local 4
 not
 not
-if-goto 3f6285a39dd54a0bacd678c017d183eb
+if-goto ddde5ac9e13f49158d8ff4fa7a1f0d6d
 push constant 36
 call String.new 1
 push constant 80
@@ -618,7 +618,7 @@ call String.length 1
 push constant 4
 eq
 not
-if-goto b33f8f16900e444d819fa84d90c268bf
+if-goto 8e4a1e198e6643efb65e0572aebca9ad
 push local 2
 push constant 0
 call String.charAt 2
@@ -643,7 +643,7 @@ push constant 75
 eq
 and
 not
-if-goto f00dd096b03448a98a4bb847c6844edf
+if-goto f9c1c933bb22403ca786ea4b041d9d02
 push constant 2
 call String.new 1
 push constant 111
@@ -657,14 +657,14 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto d9b7889e73b4457cbfdd1bcfc01adfec
-label f00dd096b03448a98a4bb847c6844edf
-label d9b7889e73b4457cbfdd1bcfc01adfec
-goto 40bd82eff86a4eedb39ca916600e006a
-label b33f8f16900e444d819fa84d90c268bf
-label 40bd82eff86a4eedb39ca916600e006a
-goto 7c63f116852547edbaf96b911096e235
-label 3f6285a39dd54a0bacd678c017d183eb
+goto 656f5a7b6903448386eff8f0d6159900
+label f9c1c933bb22403ca786ea4b041d9d02
+label 656f5a7b6903448386eff8f0d6159900
+goto 8c9375357b874961854bb4a06116dcde
+label 8e4a1e198e6643efb65e0572aebca9ad
+label 8c9375357b874961854bb4a06116dcde
+goto f9a087a7b0ee4011b1b846aaa644ec72
+label ddde5ac9e13f49158d8ff4fa7a1f0d6d
 call Output.println 0
 pop temp 0
 push constant 27

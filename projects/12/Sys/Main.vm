@@ -157,27 +157,27 @@ push constant 58
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-label 3adf4e5d99a94192983c02f2e71c5013
+label 1102710bdbd14765a3b4f757b9032afd
 push local 0
 push constant 0
 eq
 not
-if-goto 26796f77fba047eba395c81b20e7b977
+if-goto 905915a92c1c452087f3fc3f5e090536
 call Keyboard.keyPressed 0
 pop local 0
-goto 3adf4e5d99a94192983c02f2e71c5013
-label 26796f77fba047eba395c81b20e7b977
-label c2b48f5febb8437f966acb65257efd74
+goto 1102710bdbd14765a3b4f757b9032afd
+label 905915a92c1c452087f3fc3f5e090536
+label 35d3049f144243e3b96be9dc94e417c6
 push local 0
 push constant 0
 eq
 not
 not
-if-goto 6bab324ae48e4058a2b604ea65215c07
+if-goto e09bf592c9b141f5a0e604ae0d067141
 call Keyboard.keyPressed 0
 pop local 0
-goto c2b48f5febb8437f966acb65257efd74
-label 6bab324ae48e4058a2b604ea65215c07
+goto 35d3049f144243e3b96be9dc94e417c6
+label e09bf592c9b141f5a0e604ae0d067141
 push constant 2000
 call Sys.wait 1
 pop temp 0

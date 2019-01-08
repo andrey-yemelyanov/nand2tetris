@@ -190,22 +190,13 @@ class Output {
     function void eraseCharAtCursor(){
         var int address, clearMask, i;
         let address = Output.getWordAddress(cursorRow, cursorCol);
-        
-        if((cursorCol & 1) = 0){ // even column
-            // even column - lower half-word
-            let clearMask = (-256);        // 0xFF00
-        }else{ // odd column
-            // odd column - upper half-word
-            let clearMask = 255;           // 0x00FF
-        }
-
+        let clearMask = Output.getClearMask(cursorCol);
         let i = 0;
         while(i < charFrameHeight){
             let screen[address] = screen[address] & clearMask;
             let address = address + 32;
             let i = i + 1;
         }
-        
         return;
     }
 
@@ -256,6 +247,16 @@ class Output {
         return (row * 352) + (col / 2);
     }
 
+    function int getClearMask(int col){
+        if((col & 1) = 0){ // even column
+            // lower half-word
+            return (-256);        // 0xFF00
+        }else{ // odd column
+            // upper half-word
+            return 255;           // 0x00FF
+        }
+    }
+
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
@@ -263,15 +264,7 @@ class Output {
         var Array charMap;
         let charMap = Output.getMap(c);
         let address = Output.getWordAddress(cursorRow, cursorCol);
-
-        if((cursorCol & 1) = 0){ // even column
-            // even column - lower half-word
-            let clearMask = (-256);        // 0xFF00
-        }else{ // odd column
-            // odd column - upper half-word
-            let clearMask = 255;           // 0x00FF
-        }
-
+        let clearMask = Output.getClearMask(cursorCol);
         let fontMask = (~clearMask);
         let i = 0;
         while(i < charFrameHeight){
@@ -281,7 +274,6 @@ class Output {
             let address = address + 32;
             let i = i + 1;
         }
-
         do Output.moveCursorRight();
         return;
     }
