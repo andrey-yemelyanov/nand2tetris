@@ -16,44 +16,44 @@ pop temp 0
 push constant 0
 return
 function Sys.halt 0
-label 435a4cc99dd94c22b0118eda7496d1a6
+label ef81379158df4411ba728f3411abbfa4
 push constant 1
 neg
 not
-if-goto 704d60d6a9604618afbf5019a7905004
-goto 435a4cc99dd94c22b0118eda7496d1a6
-label 704d60d6a9604618afbf5019a7905004
+if-goto 027e56f8c7b34b6886e9b9ad032d6f00
+goto ef81379158df4411ba728f3411abbfa4
+label 027e56f8c7b34b6886e9b9ad032d6f00
 push constant 0
 return
 function Sys.wait 2
 push constant 0
 pop local 0
-label 2f2b9a1454d8486eb9787fc19e4e5f46
+label a5c27409ad034b8db7ce175f2b489e22
 push local 0
 push argument 0
 lt
 not
-if-goto 21db141a498b4fb797c778c252fca0c1
+if-goto 67fbab6fa20b4811a12687114e235db5
 push constant 0
 pop local 1
-label 1c129d7df2b04fd1830bd4b2370f2f74
+label faefbfa2232642299e3cb0d157966364
 push local 1
 push constant 200
 lt
 not
-if-goto 9d010f7bfe564d318bf41ce8f9c1ec63
+if-goto 71da01a3fde346228673eb2415f2877c
 push local 1
 push constant 1
 add
 pop local 1
-goto 1c129d7df2b04fd1830bd4b2370f2f74
-label 9d010f7bfe564d318bf41ce8f9c1ec63
+goto faefbfa2232642299e3cb0d157966364
+label 71da01a3fde346228673eb2415f2877c
 push local 0
 push constant 1
 add
 pop local 0
-goto 2f2b9a1454d8486eb9787fc19e4e5f46
-label 21db141a498b4fb797c778c252fca0c1
+goto a5c27409ad034b8db7ce175f2b489e22
+label 67fbab6fa20b4811a12687114e235db5
 push constant 0
 return
 function Sys.error 0

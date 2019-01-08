@@ -18,8 +18,8 @@ class Output {
 
     // Character map for displaying characters
     static Array charMaps;
-    static Array mask; 
 
+    static int screen;
     static int cursorRow;
     static int cursorCol;
     static int nRows;
@@ -29,15 +29,7 @@ class Output {
 
     /** Initializes the screen, and locates the cursor at the screen's top-left. */
     function void init() {
-        var int i;
-        let mask = Array.new(8);
-        let mask[0] = 1;
-        let i = 1;
-        while(i < 8){
-            let mask[i] = mask[i - 1] + mask[i - 1];
-            let i = i + 1;
-        }
-
+        let screen = 16384;
         let nRows = 23; let nCols = 64;
         let charFrameHeight = 11; let charFrameWidth = 8; 
         do Output.initMap();
@@ -165,22 +157,22 @@ class Output {
     // Creates the character map array of the given character index, using the given values.
     function void create(int index, int a, int b, int c, int d, int e,
                          int f, int g, int h, int i, int j, int k) {
-	var Array map;
+	    var Array map;
 
-	let map = Array.new(11);
+	    let map = Array.new(11);
         let charMaps[index] = map;
 
-        let map[0] = a;
-        let map[1] = b;
-        let map[2] = c;
-        let map[3] = d;
-        let map[4] = e;
-        let map[5] = f;
-        let map[6] = g;
-        let map[7] = h;
-        let map[8] = i;
-        let map[9] = j;
-        let map[10] = k;
+        let map[0] =  a * 257; // equivalent to a + a * 256 which sets both the upper and lower 8 bits to 'a'
+        let map[1] =  b * 257;
+        let map[2] =  c * 257;
+        let map[3] =  d * 257;
+        let map[4] =  e * 257;
+        let map[5] =  f * 257;
+        let map[6] =  g * 257;
+        let map[7] =  h * 257;
+        let map[8] =  i * 257;
+        let map[9] =  j * 257;
+        let map[10] = k * 257;
 
         return;
     }
@@ -196,20 +188,24 @@ class Output {
     }
 
     function void eraseCharAtCursor(){
-        var int x, y, i, j;
-        do Screen.setColor(false); // set pen color to white
-        let x = cursorCol * charFrameWidth;
-        let y = cursorRow * charFrameHeight;
+        var int address, clearMask, i;
+        let address = Output.getWordAddress(cursorRow, cursorCol);
+        
+        if((cursorCol & 1) = 0){ // even column
+            // even column - lower half-word
+            let clearMask = (-256);        // 0xFF00
+        }else{ // odd column
+            // odd column - upper half-word
+            let clearMask = 255;           // 0x00FF
+        }
+
         let i = 0;
         while(i < charFrameHeight){
-            let j = 0;
-            while(j < charFrameWidth){
-                do Screen.drawPixel(x + j, y + i);
-                let j = j + 1;
-            }
+            let screen[address] = screen[address] & clearMask;
+            let address = address + 32;
             let i = i + 1;
         }
-        do Screen.setColor(true); // restore pen color to black
+        
         return;
     }
 
@@ -256,37 +252,38 @@ class Output {
         return;
     }
 
+    function int getWordAddress(int row, int col){
+        return (row * 352) + (col / 2);
+    }
+
     /** Displays the given character at the cursor location,
      *  and advances the cursor one column forward. */
     function void printChar(char c) {
-        var int x, y, rowBitmap, i, j;
+        var int address, clearMask, fontMask, fontData, i;
         var Array charMap;
-        var boolean BLACK, WHITE;
-        let BLACK = true; let WHITE = false;
         let charMap = Output.getMap(c);
-        let x = cursorCol * charFrameWidth;
-        let y = cursorRow * charFrameHeight;
+        let address = Output.getWordAddress(cursorRow, cursorCol);
+
+        if((cursorCol & 1) = 0){ // even column
+            // even column - lower half-word
+            let clearMask = (-256);        // 0xFF00
+        }else{ // odd column
+            // odd column - upper half-word
+            let clearMask = 255;           // 0x00FF
+        }
+
+        let fontMask = (~clearMask);
         let i = 0;
         while(i < charFrameHeight){
-            let j = 0;
-            let rowBitmap = charMap[i];
-            while(j < charFrameWidth){
-                if(Output.bitSet(rowBitmap, j)){
-                    do Screen.setColor(BLACK);
-                }else{
-                    do Screen.setColor(WHITE);
-                }
-                do Screen.drawPixel(x + j, y + i);
-                let j = j + 1;
-            }
+            let fontData = charMap[i] & fontMask;
+            let screen[address] = screen[address] & clearMask;
+            let screen[address] = screen[address] | fontData;
+            let address = address + 32;
             let i = i + 1;
         }
+
         do Output.moveCursorRight();
         return;
-    }
-
-    function boolean bitSet(int x, int i){
-        return ~((mask[i] & x) = 0);
     }
 
     /** displays the given string starting at the cursor location,

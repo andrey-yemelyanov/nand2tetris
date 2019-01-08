@@ -12,12 +12,12 @@ push temp 0
 pop that 0
 push constant 1
 pop local 0
-label 249fd2e9579b4a94bb0fb5ca2c380696
+label 728011776b2c4c659ce2aef63a72fe41
 push local 0
 push constant 16
 lt
 not
-if-goto 3ed2e51666a743a584d107554f5078bc
+if-goto d11d6dee128f4494955ba8ba3a1f83a5
 push local 0
 push static 0
 add
@@ -44,8 +44,8 @@ push local 0
 push constant 1
 add
 pop local 0
-goto 249fd2e9579b4a94bb0fb5ca2c380696
-label 3ed2e51666a743a584d107554f5078bc
+goto 728011776b2c4c659ce2aef63a72fe41
+label d11d6dee128f4494955ba8ba3a1f83a5
 push constant 0
 return
 function Math.abs 0
@@ -57,12 +57,12 @@ push constant 0
 gt
 or
 not
-if-goto 6a9031d726ef44bd8b0bf43dc299204d
+if-goto 185c92c31f1d498d8453fbb5b0bb657a
 push argument 0
 return
-goto 58b817d2615c4a88bd1b0f3eed70c7c8
-label 6a9031d726ef44bd8b0bf43dc299204d
-label 58b817d2615c4a88bd1b0f3eed70c7c8
+goto f45c1d899f5f43b38c8e67c366e17e5c
+label 185c92c31f1d498d8453fbb5b0bb657a
+label f45c1d899f5f43b38c8e67c366e17e5c
 push argument 0
 neg
 return
@@ -73,24 +73,24 @@ push argument 0
 pop local 1
 push constant 0
 pop local 2
-label 5f905ce9eaf64701ba7fc4cf658f0205
+label 6e29e298e5524a08af49ac960cd4c7b3
 push local 2
 push constant 16
 lt
 not
-if-goto 425cf13f7ece438c83653720e6489d95
+if-goto d00b028dce604631b870abe5db325398
 push argument 1
 push local 2
 call Math.bitSet 2
 not
-if-goto ba5325e4a0724bb5bd657091d2491339
+if-goto 920ce149a93b4c07aefd352a13cc6c5f
 push local 0
 push local 1
 add
 pop local 0
-goto f13a40d87a944a08ad8c038b48c1746e
-label ba5325e4a0724bb5bd657091d2491339
-label f13a40d87a944a08ad8c038b48c1746e
+goto 646af63bf62c4fadb36273b8b4874f38
+label 920ce149a93b4c07aefd352a13cc6c5f
+label 646af63bf62c4fadb36273b8b4874f38
 push local 1
 push local 1
 add
@@ -99,8 +99,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto 5f905ce9eaf64701ba7fc4cf658f0205
-label 425cf13f7ece438c83653720e6489d95
+goto 6e29e298e5524a08af49ac960cd4c7b3
+label d00b028dce604631b870abe5db325398
 push local 0
 return
 function Math.bitSet 0
@@ -141,7 +141,7 @@ call Math.abs 1
 pop argument 1
 push constant 0
 pop local 0
-label 0e5e2b25d21a4870a83a1c5cd271438d
+label 945c41052f3741f4a583bd9ee85ca92b
 push argument 0
 push argument 1
 gt
@@ -150,18 +150,18 @@ push argument 1
 eq
 or
 not
-if-goto b6ebed1988144d6a8dcf4eff72856337
+if-goto e61b3f8062cc46e5811c39e1d7ac7130
 push constant 0
 pop local 1
 push constant 0
 pop local 2
 push constant 0
 pop local 7
-label b7cf427dcc684f8aa25de3dda7e6e784
+label 0441143600384f9a8089aea3decad461
 push local 7
 not
 not
-if-goto e73d9277b6cf451fb64a5cde280ab7a5
+if-goto bec026fab1fb4544b243db374ee648a5
 push local 2
 push static 0
 add
@@ -178,12 +178,12 @@ push argument 0
 gt
 or
 not
-if-goto 0d30b453cd34470ab1e330e873b1e98c
+if-goto f47452ade6e8400da8e378ce779ae762
 push constant 1
 neg
 pop local 7
-goto 240e0b6f433140fbadda6304e860b9a6
-label 0d30b453cd34470ab1e330e873b1e98c
+goto 539f9e7ae92746069ddad1bf4a8003bd
+label f47452ade6e8400da8e378ce779ae762
 push local 2
 push static 0
 add
@@ -194,9 +194,9 @@ push local 2
 push constant 1
 add
 pop local 2
-label 240e0b6f433140fbadda6304e860b9a6
-goto b7cf427dcc684f8aa25de3dda7e6e784
-label e73d9277b6cf451fb64a5cde280ab7a5
+label 539f9e7ae92746069ddad1bf4a8003bd
+goto 0441143600384f9a8089aea3decad461
+label bec026fab1fb4544b243db374ee648a5
 push argument 0
 push local 1
 push argument 1
@@ -207,17 +207,17 @@ push local 0
 push local 1
 add
 pop local 0
-goto 0e5e2b25d21a4870a83a1c5cd271438d
-label b6ebed1988144d6a8dcf4eff72856337
+goto 945c41052f3741f4a583bd9ee85ca92b
+label e61b3f8062cc46e5811c39e1d7ac7130
 push local 4
 not
-if-goto f57a7cdba5ce4663a89560ce8d3b51ad
+if-goto 75bc1ad2ff3c461d92955f6922e36166
 push local 0
 neg
 pop local 0
-goto 1333426c81144864ae25e8cd4d02ae75
-label f57a7cdba5ce4663a89560ce8d3b51ad
-label 1333426c81144864ae25e8cd4d02ae75
+goto e730548ed95e413dae7819631daab306
+label 75bc1ad2ff3c461d92955f6922e36166
+label e730548ed95e413dae7819631daab306
 push local 0
 return
 function Math.sqrt 5
@@ -229,19 +229,19 @@ push constant 1
 eq
 or
 not
-if-goto a604d987e2ec4f3fb7cd655e2a37c3e1
+if-goto 2b7b3ecf343a477a8c38460c322fc08c
 push argument 0
 return
-goto 747c2894186e46a1824f589115991a2a
-label a604d987e2ec4f3fb7cd655e2a37c3e1
-label 747c2894186e46a1824f589115991a2a
+goto 5ce746962cc64dbf8734c2af5f5e2772
+label 2b7b3ecf343a477a8c38460c322fc08c
+label 5ce746962cc64dbf8734c2af5f5e2772
 push constant 1
 pop local 0
 push argument 0
 pop local 1
 push constant 0
 pop local 2
-label 102fc03a1b014b7db0462310821d769c
+label 6e206c6b61374835841cb89eca7bc44b
 push local 0
 push local 1
 lt
@@ -250,7 +250,7 @@ push local 1
 eq
 or
 not
-if-goto 2efd170794074b8c87d69e8358daad98
+if-goto 6f845e166d784ac4bcdcaedc1260284d
 push local 0
 push local 1
 push local 0
@@ -263,13 +263,13 @@ push local 4
 push constant 181
 gt
 not
-if-goto ce94b681692a47b5a1b5b9e3dd61002f
+if-goto 2fc733ca7983426c8e4f79b267fa4edd
 push local 4
 push constant 1
 sub
 pop local 1
-goto abe501c2dddc4bd0aa1f28ab4e2d277e
-label ce94b681692a47b5a1b5b9e3dd61002f
+goto 16eb487b8b7144d4bd1b5a47f59c6f03
+label 2fc733ca7983426c8e4f79b267fa4edd
 push local 4
 push local 4
 call Math.multiply 2
@@ -278,33 +278,33 @@ push local 3
 push argument 0
 eq
 not
-if-goto 39ea329666d74ca3bd6c2191d4b7e83c
+if-goto ef22a9a39d7e4585ba1725d4f3657d52
 push local 4
 return
-goto b91bc4787bae43a885412abd639d6e2a
-label 39ea329666d74ca3bd6c2191d4b7e83c
-label b91bc4787bae43a885412abd639d6e2a
+goto 1d864ab817ad460eb457f2a1ad227933
+label ef22a9a39d7e4585ba1725d4f3657d52
+label 1d864ab817ad460eb457f2a1ad227933
 push local 3
 push argument 0
 lt
 not
-if-goto baefe63dc84f4819884faec09ba4d107
+if-goto cfa265db7e854da89b72b030e1c79d45
 push local 4
 push constant 1
 add
 pop local 0
 push local 4
 pop local 2
-goto 8b4f36547e544f669d7771dc44776249
-label baefe63dc84f4819884faec09ba4d107
+goto 37c2d4c819eb459195d55549046c30c1
+label cfa265db7e854da89b72b030e1c79d45
 push local 4
 push constant 1
 sub
 pop local 1
-label 8b4f36547e544f669d7771dc44776249
-label abe501c2dddc4bd0aa1f28ab4e2d277e
-goto 102fc03a1b014b7db0462310821d769c
-label 2efd170794074b8c87d69e8358daad98
+label 37c2d4c819eb459195d55549046c30c1
+label 16eb487b8b7144d4bd1b5a47f59c6f03
+goto 6e206c6b61374835841cb89eca7bc44b
+label 6f845e166d784ac4bcdcaedc1260284d
 push local 2
 return
 function Math.max 0
@@ -312,12 +312,12 @@ push argument 0
 push argument 1
 gt
 not
-if-goto 79d15e2778ef4af3becc8ff757d8e112
+if-goto 2c98c1b80e7e4534ac2086ed57808af0
 push argument 0
 return
-goto b5fca37f158249c6ab934127ef7beb4d
-label 79d15e2778ef4af3becc8ff757d8e112
-label b5fca37f158249c6ab934127ef7beb4d
+goto ea75f3c6d4424c72921c2091fdb04753
+label 2c98c1b80e7e4534ac2086ed57808af0
+label ea75f3c6d4424c72921c2091fdb04753
 push argument 1
 return
 function Math.min 0
@@ -325,11 +325,11 @@ push argument 0
 push argument 1
 lt
 not
-if-goto 60821aee625741239b3692e11f6ea4db
+if-goto 78b7e3a1c81c4d5cb34b1fd7e1320c54
 push argument 0
 return
-goto e6c01babe54a4c079023d428fd67fb05
-label 60821aee625741239b3692e11f6ea4db
-label e6c01babe54a4c079023d428fd67fb05
+goto 44c1dd402eac492894cc3b82c0c47dda
+label 78b7e3a1c81c4d5cb34b1fd7e1320c54
+label 44c1dd402eac492894cc3b82c0c47dda
 push argument 1
 return
