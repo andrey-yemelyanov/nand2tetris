@@ -10,29 +10,29 @@ return
 function Keyboard.readChar 2
 push constant 0
 pop local 1
-label 76f9dda00ae741498f8df7d6e306552a
+label 9c6573a0fa5440b28855ce8cbfd78973
 push local 1
 push constant 0
 eq
 not
-if-goto 54eb6ee25beb43f29a7860471bca89c8
+if-goto 64fd792e152543f48d6f3f8287d4340b
 call Keyboard.keyPressed 0
 pop local 1
-goto 76f9dda00ae741498f8df7d6e306552a
-label 54eb6ee25beb43f29a7860471bca89c8
+goto 9c6573a0fa5440b28855ce8cbfd78973
+label 64fd792e152543f48d6f3f8287d4340b
 push local 1
 pop local 0
-label 4703f39b004549648a01a764c6d4b4a0
+label abf99e2a97004c1db4c31b1313b35f22
 push local 1
 push constant 0
 eq
 not
 not
-if-goto 4f66521d452342a6a786257245b1d17f
+if-goto 0aa1248174c441d5b20595f87298c687
 call Keyboard.keyPressed 0
 pop local 1
-goto 4703f39b004549648a01a764c6d4b4a0
-label 4f66521d452342a6a786257245b1d17f
+goto abf99e2a97004c1db4c31b1313b35f22
+label 0aa1248174c441d5b20595f87298c687
 push local 0
 call String.backSpace 0
 eq
@@ -42,13 +42,13 @@ eq
 or
 not
 not
-if-goto 8b526101a3054e1d997f08ff0bdf6062
+if-goto 866f3afb71ba456287f05dda15360e61
 push local 0
 call Output.printChar 1
 pop temp 0
-goto 2fb8932df19d4aa189c0364fc19877e6
-label 8b526101a3054e1d997f08ff0bdf6062
-label 2fb8932df19d4aa189c0364fc19877e6
+goto a9859d7abbc4404fa023a4c3034e4b4e
+label 866f3afb71ba456287f05dda15360e61
+label a9859d7abbc4404fa023a4c3034e4b4e
 push local 0
 return
 function Keyboard.readLine 2
@@ -58,46 +58,50 @@ pop local 1
 push argument 0
 call Output.printString 1
 pop temp 0
-label b2e21becacc04a048a76548051236344
+label 14c15e1bca6341ea8ab2cba1b4c63968
 push constant 1
 neg
 not
-if-goto 790fdd0e8ecd43f4966eb5c88be270e0
+if-goto 807888e6e9ef4485b9b3fb17525aa7bc
 call Keyboard.readChar 0
 pop local 0
 push local 0
 call String.newLine 0
 eq
 not
-if-goto 89d7f6b07d604cf48cbadc7ca1244cc2
+if-goto 3e0a029f32ce4dfd92d0ed20b30b519a
 call Output.println 0
 pop temp 0
 push local 1
 return
-goto 182e209a159346cfa0e8f29a13b665c3
-label 89d7f6b07d604cf48cbadc7ca1244cc2
+goto a483facc16424fdea416e28779d2b70d
+label 3e0a029f32ce4dfd92d0ed20b30b519a
 push local 0
 call String.backSpace 0
 eq
 not
-if-goto 619ac6adefad4bf28a5dd16939bf5206
+if-goto eb914c303fb447149842e43cc7170886
 push local 1
 call String.eraseLastChar 1
 pop temp 0
 call Output.backSpace 0
 pop temp 0
-goto 4a11d2b7edd44b6c8a44a716b8fb3cae
-label 619ac6adefad4bf28a5dd16939bf5206
+goto a4cfe4312c6a4433a64ee743a8823785
+label eb914c303fb447149842e43cc7170886
 push local 1
 push local 0
 call String.appendChar 2
 pop local 1
-label 4a11d2b7edd44b6c8a44a716b8fb3cae
-label 182e209a159346cfa0e8f29a13b665c3
-goto b2e21becacc04a048a76548051236344
-label 790fdd0e8ecd43f4966eb5c88be270e0
+label a4cfe4312c6a4433a64ee743a8823785
+label a483facc16424fdea416e28779d2b70d
+goto 14c15e1bca6341ea8ab2cba1b4c63968
+label 807888e6e9ef4485b9b3fb17525aa7bc
 push local 1
 return
-function Keyboard.readInt 0
-push constant 0
+function Keyboard.readInt 1
+push argument 0
+call Keyboard.readLine 1
+pop local 0
+push local 0
+call String.intValue 1
 return

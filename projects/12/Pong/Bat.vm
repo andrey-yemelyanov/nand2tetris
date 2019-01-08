@@ -102,7 +102,7 @@ push this 4
 push constant 1
 eq
 not
-if-goto b0a2ebe0576441fba2601168def4973f
+if-goto 98bd91f1ca1546d3bdecb0c465fdebde
 push this 0
 push constant 4
 sub
@@ -111,12 +111,12 @@ push this 0
 push constant 0
 lt
 not
-if-goto c479cee83d714087855698017012627a
+if-goto 25474e379bcc4d1fbcefd541f7128e62
 push constant 0
 pop this 0
-goto 47b914ea86414c66b7571111d094b908
-label c479cee83d714087855698017012627a
-label 47b914ea86414c66b7571111d094b908
+goto 4358a727125344aab0a4936ce063f7d9
+label 25474e379bcc4d1fbcefd541f7128e62
+label 4358a727125344aab0a4936ce063f7d9
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -150,8 +150,8 @@ push this 3
 add
 call Screen.drawRectangle 4
 pop temp 0
-goto b1f95b33edaf4f028cf3ffff46d474cd
-label b0a2ebe0576441fba2601168def4973f
+goto 91b2105b55e84768b78ee729966ba1a6
+label 98bd91f1ca1546d3bdecb0c465fdebde
 push this 0
 push constant 4
 add
@@ -162,14 +162,14 @@ add
 push constant 511
 gt
 not
-if-goto 4d3bfc38dac54869a63df2e30b496c91
+if-goto 3c47ab34b922489c9ddefa189cf3a598
 push constant 511
 push this 2
 sub
 pop this 0
-goto 9ca7c78fd0ea4ff392c648f656391d67
-label 4d3bfc38dac54869a63df2e30b496c91
-label 9ca7c78fd0ea4ff392c648f656391d67
+goto b6c46d60989741fcb706a59f093ccf6f
+label 3c47ab34b922489c9ddefa189cf3a598
+label b6c46d60989741fcb706a59f093ccf6f
 push constant 0
 call Screen.setColor 1
 pop temp 0
@@ -203,6 +203,6 @@ push this 3
 add
 call Screen.drawRectangle 4
 pop temp 0
-label b1f95b33edaf4f028cf3ffff46d474cd
+label 91b2105b55e84768b78ee729966ba1a6
 push constant 0
 return

@@ -39,11 +39,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label e27b2565c7034c5095c25d42bbbdf827
+label aee1248de66342e9b0b2ed1bfee3788d
 push local 4
 not
 not
-if-goto ef7cfbbfd51142bba2f72e181cde31f5
+if-goto 295f55b12b084e839dad3982248e2edb
 push constant 32
 call String.new 1
 push constant 80
@@ -112,36 +112,36 @@ push constant 121
 call String.appendChar 2
 call Output.printString 1
 pop temp 0
-label 4c54713b33bd43869fc6c7d1f075eea1
+label 83e96b0929c94d728758784d7817af0a
 push local 1
 push constant 0
 eq
 not
-if-goto 989111110c774441a9ceed2769934ec3
+if-goto ed9262e8caaf45f79c9385bd8541d068
 call Keyboard.keyPressed 0
 pop local 1
-goto 4c54713b33bd43869fc6c7d1f075eea1
-label 989111110c774441a9ceed2769934ec3
+goto 83e96b0929c94d728758784d7817af0a
+label ed9262e8caaf45f79c9385bd8541d068
 push local 1
 pop local 0
-label ed5af02a6d4340349bc5d447e19f4a7e
+label 78190d2af87d499cb53ece105784a5dc
 push local 1
 push constant 0
 eq
 not
 not
-if-goto 6338e578480048bf9095830c02b73662
+if-goto 52a33860a9ad4cda9ab730ee1145a772
 call Keyboard.keyPressed 0
 pop local 1
-goto ed5af02a6d4340349bc5d447e19f4a7e
-label 6338e578480048bf9095830c02b73662
+goto 78190d2af87d499cb53ece105784a5dc
+label 52a33860a9ad4cda9ab730ee1145a772
 call Output.println 0
 pop temp 0
 push local 0
 push constant 137
 eq
 not
-if-goto b57ff06b8e05461ea8d0b7d9ea519b38
+if-goto dbd8af7246494a1aa204f287de9868d3
 push constant 2
 call String.new 1
 push constant 111
@@ -155,11 +155,11 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto 8475a54d4c4f448d8f6a47279623a976
-label b57ff06b8e05461ea8d0b7d9ea519b38
-label 8475a54d4c4f448d8f6a47279623a976
-goto e27b2565c7034c5095c25d42bbbdf827
-label ef7cfbbfd51142bba2f72e181cde31f5
+goto 75b814d7f71042c5a5be617e4aae3b14
+label dbd8af7246494a1aa204f287de9868d3
+label 75b814d7f71042c5a5be617e4aae3b14
+goto aee1248de66342e9b0b2ed1bfee3788d
+label 295f55b12b084e839dad3982248e2edb
 push constant 0
 pop local 4
 push constant 14
@@ -320,11 +320,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label c487f8b53c4546a289e1a6b372049638
+label e3e04907dad84305a014bf3a98cd0d8b
 push local 4
 not
 not
-if-goto 3c7bc1ec19064230a86dbef91c55318d
+if-goto db3148d964854a3d90b51165a14c7c9f
 push constant 29
 call String.new 1
 push constant 80
@@ -395,7 +395,7 @@ push local 0
 push constant 51
 eq
 not
-if-goto f9b6ede8a7294c30aa3ef98d08d02527
+if-goto 2f247f28960242d8819f057d3fc1d017
 push constant 2
 call String.new 1
 push constant 111
@@ -409,11 +409,11 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto 01d5fbe1ece94d6eaec6824cdf7a6e41
-label f9b6ede8a7294c30aa3ef98d08d02527
-label 01d5fbe1ece94d6eaec6824cdf7a6e41
-goto c487f8b53c4546a289e1a6b372049638
-label 3c7bc1ec19064230a86dbef91c55318d
+goto 842e6dbb03da4cb296737acbc1a99886
+label 2f247f28960242d8819f057d3fc1d017
+label 842e6dbb03da4cb296737acbc1a99886
+goto e3e04907dad84305a014bf3a98cd0d8b
+label db3148d964854a3d90b51165a14c7c9f
 push constant 0
 pop local 4
 push constant 14
@@ -532,11 +532,11 @@ call Output.printString 1
 pop temp 0
 call Output.println 0
 pop temp 0
-label f9a087a7b0ee4011b1b846aaa644ec72
+label c5dae508fe0b4345b2b279ea7ca89c85
 push local 4
 not
 not
-if-goto ddde5ac9e13f49158d8ff4fa7a1f0d6d
+if-goto 7109d8ad0cbf4430b083457e9c319875
 push constant 36
 call String.new 1
 push constant 80
@@ -618,7 +618,7 @@ call String.length 1
 push constant 4
 eq
 not
-if-goto 8e4a1e198e6643efb65e0572aebca9ad
+if-goto 966d99a7276a4ed0869ed1e1db7cdd41
 push local 2
 push constant 0
 call String.charAt 2
@@ -643,7 +643,7 @@ push constant 75
 eq
 and
 not
-if-goto f9c1c933bb22403ca786ea4b041d9d02
+if-goto 825bce5c71164c0386d03c415bcf58da
 push constant 2
 call String.new 1
 push constant 111
@@ -657,14 +657,239 @@ pop temp 0
 push constant 1
 neg
 pop local 4
-goto 656f5a7b6903448386eff8f0d6159900
-label f9c1c933bb22403ca786ea4b041d9d02
-label 656f5a7b6903448386eff8f0d6159900
-goto 8c9375357b874961854bb4a06116dcde
-label 8e4a1e198e6643efb65e0572aebca9ad
-label 8c9375357b874961854bb4a06116dcde
-goto f9a087a7b0ee4011b1b846aaa644ec72
-label ddde5ac9e13f49158d8ff4fa7a1f0d6d
+goto 2ca2cc4279324f5eb3c522c070b8ba3d
+label 825bce5c71164c0386d03c415bcf58da
+label 2ca2cc4279324f5eb3c522c070b8ba3d
+goto caadb954e3344dfaac1f94451a0e691f
+label 966d99a7276a4ed0869ed1e1db7cdd41
+label caadb954e3344dfaac1f94451a0e691f
+goto c5dae508fe0b4345b2b279ea7ca89c85
+label 7109d8ad0cbf4430b083457e9c319875
+push constant 0
+pop local 4
+push constant 13
+call String.new 1
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 100
+call String.appendChar 2
+push constant 73
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 38
+call String.new 1
+push constant 40
+call String.appendChar 2
+push constant 86
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 102
+call String.appendChar 2
+push constant 121
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 104
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 100
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 103
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 102
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 39
+call String.appendChar 2
+push constant 98
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 107
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 39
+call String.appendChar 2
+push constant 41
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+label d05badc818c14fbfa15ede1b53d83710
+push local 4
+not
+not
+if-goto 23d901c81d384b39b74a04c13e5653db
+push constant 38
+call String.new 1
+push constant 80
+call String.appendChar 2
+push constant 108
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 121
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 39
+call String.appendChar 2
+push constant 45
+call String.appendChar 2
+push constant 51
+call String.appendChar 2
+push constant 50
+call String.appendChar 2
+push constant 49
+call String.appendChar 2
+push constant 50
+call String.appendChar 2
+push constant 51
+call String.appendChar 2
+push constant 39
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 100
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 112
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 115
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 116
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Keyboard.readInt 1
+pop local 3
+push local 3
+push constant 32123
+neg
+eq
+not
+if-goto ba6add6dcfae47d4aeda48e6c0b9cb5c
+push constant 2
+call String.new 1
+push constant 111
+call String.appendChar 2
+push constant 107
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 1
+neg
+pop local 4
+goto b60a78c0e6e24a12bc20f6eaea104ba9
+label ba6add6dcfae47d4aeda48e6c0b9cb5c
+label b60a78c0e6e24a12bc20f6eaea104ba9
+goto d05badc818c14fbfa15ede1b53d83710
+label 23d901c81d384b39b74a04c13e5653db
 call Output.println 0
 pop temp 0
 push constant 27
